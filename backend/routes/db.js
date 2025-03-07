@@ -20,9 +20,8 @@ try {
 const ReviewSchema = mongoose.Schema(
     {
         unitId: { type: String, required: true },
-        address: { type: String, required: true },
-        unitNumber: { type: Number, required: true },
         name: { type: String, required: true },
+        nameId: { type: String, required: true },
         reviewText: { type: String, required: true },
         rating: { type: Number, required: true },
     }
@@ -80,15 +79,15 @@ module.exports = class DBWrapper {
 
     // getReviewsFromUnit
     // gets all the review objects from the reviews collection from a specified unitId
-    async getReviewsFromUnitId(unitId) {
+    async getReviewsByUnitId(unitId) {
         const reviews = await ReviewModel.find({unitId: unitId}).exec()
         return reviews
     }
 
     // getReviewsByName
     // gets reviews from a specified individual from the database
-    async getReviewsByName(name) {
-        const reviews = await ReviewModel.find({name: name}).exec()
+    async getReviewsByNameId(nameId) {
+        const reviews = await ReviewModel.find({nameId: nameId}).exec()
         return reviews
     }
 
