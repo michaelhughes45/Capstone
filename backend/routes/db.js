@@ -3,15 +3,27 @@ const Review = require('../models/review')
 
 const mongoose = require('mongoose')
 
-// Connect to the mongoDB database, throws error if it fails
-try {
-    await mongoose.connect(`${process.env.DB_URL}`)
-    console.log('Connected to MongoDB')
 
-} catch (error) {
-    console.error('Error connecting to database: ', error)
-    process.exit(1)
-}
+// await does not work here, must use a .then as below
+// GET RID OF THIS AFTER TALKING TO PROFESSOR
+// Connect to the mongoDB database, throws error if it fails
+// try {
+//     await mongoose.connect(`${process.env.DB_URL}`)
+//     console.log('Connected to MongoDB')
+
+// } catch (error) {
+//     console.error('Error connecting to database: ', error)
+//     process.exit(1)
+// }
+
+
+// Have this here for now but could remove it to just have the separate connection call on connection.js
+// I believe I only need one of them
+// connection = mongoose.connect(`${process.env.DB_URL}`)
+//     .then(
+//         () => { console.log('Connected to MongoDB') },
+//         err => { console.error('Error connecting to database: ', err) }
+//     )
 
 // schemas
 
@@ -24,24 +36,10 @@ const ReviewSchema = mongoose.Schema(
         nameId: { type: String, required: true },
         reviewText: { type: String, required: true },
         rating: { type: Number, required: true },
+        verified: { type: Boolean, required: true }
     }
 )
 const ReviewModel = mongoose.model('reviews', ReviewSchema)
-
-
-// tests connection to database
-// only used as a 'Hello World'
-const connectDB = async () => {
-    try {
-        await mongoose.connect(`${process.env.DB_URL}`)
-        console.log('Connected to MongoDB')
-
-    } catch (error) {
-        console.error('Error connecting to database: ', error)
-        process.exit(1)
-    }
-}
-module.exports = connectDB
 
 module.exports = class DBWrapper {
     constructor() {
@@ -89,6 +87,16 @@ module.exports = class DBWrapper {
     async getReviewsByNameId(nameId) {
         const reviews = await ReviewModel.find({nameId: nameId}).exec()
         return reviews
+    }
+
+
+    // updateVerification
+    // updates the verification field to true
+    async updateVerification(review) {
+        let newReview = await ReviewModel.find({_id: review._id})
+        newReview.verified = true
+        await newReview.save()
+        return newReview
     }
 
 }
