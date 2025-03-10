@@ -6,6 +6,30 @@ var router = express.Router()
 // gets the database wrapper to be used
 // const db = new DBWrapper
 
+// addReview()
+router.post('/', async function(req, res, next) {
+    console.log('POST addReview')
+    const db = new DBWrapper
+    console.log(db)
+    const review = new Review(req.body.unitId, req.body.name, req.body.nameId, req.body.reviewText, req.body.rating, req.body.verified)
+    const savedReview = await db.addReview(review)
+    
+    res.status(200).json(savedReview)
+})
+
+// TESTING THIS HAS SHOWN SOME PROBLEMS
+// deleteReview()
+router.delete('/review', async function (req, res, next) {
+    const db = new DBWrapper
+    // const review = new Review(req.body.unitId, req.body.name, req.body.nameId, req.body.reviewText, req.body.rating, req.body.verified)
+    delReview = await db.deleteReview(req.body)
+    if(delReview) {
+        res.status(200).json({ message: "Review deleted Successfully" })
+    } else {
+        res.status(404).json({ message: "Review not found" })
+    }
+})
+
 // getAllReviews() from dbWrapper
 router.get('/', async function(req, res, next) {
     console.log('GET getAllReviews')
@@ -30,30 +54,7 @@ router.get('/unitId', async function(req, res, next) {
     res.status(200).send(reviews)
 })
 
-// addReview()
-router.post('/', async function(req, res, next) {
-    console.log('POST addReview')
-    const db = new DBWrapper
-    const review = new Review(req.body.unitId, req.body.name, req.body.nameId, req.body.reviewText, req.body.rating, req.body.verified)
-    const savedReview = await db.addReview(review)
-    
-    res.status(200).json(savedReview)
-})
-
 // updateVerified()
 // STILL NEED TO WRITE THIS FUNCTION
-
-// TESTING THIS HAS SHOWN SOME PROBLEMS
-// deleteReview()
-router.delete('/review', async function (req, res, next) {
-    const db = new DBWrapper
-    // const review = new Review(req.body.unitId, req.body.name, req.body.nameId, req.body.reviewText, req.body.rating, req.body.verified)
-    delReview = await db.deleteReview(req.body)
-    if(delReview) {
-        res.status(200).json({ message: "Review deleted Successfully" })
-    } else {
-        res.status(404).json({ message: "Review not found" })
-    }
-})
 
 module.exports = router
