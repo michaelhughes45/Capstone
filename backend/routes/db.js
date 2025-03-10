@@ -4,20 +4,6 @@ const Activity = require('../models/activity')
 
 const mongoose = require('mongoose')
 
-
-// await does not work here, must use a .then as below
-// GET RID OF THIS AFTER TALKING TO PROFESSOR
-// Connect to the mongoDB database, throws error if it fails
-// try {
-//     await mongoose.connect(`${process.env.DB_URL}`)
-//     console.log('Connected to MongoDB')
-
-// } catch (error) {
-//     console.error('Error connecting to database: ', error)
-//     process.exit(1)
-// }
-
-
 // Have this here for now but could remove it to just have the separate connection call on connection.js
 // I believe I only need one of them
 // connection = mongoose.connect(`${process.env.DB_URL}`)
@@ -43,7 +29,6 @@ const ActivitySchema = mongoose.Schema(
 const ActivityModel = mongoose.model('activites', ActivitySchema)
 
 // Review Schema
-// defines the Review object
 const ReviewSchema = mongoose.Schema(
     {
         unitId: { type: String, required: true },
@@ -51,7 +36,7 @@ const ReviewSchema = mongoose.Schema(
         nameId: { type: String, required: true },
         reviewText: { type: String, required: true },
         rating: { type: Number, required: true },
-        verified: { type: Boolean, required: true }
+        verified: { type: Boolean, required: true },
     }
 )
 const ReviewModel = mongoose.model('reviews', ReviewSchema)
@@ -83,9 +68,9 @@ module.exports = class DBWrapper {
         }
     }
 
-    // getActivityByType
-    async getActivityByType(type) {
-        console.log('getActivityByType not tested yet')
+    // getActivitiesByType
+    async getActivitiesByType(type) {
+        console.log('getActivitiesByType not tested yet')
         const activites = await ActivityModel.find({type: type}).exec()
         return activites
 
@@ -102,7 +87,6 @@ module.exports = class DBWrapper {
     async updateActivity(activity) {
         console.log('updateActivity not completed yet')
     }
-
 
 
     // Review functions
