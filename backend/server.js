@@ -18,6 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(logger('dev'))
 
+// routes
 app.use('/reviews', reviewsRouter)
 
 

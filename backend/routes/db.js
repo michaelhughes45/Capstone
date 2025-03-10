@@ -1,5 +1,6 @@
 require("dotenv").config()
 const Review = require('../models/review')
+const Activity = require('../models/activity')
 
 const mongoose = require('mongoose')
 
@@ -27,6 +28,20 @@ const mongoose = require('mongoose')
 
 // schemas
 
+// Activity Schema
+const ActivitySchema = mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        type: { type: String, required: true },
+        description: { type: String, required: true },
+        location: { type: String, required: true },
+        dateStart: { type: String, required: false },
+        dateEnd: { type: String, required: false },
+        hoursOpen: { type: String, required: true }
+    }
+)
+const ActivityModel = mongoose.model('activites', ActivitySchema)
+
 // Review Schema
 // defines the Review object
 const ReviewSchema = mongoose.Schema(
@@ -46,8 +61,52 @@ module.exports = class DBWrapper {
 
     }
 
-    // Review functions
+    // Activity functions
 
+    // AddActivity
+    async addActivity(activity) {
+        console.log('addActivity not tested yet')
+        const mongoDBActivity = new ActivityModel(activity)
+        await mongoDBActivity.save()
+        activity._id = mongoDBActivity._id
+        return activity
+    }
+
+    // deleteActivity
+    async deleteActivity(activity) {
+        console.log('deleteActivity not tested yet')
+        const deletedActivity = await ActivityModel.findByIdAndDelete(activity._id)
+        if (deletedActivity) {
+            console.log(`Review deleted successfully: ${deletedActivity}`)
+        } else {
+            console.log(`Review not found`)
+        }
+    }
+
+    // getActivityByType
+    async getActivityByType(type) {
+        console.log('getActivityByType not tested yet')
+        const activites = await ActivityModel.find({type: type}).exec()
+        return activites
+
+    }
+
+    // getAllActivities
+    async getAllActivities() {
+        console.log('getAllActivities not tested yet')
+        const activites = await ActivityModel.find({}).exec()
+        return activites
+    }
+
+    // updateActivity
+    async updateActivity(activity) {
+        console.log('updateActivity not completed yet')
+    }
+
+
+
+    // Review functions
+    
     // addReview
     // adds the given review to the database
     async addReview(review) {
@@ -98,5 +157,6 @@ module.exports = class DBWrapper {
         await newReview.save()
         return newReview
     }
+    
 
 }
