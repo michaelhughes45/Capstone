@@ -16,6 +16,15 @@ router.post('/', async function(req, res, next) {
 })
 
 // deleteActivity()
+router.delete('/activity', async function (req, res, next) {
+    const db = new DBWrapper
+    delActivity = await db.deleteActivity(req.body)
+    if(delActivity) {
+        res.status(200).json({ message: "Activity deleted Successfully" })
+    } else {
+        res.status(404).json({ message: "Activity not found" })
+    }
+})
 
 // getActivitiesByType()
 router.get('/type', async function(req, res, next) {
@@ -35,3 +44,13 @@ router.get('/', async function(req, res, next) {
 
 // updateActivity()
 // NEED TO BE IMPLEMENTED
+router.put('/activity', async function (req, res, next) {
+    console.log('PUT updateActivity')
+    const db = new DBWrapper
+    const updatedActivity = await db.updateActivity(req.body)
+
+    if(!updatedActivity) {
+        return res.status(400).json({ message: "Activity not found" })
+    }
+    res.status(200).json(updatedActivity)
+})

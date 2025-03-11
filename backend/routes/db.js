@@ -86,6 +86,23 @@ module.exports = class DBWrapper {
     // updateActivity
     async updateActivity(activity) {
         console.log('updateActivity not completed yet')
+        try {
+            const updatedActivity = await ActivityModel.findByIdAndUpdate( activity._id,
+                { $set: activity },
+                { new: true, runValidators: true } // Ensures updated fields follow schema validation
+            );
+    
+            if (!updatedActivity) {
+                console.log(`Activity with ID ${activity._id} not found`)
+                return null
+            }
+    
+            console.log(`Activity updated successfully: ${updatedActivity}`)
+            return updatedActivity
+        } catch (error) {
+            console.error('Error updating activity:', error)
+            return null
+        }
     }
 
 
