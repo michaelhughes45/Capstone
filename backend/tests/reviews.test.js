@@ -38,15 +38,15 @@ describe('Reviews Routes', () => {
             updateVerification: jest.fn().mockImplementation(async (review) => {
                 return { ...review, verified: true }
             })
-        };
+        }
 
         // Ensure the DBWrapper mock is properly used
         DBWrapper.mockImplementation(() => mockDB)
-    });
+    })
 
     afterEach(() => {
         jest.clearAllMocks() // Ensure each test starts with a clean slate
-    });
+    })
 
     test('POST /reviews should add a new review', async () => {
         const review = { unitId: '456', name: 'Alice', nameId: '789', reviewText: 'Fantastic!', rating: 5, verified: false }
@@ -54,33 +54,33 @@ describe('Reviews Routes', () => {
         expect(res.status).toBe(200)
         expect(res.body).toEqual({ ...review, _id: '4' })
         expect(mockDB.addReview).toHaveBeenCalledWith(expect.objectContaining(review))
-    });
+    })
 
     test('DELETE /reviews/review should delete a review', async () => {
         const review = { _id: '4', unitId: '456', name: 'Alice', nameId: '789', reviewText: 'Fantastic!', rating: 5, verified: false }
         const res = await request(app).delete('/reviews/review').send(review)
         expect(res.status).toBe(200)
         expect(mockDB.deleteReview).toHaveBeenCalledWith(expect.objectContaining(review))
-    });
+    })
 
     test('GET /reviews should return all reviews', async () => {
         const res = await request(app).get('/reviews')
         expect(res.status).toBe(200)
         expect(res.body).toEqual([{ _id: '1', name: 'John Doe', reviewText: 'Great!', rating: 5, verified: false }])
         expect(mockDB.getAllReviews).toHaveBeenCalled()
-    });
+    })
 
     test('GET /reviews/nameId should return reviews by nameId', async () => {
         const res = await request(app).get('/reviews/nameId').query({ nameId: '123' })
         expect(res.status).toBe(200)
         expect(res.body).toEqual([{ _id: '2', nameId: '123', reviewText: 'Nice!', rating: 4, verified: false }])
         expect(mockDB.getReviewsByNameId).toHaveBeenCalledWith('123')
-    });
+    })
 
     test('GET /reviews/unitId should return reviews by unitId', async () => {
         const res = await request(app).get('/reviews/unitId').query({ unitId: '456' })
         expect(res.status).toBe(200)
         expect(res.body).toEqual([{ _id: '3', unitId: '456', reviewText: 'Awesome!', rating: 5, verified: false }])
         expect(mockDB.getReviewsByUnitId).toHaveBeenCalledWith('456')
-    });
-});
+    })
+})

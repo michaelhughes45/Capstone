@@ -50,7 +50,6 @@ module.exports = class DBWrapper {
 
     // AddActivity
     async addActivity(activity) {
-        console.log('addActivity not tested yet')
         const mongoDBActivity = new ActivityModel(activity)
         await mongoDBActivity.save()
         activity._id = mongoDBActivity._id
@@ -59,7 +58,6 @@ module.exports = class DBWrapper {
 
     // deleteActivity
     async deleteActivity(activity) {
-        console.log('deleteActivity not tested yet')
         const deletedActivity = await ActivityModel.findByIdAndDelete(activity._id)
         if (deletedActivity) {
             console.log(`Review deleted successfully: ${deletedActivity}`)
@@ -70,22 +68,18 @@ module.exports = class DBWrapper {
 
     // getActivitiesByType
     async getActivitiesByType(type) {
-        console.log('getActivitiesByType not tested yet')
         const activites = await ActivityModel.find({type: type}).exec()
         return activites
-
     }
 
     // getAllActivities
     async getAllActivities() {
-        console.log('getAllActivities not tested yet')
         const activites = await ActivityModel.find({}).exec()
         return activites
     }
 
     // updateActivity
     async updateActivity(activity) {
-        console.log('updateActivity not completed yet')
         try {
             const updatedActivity = await ActivityModel.findByIdAndUpdate( activity._id,
                 { $set: activity },

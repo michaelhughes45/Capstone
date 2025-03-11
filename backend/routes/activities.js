@@ -1,5 +1,3 @@
-Activity = require('../models/activity')
-
 const Activity = require('../models/activity')
 const DBWrapper = require('./db')
 var express = require('express')
@@ -9,7 +7,16 @@ var router = express.Router()
 router.post('/', async function(req, res, next) {
     console.log('POST addActivity')
     const db = new DBWrapper
-    const activity = new Activity(req.body.name, req.body.type, req.body.description, req.body.location, req.body.dateStart, req.body.dateEnd, req.body.hoursOpen)
+    const activity = {
+        name: req.body.name,
+        type: req.body.type,
+        description: req.body.description,
+        location: req.body.location,
+        dateStart: req.body.dateStart || null,
+        dateEnd: req.body.dateEnd || null,
+        hoursOpen: req.body.hoursOpen
+    }
+    // const activity = new Activity(req.body.name, req.body.type, req.body.description, req.body.location, req.body.dateStart || null, req.body.dateEnd || null, req.body.hoursOpen)
     const savedActivity = await db.addActivity(activity)
     
     res.status(200).json(savedActivity)
@@ -54,3 +61,5 @@ router.put('/activity', async function (req, res, next) {
     }
     res.status(200).json(updatedActivity)
 })
+
+module.exports = router
