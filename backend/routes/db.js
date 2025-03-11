@@ -146,11 +146,25 @@ module.exports = class DBWrapper {
 
     // updateVerification
     // updates the verification field to true
-    async updateVerification(review) {
-        let newReview = await ReviewModel.find({_id: review._id})
-        newReview.verified = true
-        await newReview.save()
-        return newReview
+    async updateReview(review) {
+        try {
+            const updatedReview = await ReviewModel.findByIdAndUpdate(
+                review._id,
+                { $set: review },
+                { new: true, runValidators: true } // Ensures updated fields follow schema validation
+            )
+    
+            if (!updatedReview) {
+                console.log(`Review with ID ${review._id} not found`)
+                return null
+            }
+    
+            console.log(`Review updated successfully: ${updatedReview}`)
+            return updatedReview
+        } catch(error) {
+            console.error('Error updating review:', error)
+            return null
+        }
     }
     
 
