@@ -10,7 +10,6 @@ var router = express.Router()
 router.post('/', async function(req, res, next) {
     console.log('POST addReview')
     const db = new DBWrapper
-    console.log(db)
     const review = new Review(req.body.unitId, req.body.name, req.body.nameId, req.body.reviewText, req.body.rating, req.body.verified)
     const savedReview = await db.addReview(review)
     
