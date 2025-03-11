@@ -1,6 +1,7 @@
 require("dotenv").config()
 const Review = require('../models/review')
 const Activity = require('../models/activity')
+const Person = require('../models/person')
 
 const mongoose = require('mongoose')
 
@@ -28,6 +29,19 @@ const ActivitySchema = mongoose.Schema(
 )
 const ActivityModel = mongoose.model('activites', ActivitySchema)
 
+// Person Schema
+const PersonSchema = mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        username: { type: String, required: true, unique: true },
+        password: { type: String, required: true },
+        type: { type: String, required: true },
+        unitsStayedIn: { type: [String], default: [] },
+        unitsOwned: { type: [String], default: [] }
+    }
+)
+const PersonModel = mongoose.model('persons', PersonSchema)
+
 // Review Schema
 const ReviewSchema = mongoose.Schema(
     {
@@ -46,7 +60,9 @@ module.exports = class DBWrapper {
 
     }
 
+    // *******
     // Activity functions
+    // *******
 
     // AddActivity
     async addActivity(activity) {
@@ -99,8 +115,101 @@ module.exports = class DBWrapper {
         }
     }
 
+    // *******
+    // Person Functions
+    // *******
 
+    // addPerson
+    async addPerson(person) {
+        console.log('addPerson() not tested yet')
+        const mongoDBPerson = new PersonModel(person)
+        await mongoDBPerson.save()
+        person._id = mongoDBPerson._id
+        return person
+    }
+
+    // deletePerson
+    async deletePerson(person) {
+        console.log('deletePerson() not tested yet')
+        const deletedPerson = await PersonModel.findByIdAndDelete(person._id)
+        if (deletedPerson) {
+            console.log(`Review deleted successfully: ${deletedPerson}`)
+        } else {
+            console.log(`Review not found`)
+        }
+    }
+
+    // getAllPeople
+    async getAllPeople() {
+        console.log('getAllPeople() not tested yet')
+        const people = await PersonModel.find({}).exec()
+        return people
+    }
+
+    // getPersonById
+    async getPersonById(id) {
+        console.log('getPersonById() not tested yet')
+        const person = await PersonModel.find({_id: id})
+        return person
+    }
+
+    // getPersonByUsername
+    async getPersonByUsername(username) {
+        console.log('getPersonByUsername() not tested yet')
+        const person = await PersonModel.find({username: username}).exec()
+        return person
+    }
+
+    // getUnitsOwned
+    async getUnitsOwned(username) {
+        console.log('getUnitsOwned() not tested yet')
+        const person = await PersonModel.findOne({ username }).select('unitsOwned').exec()
+
+        if (!person) {
+            console.log(`Person with username ${username} not found`)
+            return null
+        }
+        return person.unitsOwned
+
+    }
+
+    // getUnitsStayedIn
+    async getUnitsStayedIn(username) {
+        console.log('getUnitsStayedIn() not tested yet')
+        const person = await PersonModel.findOne({ username }).select('unitsStayedIn').exec()
+
+        if (!person) {
+            console.log(`Person with username ${username} not found`)
+            return null
+        }
+        return person.unitsStayedIn
+    }
+
+    // updatePerson
+    async updatePerson(person) {
+        console.log('updatePerson() not tested yet')
+        try {
+            const updatedPerson = await PersonModel.findByIdAndUpdate( person._id,
+                { $set: person },
+                { new: true, runValidators: true } // Ensures updated fields follow schema validation
+            );
+    
+            if (!updatedPerson) {
+                console.log(`person with ID ${person._id} not found`)
+                return null
+            }
+    
+            console.log(`Person updated successfully: ${updatedPerson}`)
+            return updatedPerson
+        } catch (error) {
+            console.error('Error updating person:', error)
+            return null
+        }
+    }
+
+    // *******
     // Review functions
+    // *******
     
     // addReview
     // adds the given review to the database
