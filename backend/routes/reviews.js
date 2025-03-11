@@ -53,7 +53,17 @@ router.get('/unitId', async function(req, res, next) {
     res.status(200).send(reviews)
 })
 
-// updateVerified()
+// updateReview()
 // STILL NEED TO WRITE THIS FUNCTION
+router.put('/review', async function (req, res, next) {
+    console.log('PUT updateReview')
+    const db = new DBWrapper
+    const updatedReview = await db.updateReview(req.body)
+
+    if(!updatedReview) {
+        return res.status(400).json({ message: "Activity not found" })
+    }
+    res.status(200).json(updatedReview)
+})
 
 module.exports = router

@@ -5,9 +5,6 @@ const DBWrapper = require('../routes/db') // Import the DB wrapper
 
 jest.mock('../routes/db') // Ensure DBWrapper is mocked
 
-// const db = new DBWrapper
-// console.log(db)
-
 const app = express()
 app.use(express.json()) 
 app.use('/reviews', router)
@@ -35,8 +32,9 @@ describe('Reviews Routes', () => {
             getReviewsByUnitId: jest.fn().mockResolvedValue([
                 { _id: '3', unitId: '456', reviewText: 'Awesome!', rating: 5, verified: false }
             ]),
-            updateVerification: jest.fn().mockImplementation(async (review) => {
-                return { ...review, verified: true }
+            updateReview: jest.fn().mockImplementation(async (review) => {
+                if (review._id === '99999') return null // Simulate a missing review case
+                return { ...review, reviewText: 'Fantastic Updated!' } // Simulate successful update
             })
         }
 
@@ -82,5 +80,45 @@ describe('Reviews Routes', () => {
         expect(res.status).toBe(200)
         expect(res.body).toEqual([{ _id: '3', unitId: '456', reviewText: 'Awesome!', rating: 5, verified: false }])
         expect(mockDB.getReviewsByUnitId).toHaveBeenCalledWith('456')
+    })
+
+    test('PUT /reviews/review should update a review', async () => {
+        const reviewToUpdate = { 
+            _id: '4', 
+            unitId: '456', 
+            name: 'Alice', 
+            nameId: '789', 
+            reviewText: 'Fantastic Updated!', 
+            rating: 4, 
+            verified: true 
+        }
+
+        mockDB.updateReview.mockResolvedValue(reviewToUpdate)
+
+        const res = await request(app).put('/reviews/review').send(reviewToUpdate)
+
+        expect(res.status).toBe(200)
+        expect(res.body).toEqual(reviewToUpdate)
+        expect(mockDB.updateReview).toHaveBeenCalledWith(expect.objectContaining(reviewToUpdate))
+    });
+
+    test('PUT /reviews/review should return 400 if review not found', async () => {
+        const reviewToUpdate = { 
+            _id: '99999', 
+            unitId: '000', 
+            name: 'Unknown', 
+            nameId: '000', 
+            reviewText: 'This review does not exist!', 
+            rating: 1, 
+            verified: false 
+        };
+
+        mockDB.updateReview.mockResolvedValue(null)
+
+        const res = await request(app).put('/reviews/review').send(reviewToUpdate)
+
+        expect(res.status).toBe(400);
+        expect(res.body).toEqual({ message: "Activity not found" })
+        expect(mockDB.updateReview).toHaveBeenCalledWith(expect.objectContaining(reviewToUpdate))
     })
 })
