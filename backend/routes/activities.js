@@ -50,7 +50,6 @@ router.get('/', async function(req, res, next) {
 })
 
 // updateActivity()
-// NEED TO BE IMPLEMENTED
 router.put('/activity', async function (req, res, next) {
     console.log('PUT updateActivity')
     const db = new DBWrapper
