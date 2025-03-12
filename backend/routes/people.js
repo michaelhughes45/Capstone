@@ -71,8 +71,10 @@ router.put('/person', async function (req, res, next) {
     const db = new DBWrapper
     const updatedPerson = await db.updatePerson(req.body)
 
-    if(!updatedperson) {
+    if(!updatedPerson) {
         return res.status(400).json({ message: "Person not found" })
     }
     res.status(200).json(updatedPerson)
 })
+
+module.exports = router

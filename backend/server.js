@@ -7,6 +7,7 @@ var logger = require('morgan')
 
 var reviewsRouter = require('./routes/reviews')
 var activitiesRouter = require('./routes/activities')
+var peopleRouter = require('./routes/people')
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -22,6 +23,7 @@ app.use(logger('dev'))
 // routes
 app.use('/reviews', reviewsRouter)
 app.use('/activities', activitiesRouter)
+app.use('/people', peopleRouter)
 
 
 // this is only to test if frontend can recieve information from backend
