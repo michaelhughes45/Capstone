@@ -66,32 +66,52 @@ module.exports = class DBWrapper {
 
     // AddActivity
     async addActivity(activity) {
-        const mongoDBActivity = new ActivityModel(activity)
-        await mongoDBActivity.save()
-        activity._id = mongoDBActivity._id
-        return activity
+        try {
+            const mongoDBActivity = new ActivityModel(activity)
+            await mongoDBActivity.save()
+            activity._id = mongoDBActivity._id
+            return activity
+        } catch(error) {
+            console.error('Error adding activity:', error)
+            return null
+        }
     }
 
     // deleteActivity
     async deleteActivity(activity) {
-        const deletedActivity = await ActivityModel.findByIdAndDelete(activity._id)
-        if (deletedActivity) {
-            console.log(`Review deleted successfully: ${deletedActivity}`)
-        } else {
-            console.log(`Review not found`)
+        try {
+            const deletedActivity = await ActivityModel.findByIdAndDelete(activity._id)
+            if (deletedActivity) {
+                console.log(`Review deleted successfully: ${deletedActivity}`)
+            } else {
+                console.log(`Review not found`)
+            }
+        } catch(error) {
+            console.error('Error deleting activity:', error)
+            return null
         }
     }
 
     // getActivitiesByType
     async getActivitiesByType(type) {
-        const activites = await ActivityModel.find({type: type}).exec()
-        return activites
+        try {
+            const activites = await ActivityModel.find({type: type}).exec()
+            return activites
+        } catch(error) {
+            console.error('Error getting activity by Type:', error)
+            return null
+        }
     }
 
     // getAllActivities
     async getAllActivities() {
-        const activites = await ActivityModel.find({}).exec()
-        return activites
+        try {
+            const activites = await ActivityModel.find({}).exec()
+            return activites
+        } catch(error) {
+            console.error('Error getting all activities:', error)
+            return null
+        }
     }
 
     // updateActivity
@@ -121,73 +141,97 @@ module.exports = class DBWrapper {
 
     // addPerson
     async addPerson(person) {
-        console.log('addPerson() not tested yet')
-        const mongoDBPerson = new PersonModel(person)
-        await mongoDBPerson.save()
-        person._id = mongoDBPerson._id
-        return person
+        try {
+            const mongoDBPerson = new PersonModel(person)
+            await mongoDBPerson.save()
+            person._id = mongoDBPerson._id
+            return person
+        } catch(error) {
+            console.error('Error adding person:', error)
+            return null
+        }
     }
 
     // deletePerson
     async deletePerson(person) {
-        console.log('deletePerson() not tested yet')
-        const deletedPerson = await PersonModel.findByIdAndDelete(person._id)
-        if (deletedPerson) {
-            console.log(`Review deleted successfully: ${deletedPerson}`)
-        } else {
-            console.log(`Review not found`)
+        try {
+            const deletedPerson = await PersonModel.findByIdAndDelete(person._id)
+            if (deletedPerson) {
+                console.log(`Review deleted successfully: ${deletedPerson}`)
+            } else {
+                console.log(`Review not found`)
+            }
+        } catch(error) {
+            console.error('Error deleting person:', error)
+            return null
         }
     }
 
     // getAllPeople
     async getAllPeople() {
-        console.log('getAllPeople() not tested yet')
-        const people = await PersonModel.find({}).exec()
-        return people
+        try {
+            const people = await PersonModel.find({}).exec()
+            return people
+        } catch(error) {
+            console.error('Error getting all people:', error)
+            return null
+        }
     }
 
     // getPersonById
     async getPersonById(id) {
-        console.log('getPersonById() not tested yet')
-        const person = await PersonModel.find({_id: id})
-        return person
+        try {
+            const person = await PersonModel.find({_id: id})
+            return person
+        } catch(error) {
+            console.error('Error getting person by Id:', error)
+            return null
+        }
     }
 
     // getPersonByUsername
     async getPersonByUsername(username) {
-        console.log('getPersonByUsername() not tested yet')
-        const person = await PersonModel.find({username: username}).exec()
-        return person
+        try {
+            const person = await PersonModel.find({username: username}).exec()
+            return person
+        } catch(error) {
+            console.error('Error getting person by username:', error)
+            return null
+        }
     }
 
     // getUnitsOwned
     async getUnitsOwned(username) {
-        console.log('getUnitsOwned() not tested yet')
-        const person = await PersonModel.findOne({ username }).select('unitsOwned').exec()
-
-        if (!person) {
-            console.log(`Person with username ${username} not found`)
+        try {
+            const person = await PersonModel.findOne({ username }).select('unitsOwned').exec()
+            if (!person) {
+                console.log(`Person with username ${username} not found`)
+                return null
+            }
+            return person.unitsOwned
+        } catch(error) {
+            console.error('Error getting units owned:', error)
             return null
         }
-        return person.unitsOwned
-
     }
 
     // getUnitsStayedIn
     async getUnitsStayedIn(username) {
-        console.log('getUnitsStayedIn() not tested yet')
-        const person = await PersonModel.findOne({ username }).select('unitsStayedIn').exec()
-
-        if (!person) {
-            console.log(`Person with username ${username} not found`)
+        try {
+            const person = await PersonModel.findOne({ username }).select('unitsStayedIn').exec()
+            if (!person) {
+                console.log(`Person with username ${username} not found`)
+                return null
+            }
+            return person.unitsStayedIn
+        } catch(error) {
+            console.error('Error units stayed in:', error)
             return null
         }
-        return person.unitsStayedIn
     }
 
     // updatePerson
     async updatePerson(person) {
-        console.log('updatePerson() not tested yet')
         try {
             const updatedPerson = await PersonModel.findByIdAndUpdate( person._id,
                 { $set: person },
@@ -214,42 +258,67 @@ module.exports = class DBWrapper {
     // addReview
     // adds the given review to the database
     async addReview(review) {
-        const mongoDBReview = new ReviewModel(review)
-        await mongoDBReview.save()
-        review._id = mongoDBReview._id
-        return review
+        try {
+            const mongoDBReview = new ReviewModel(review)
+            await mongoDBReview.save()
+            review._id = mongoDBReview._id
+            return review
+        } catch(error) {
+            console.error('Error adding review:', error)
+            return null
+        }
     }
 
     // deleteReview()
     // deletes a review from the database
     async deleteReview(review) {
-        const deletedReview = await ReviewModel.findByIdAndDelete(review._id)
-        if (deletedReview) {
-            console.log(`Review deleted successfully: ${deletedReview}`)
-        } else {
-            console.log(`Review not found`)
+        try {
+            const deletedReview = await ReviewModel.findByIdAndDelete(review._id)
+            if (deletedReview) {
+                console.log(`Review deleted successfully: ${deletedReview}`)
+            } else {
+                console.log(`Review not found`)
+            }
+        } catch(error) {
+            console.error('Error deleting review:', error)
+            return null
         }
     }
 
     // getAllReviews
     // gets all the review objects in the reviews collection and returns them to the user
     async getAllReviews() {
-        const reviews = await ReviewModel.find({}).exec()
-        return reviews
+        try {
+            const reviews = await ReviewModel.find({}).exec()
+            return reviews
+        } catch(error) {
+            console.error('Error getting all reviews:', error)
+            return null
+        }
     }
 
     // getReviewsFromUnit
     // gets all the review objects from the reviews collection from a specified unitId
     async getReviewsByUnitId(unitId) {
-        const reviews = await ReviewModel.find({unitId: unitId}).exec()
-        return reviews
+        try {
+            const reviews = await ReviewModel.find({unitId: unitId}).exec()
+            return reviews
+        } catch(error) {
+            console.error('Error getting reviews by unitId:', error)
+            return null
+        }
     }
 
     // getReviewsByName
     // gets reviews from a specified individual from the database
     async getReviewsByNameId(nameId) {
-        const reviews = await ReviewModel.find({nameId: nameId}).exec()
-        return reviews
+        try {
+            const reviews = await ReviewModel.find({nameId: nameId}).exec()
+            return reviews
+        } catch(error) {
+            console.error('Error getting reviews by nameId:', error)
+            return null
+        }
     }
 
 
@@ -276,5 +345,4 @@ module.exports = class DBWrapper {
         }
     }
     
-
 }
