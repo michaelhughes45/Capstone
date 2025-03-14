@@ -8,7 +8,7 @@ router.post('/', async function(req, res, next) {
     console.log('POST addStay')
     const db = new DBWrapper
     const stay = new Stay(req.body.personId, req.body.ownerId, req.body.unitId, req.body.startDate, req.body.endDate, req.body.dates, req.body.paymentStatus, req.body.status)
-    const savedStay = await db.addPerson(stay)
+    const savedStay = await db.addStay(stay)
     
     res.status(200).json(savedStay)
 })
