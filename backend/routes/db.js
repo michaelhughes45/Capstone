@@ -367,42 +367,115 @@ module.exports = class DBWrapper {
 
     // addStay()
     async addStay(stay) {
-        console.log('addStay() not implemented yet')
+        console.log('addStay() not tested yet')
+        try {
+            const mongoDBStay = new StayModel(stay)
+            await mongoDBStay.save()
+            stay._id = mongoDBStay._id
+            return stay
+        } catch(error) {
+            console.error('Error adding stay:', error)
+            return null
+        }
     }
 
     // deleteStay()
     async deleteStay(stay) {
-        console.log('deleteStay() not implemented yet')
+        console.log('deleteStay() not tested yet')
+        try {
+            const deletedStay = await StayModel.findByIdAndDelete(stay._id)
+            if (deletedStay) {
+                console.log(`Stay deleted successfully: ${deletedStay}`)
+            } else {
+                console.log(`Stay not found`)
+            }
+        } catch(error) {
+            console.error('Error deleting stay:', error)
+            return null
+        }
     }
 
     // getAllStays()
     async getAllStays() {
-        console.log('getAllStays() not implemented yet')
+        console.log('getAllStays() not tested yet')
+        try {
+            const stays = await StayModel.find({}).exec()
+            return stays
+        } catch(error) {
+            console.error('Error getting all stays:', error)
+            return null
+        }
     }
 
     // getStaysByPaymentStatus()
     async getStaysByPaymentStatus(paymentStatus) {
-        console.log('getStaysByPaymentStatus() not implemented yet')
+        console.log('getStaysByPaymentStatus() not tested yet')
+        try {
+            const stays = await StayModel.find({paymentStatus: paymentStatus}).exec()
+            return stays
+        } catch(error) {
+            console.error('Error getting stays by paymentStatus:', error)
+            return null
+        }
     }
 
     // getStaysByOwnerId()
     async getStaysByOnwerId(ownerId) {
-        console.log('getStaysByOwnerId() not implemented yet')
+        console.log('getStaysByOwnerId() not tested yet')
+        try {
+            const stays = await StayModel.find({ownerId: ownerId}).exec()
+            return stays
+        } catch(error) {
+            console.error('Error getting stays by ownerId:', error)
+            return null
+        }
     }
 
     // getStaysByPersonId()
     async getStaysByPersonId(personId) {
-        console.log('getStaysByPersonId() not implemented yet')
+        console.log('getStaysByPersonId() not tested yet')
+        try {
+            const stays = await StayModel.find({personId: personId}).exec()
+            return stays
+        } catch(error) {
+            console.error('Error getting stays by personId:', error)
+            return null
+        }
     }
 
     // getStaysByUnitId()
     async getStaysByUnitId(unitId) {
-        console.log('getStaysByUnitId() not implemented yet')
+        console.log('getStaysByUnitId() not tested yet')
+        try {
+            const stays = await StayModel.find({unitId: unitId}).exec()
+            return stays
+        } catch(error) {
+            console.error('Error getting stays by unitId:', error)
+            return null
+        }
     }
 
     // updateStays()
     async updateStays(stay) {
-        console.log('updateStay() not implemented yet')
+        console.log('updateStay() not tested yet')
+        try {
+            const updatedStay = await StayModel.findByIdAndUpdate(
+                stay._id,
+                { $set: stay },
+                { new: true, runValidators: true } // Ensures updated fields follow schema validation
+            )
+    
+            if (!updatedStay) {
+                console.log(`Stay with ID ${stay._id} not found`)
+                return null
+            }
+    
+            console.log(`Stay updated successfully: ${updatedStay}`)
+            return updatedStay
+        } catch(error) {
+            console.error('Error updating stay:', error)
+            return null
+        }
     }
     
 }
