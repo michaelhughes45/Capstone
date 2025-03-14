@@ -10,10 +10,10 @@ module.exports = class Stay {
     paymentStatus = null
     status
 
-    constructor(personId, unitId, ownerId, startDate, endDate, dates, paymentStatus, status) {
+    constructor(personId, ownerId, unitId, startDate, endDate, dates, paymentStatus, status) {
         this.personId = personId
-        this.unitId = unitId
         this.ownerId = ownerId
+        this.unitId = unitId
         this.startDate = startDate
         this.endDate = endDate
         this.dates = dates
