@@ -8,4 +8,14 @@ module.exports = class Activity {
     dateStart = null
     dateEnd = null
     hoursOpen = null
+
+    constructor(name, type, description, location, dateStart, dateEnd, hoursOpen) {
+        this.name = name
+        this.type = type
+        this.description = description
+        this.location = location
+        this.dateStart = dateStart
+        this.dateEnd = dateEnd
+        this.hoursOpen = hoursOpen
+    }
 }
