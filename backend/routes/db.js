@@ -2,6 +2,7 @@ require("dotenv").config()
 const Review = require('../models/review')
 const Activity = require('../models/activity')
 const Person = require('../models/person')
+const Picture = require('../models/picture')
 const Stay = require('../models/stay')
 
 const mongoose = require('mongoose')
@@ -42,6 +43,15 @@ const PersonSchema = mongoose.Schema(
     }
 )
 const PersonModel = mongoose.model('persons', PersonSchema)
+
+const PictureSchema = mongoose.Schema(
+    {
+        unitId: { type: String, required: true },
+        pictureUrl: { type: String, required: true },
+        displayOrder: { type: Number, required: true },
+    }
+)
+const PictureModel = mongoose.model('pictures', PictureSchema)
 
 // Review Schema
 const ReviewSchema = mongoose.Schema(
@@ -268,6 +278,87 @@ module.exports = class DBWrapper {
     }
 
     // *******
+    // Picture functions
+    // *******
+    
+    // addPicture()
+    async addPicture(picture) {
+        console.log('addPicture() not tested yet')
+        try {
+            const mongoDBPicture = new PictureModel(picture)
+            await mongoDBPicture.save()
+            picture._id = mongoDBPicture._id
+            return picture
+        } catch(error) {
+            console.error('Error adding picture:', error)
+            return null
+        }
+    }
+
+    // deletePicture()
+    async deletePicture(picture) {
+        console.log('deletePicture() not tested yet')
+        try {
+            const deletedPicture = await PictureModel.findByIdAndDelete(picture._id)
+            if (deletedPicture) {
+                console.log(`Picture deleted successfully: ${deletedPicture}`)
+            } else {
+                console.log(`Picture not found`)
+            }
+        } catch(error) {
+            console.error('Error deleting picture:', error)
+            return null
+        }
+    }
+
+    // getAllPictures()
+    async getAllPictures() {
+        console.log('getAllPictures() not tested yet')
+        try {
+            const pictures = await PictureModel.find({}).exec()
+            return pictures
+        } catch(error) {
+            console.error('Error getting all pictures:', error)
+            return null
+        }
+    }
+
+    // getPicturesByUnitId()
+    async getPicturesByUnitId(unitId) {
+        console.log('getPicturesByUnitId() not tested yet')
+        try {
+            const pictures = await PictureModel.find({unitId: unitId}).sort({displayOrder: 1}).exec()
+            return pictures
+        } catch(error) {
+            console.error('Error getting pictures by unitId:', error)
+            return null
+        }
+    }
+
+    // updatePicture()
+    async updatePicture(picture) {
+        console.log('updatePicture() not tested yet')
+        try {
+            const updatedPicture = await PictureModel.findByIdAndUpdate(
+                picture._id,
+                { $set: picture },
+                { new: true, runValidators: true } // Ensures updated fields follow schema validation
+            )
+    
+            if (!updatedPicture) {
+                console.log(`Picture with ID ${picture._id} not found`)
+                return null
+            }
+    
+            console.log(`Picture updated successfully: ${updatedPicture}`)
+            return updatedPicture
+        } catch(error) {
+            console.error('Error updating picture:', error)
+            return null
+        }
+    }
+
+    // *******
     // Review functions
     // *******
     
@@ -367,7 +458,6 @@ module.exports = class DBWrapper {
 
     // addStay()
     async addStay(stay) {
-        console.log('addStay() not tested yet')
         try {
             const mongoDBStay = new StayModel(stay)
             await mongoDBStay.save()
@@ -381,7 +471,6 @@ module.exports = class DBWrapper {
 
     // deleteStay()
     async deleteStay(stay) {
-        console.log('deleteStay() not tested yet')
         try {
             const deletedStay = await StayModel.findByIdAndDelete(stay._id)
             if (deletedStay) {
@@ -397,7 +486,6 @@ module.exports = class DBWrapper {
 
     // getAllStays()
     async getAllStays() {
-        console.log('getAllStays() not tested yet')
         try {
             const stays = await StayModel.find({}).exec()
             return stays
@@ -409,7 +497,6 @@ module.exports = class DBWrapper {
 
     // getStaysByPaymentStatus()
     async getStaysByPaymentStatus(paymentStatus) {
-        console.log('getStaysByPaymentStatus() not tested yet')
         try {
             const stays = await StayModel.find({paymentStatus: paymentStatus}).exec()
             return stays
@@ -421,7 +508,6 @@ module.exports = class DBWrapper {
 
     // getStaysByOwnerId()
     async getStaysByOnwerId(ownerId) {
-        console.log('getStaysByOwnerId() not tested yet')
         try {
             const stays = await StayModel.find({ownerId: ownerId}).exec()
             return stays
@@ -433,7 +519,6 @@ module.exports = class DBWrapper {
 
     // getStaysByPersonId()
     async getStaysByPersonId(personId) {
-        console.log('getStaysByPersonId() not tested yet')
         try {
             const stays = await StayModel.find({personId: personId}).exec()
             return stays
@@ -445,7 +530,6 @@ module.exports = class DBWrapper {
 
     // getStaysByUnitId()
     async getStaysByUnitId(unitId) {
-        console.log('getStaysByUnitId() not tested yet')
         try {
             const stays = await StayModel.find({unitId: unitId}).exec()
             return stays
@@ -457,7 +541,6 @@ module.exports = class DBWrapper {
 
     // updateStays()
     async updateStays(stay) {
-        console.log('updateStay() not tested yet')
         try {
             const updatedStay = await StayModel.findByIdAndUpdate(
                 stay._id,
