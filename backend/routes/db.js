@@ -2,6 +2,7 @@ require("dotenv").config()
 const Review = require('../models/review')
 const Activity = require('../models/activity')
 const Person = require('../models/person')
+const Stay = require('../models/stay')
 
 const mongoose = require('mongoose')
 
@@ -50,10 +51,25 @@ const ReviewSchema = mongoose.Schema(
         nameId: { type: String, required: true },
         reviewText: { type: String, required: true },
         rating: { type: Number, required: true },
-        verified: { type: Boolean, required: true },
+        verified: { type: Boolean, required: true }
     }
 )
 const ReviewModel = mongoose.model('reviews', ReviewSchema)
+
+// Stay Schema
+const StaySchema = mongoose.Schema(
+    {
+        personId: { type: String, required: true },
+        ownerId: { type: String, required: true },
+        unitId: { type: String, required: true },
+        startDate: { type: String, required: true },
+        endDate: { type: String, required: true },
+        dates: { type: [String], required: true },
+        paymentStatus: { type: String, required: true },
+        status: { type: String, required: true }
+    }
+)
+const StayModel = mongoose.model('stays', StaySchema)
 
 module.exports = class DBWrapper {
     constructor() {
@@ -343,6 +359,50 @@ module.exports = class DBWrapper {
             console.error('Error updating review:', error)
             return null
         }
+    }
+
+    // *******
+    // Stay Functions
+    // *******
+
+    // addStay()
+    async addStay(stay) {
+        console.log('addStay() not implemented yet')
+    }
+
+    // deleteStay()
+    async deleteStay(stay) {
+        console.log('deleteStay() not implemented yet')
+    }
+
+    // getAllStays()
+    async getAllStays() {
+        console.log('getAllStays() not implemented yet')
+    }
+
+    // getStaysByPaymentStatus()
+    async getStaysByPaymentStatus(paymentStatus) {
+        console.log('getStaysByPaymentStatus() not implemented yet')
+    }
+
+    // getStaysByOwnerId()
+    async getStaysByOnwerId(ownerId) {
+        console.log('getStaysByOwnerId() not implemented yet')
+    }
+
+    // getStaysByPersonId()
+    async getStaysByPersonId(personId) {
+        console.log('getStaysByPersonId() not implemented yet')
+    }
+
+    // getStaysByUnitId()
+    async getStaysByUnitId(unitId) {
+        console.log('getStaysByUnitId() not implemented yet')
+    }
+
+    // updateStays()
+    async updateStays(stay) {
+        console.log('updateStay() not implemented yet')
     }
     
 }
