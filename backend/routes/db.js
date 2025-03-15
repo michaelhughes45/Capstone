@@ -583,37 +583,287 @@ module.exports = class DBWrapper {
     // *******
 
     // addUnit
+    async addUnit(unit) {
+        console.log('addUnit not tested yet')
+        try {
+            const mongoDBUnit = new UnitModel(unit)
+            await mongoDBUnit.save()
+            unit._id = mongoDBunit._id
+            return unit
+        } catch(error) {
+            console.error('Error adding unit:', error)
+            return null
+        }
+    }
 
     // deleteUnit
+    async deleteUnit(unit) {
+        console.log('deleteUnit not tested yet')
+        try {
+            const deletedUnit = await UnitModel.findByIdAndDelete(unit._id)
+            if (deletedUnit) {
+                console.log(`Unit deleted successfully: ${deletedUnit}`)
+            } else {
+                console.log(`Unit not found`)
+            }
+        } catch(error) {
+            console.error('Error deleting unit:', error)
+            return null
+        }
+    }
 
     // getAllUnits
+    async getAllUnits() {
+        console.log('getAllUnits not tested yet')
+        try {
+            const units = await UnitModel.find({}).exec()
+            return units
+        } catch(error) {
+            console.error('Error getting all units:', error)
+            return null
+        }
+    }
 
     // getUnitsByAddress
+    async getUnitsByAddress(address) {
+        console.log('getUnitsByAddress not tested yet')
+        try {
+            const units = await UnitModel.find({address: address}).exec()
+            return units
+        } catch(error) {
+            console.error('Error getting units by address:', error)
+            return null
+        }
+    }
 
     // getUnitsByAmenitiesHotTub
+    async getUnitsByAmenitiesHotTub() {
+        console.log('getUnitsByAmenitiesHotTub not tested yet')
+        try {
+            const units = await UnitModel.find({ amenities: "hotTub" }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with hot tub:", error);
+            return null;
+        }
+    }
+
+    // 
+    async function getUnitsWithHotTubAndPool() {
+        console.log('getUnitsByAmenitiesHotTubAndPool not tested yet')
+        try {
+            const units = await UnitModel.find({ amenities: { $all: ["hotTub", "pool"] } }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with hot tub and pool:", error);
+            return null;
+        }
+    }
 
     // getUnitsByAmenitiesPool
+    async getUnitsByAmenitiesPool() {
+        console.log('getUnitsByAmenitiesPool not tested yet')
+        try {
+            const units = await UnitModel.find({ amenities: "pool" }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with pool:", error);
+            return null;
+        }
+    }
 
     // getUnitsByNumberBedrooms
+    async getUnitsByNumberBedrooms(numberBedrooms) {
+        console.log('getUnitsByNumberBedrooms not tested yet')
+        try {
+            const units = await UnitModel.find({ numberBedrooms: numberBedrooms }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with numberBedrooms:", error);
+            return null;
+        }
+    }
 
     // getUnitsByNumberBedroomsHigh
+    async getUnitsByNumberBedroomsHigh() {
+        console.log('getUnitsByNumberBedroomsHigh not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ numberBedrooms: -1 }) // -1 for descending order (high to low)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by numberBedrooms (high to low):", error);
+            return null;
+        }
+    }
 
     // getUnitsByNumberBedroomsLow
+    async getUnitsByNumberBedroomsLow() {
+        console.log('getUnitsByNumberBedroomsLow not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ numberBedrooms: 1 }) // 1 for ascending order (low to high)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by numberBedrooms (low to high):", error);
+            return null;
+        }   
+    }
 
     // getUnitsByOwnerId
+    async getUnitsByOwnerId(ownerId) {
+        console.log('getUnitsByOwnerId not tested yet')
+        try {
+            const units = await UnitModel.find({ ownerId: ownerId }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with ownerId:", error);
+            return null;
+        }
+    }
 
     // getUnitsByPrice
+    async getUnitsByPrice(price) {
+        console.log('getUnitsByPrice not tested yet')
+        try {
+            const units = await UnitModel.find({ price: price }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with price:", error);
+            return null;
+        }
+    }
 
     // getUnitsByPriceHigh
+    async getUnitsByPriceHigh() {
+        console.log('getUnitsByPriceHigh not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ price: -1 }) // -1 for descending order (high to low)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by price (high to low):", error);
+            return null;
+        }
+    }
 
     // getUnitsByPriceLow
+    async getUnitsByPriceLow() {
+        console.log('getUnitsByPriceLow not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ price: 1 }) // 1 for ascending order (low to high)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by number of prices (low to high):", error);
+            return null;
+        } 
+    }
 
     // getUnitsBySleeps
+    async getUnitsBySleeps(sleeps) {
+        console.log('getUnitsBySleeps not tested yet')
+        try {
+            const units = await UnitModel.find({ sleeps: sleeps }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with sleeps:", error);
+            return null;
+        }
+    }
 
     // getUnitsBySleepsHigh
+    async getUnitsBySleepsHigh() {
+        console.log('getUnitsBySleepsHigh not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ sleeps: -1 }) // -1 for descending order (high to low)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by sleeps (high to low):", error);
+            return null;
+        }
+    }
 
     // getUnitsBySleepsLow
+    async getUnitsBySleepsLow() {
+        console.log('getUnitsBySleepsLow not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ sleeps: 1 }) // 1 for ascending order (low to high)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by sleeps (low to high):", error);
+            return null;
+        } 
+    }
 
     // getUnitsByRating
+    async getUnitsByRating(rating) {
+        console.log('getUnitsByRating not tested yet')
+        try {
+            const units = await UnitModel.find({ rating: rating }).exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units with rating:", error);
+            return null;
+        }
+    }
+
+    // getUnitsByRatingHigh
+    async getUnitsByRatingHigh() {
+        console.log('getUnitsByRatingHigh not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ rating: -1 }) // -1 for descending order (high to low)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by rating (high to low):", error);
+            return null;
+        }
+    }
+
+    async getUnitsByRatingLow() {
+        console.log('getUnitsByRatingLow not tested yet')
+        try {
+            const units = await UnitModel.find({})
+                .sort({ rating: 1 }) // 1 for ascending order (low to high)
+                .exec();
+            return units;
+        } catch (error) {
+            console.error("Error retrieving units sorted by rating (low to high):", error);
+            return null;
+        } 
+    }
+
+    // updateUnit
+    async updateUnit(unit) {
+        console.log('updateUnit not tested yet')
+        try {
+            const updatedUnit = await UnitModel.findByIdAndUpdate(
+                stay._id,
+                { $set: unit },
+                { new: true, runValidators: true } // Ensures updated fields follow schema validation
+            )
+    
+            if (!updatedUnit) {
+                console.log(`Stay with ID ${unit._id} not found`)
+                return null
+            }
+    
+            console.log(`Stay updated successfully: ${updatedUnit}`)
+            return updatedUnit
+        } catch(error) {
+            console.error('Error updating unit:', error)
+            return null
+        }
+    }
     
 }
