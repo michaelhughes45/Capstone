@@ -4,6 +4,7 @@ const Activity = require('../models/activity')
 const Person = require('../models/person')
 const Picture = require('../models/picture')
 const Stay = require('../models/stay')
+const Unit = require('../models/unit')
 
 const mongoose = require('mongoose')
 
@@ -80,6 +81,22 @@ const StaySchema = mongoose.Schema(
     }
 )
 const StayModel = mongoose.model('stays', StaySchema)
+
+const UnitSchema = mongoose.Schema(
+    {
+        ownerId: { type: String, required: true },
+        address: { type: String, required: true },
+        unitNumber: { type: String, required: true },
+        numberBedrooms: { type: Number, required: true },
+        sleeps: { type: Number, required: true },
+        price: { type: Number, required: true },
+        rating: { type: Number, required: true },
+        shortDescription: { type: String, required: true },
+        description: { type: String, required: true },
+        amenities: { type: [String], required: true }
+    }
+)
+const UnitModel = mongoose.model('units', UnitSchema)
 
 module.exports = class DBWrapper {
     constructor() {
@@ -560,5 +577,43 @@ module.exports = class DBWrapper {
             return null
         }
     }
+
+    // *******
+    // Unit Functions
+    // *******
+
+    // addUnit
+
+    // deleteUnit
+
+    // getAllUnits
+
+    // getUnitsByAddress
+
+    // getUnitsByAmenitiesHotTub
+
+    // getUnitsByAmenitiesPool
+
+    // getUnitsByNumberBedrooms
+
+    // getUnitsByNumberBedroomsHigh
+
+    // getUnitsByNumberBedroomsLow
+
+    // getUnitsByOwnerId
+
+    // getUnitsByPrice
+
+    // getUnitsByPriceHigh
+
+    // getUnitsByPriceLow
+
+    // getUnitsBySleeps
+
+    // getUnitsBySleepsHigh
+
+    // getUnitsBySleepsLow
+
+    // getUnitsByRating
     
 }
