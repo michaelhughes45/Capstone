@@ -640,23 +640,23 @@ module.exports = class DBWrapper {
     async getUnitsByAmenitiesHotTub() {
         console.log('getUnitsByAmenitiesHotTub not tested yet')
         try {
-            const units = await UnitModel.find({ amenities: "hotTub" }).exec();
-            return units;
+            const units = await UnitModel.find({ amenities: "hotTub" }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with hot tub:", error);
-            return null;
+            console.error("Error retrieving units with hot tub:", error)
+            return null
         }
     }
 
-    // 
-    async function getUnitsWithHotTubAndPool() {
+    // getUnitsWithHotTubAndPool
+    async getUnitsWithHotTubAndPool() {
         console.log('getUnitsByAmenitiesHotTubAndPool not tested yet')
         try {
-            const units = await UnitModel.find({ amenities: { $all: ["hotTub", "pool"] } }).exec();
-            return units;
+            const units = await UnitModel.find({ amenities: { $all: ["hotTub", "pool"] } }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with hot tub and pool:", error);
-            return null;
+            console.error("Error retrieving units with hot tub and pool:", error)
+            return null
         }
     }
 
@@ -664,11 +664,11 @@ module.exports = class DBWrapper {
     async getUnitsByAmenitiesPool() {
         console.log('getUnitsByAmenitiesPool not tested yet')
         try {
-            const units = await UnitModel.find({ amenities: "pool" }).exec();
-            return units;
+            const units = await UnitModel.find({ amenities: "pool" }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with pool:", error);
-            return null;
+            console.error("Error retrieving units with pool:", error)
+            return null
         }
     }
 
@@ -676,11 +676,11 @@ module.exports = class DBWrapper {
     async getUnitsByNumberBedrooms(numberBedrooms) {
         console.log('getUnitsByNumberBedrooms not tested yet')
         try {
-            const units = await UnitModel.find({ numberBedrooms: numberBedrooms }).exec();
-            return units;
+            const units = await UnitModel.find({ numberBedrooms: numberBedrooms }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with numberBedrooms:", error);
-            return null;
+            console.error("Error retrieving units with numberBedrooms:", error)
+            return null
         }
     }
 
@@ -688,13 +688,11 @@ module.exports = class DBWrapper {
     async getUnitsByNumberBedroomsHigh() {
         console.log('getUnitsByNumberBedroomsHigh not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ numberBedrooms: -1 }) // -1 for descending order (high to low)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ numberBedrooms: -1 }).exec() // -1 for descending order (high to low)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by numberBedrooms (high to low):", error);
-            return null;
+            console.error("Error retrieving units sorted by numberBedrooms (high to low):", error)
+            return null
         }
     }
 
@@ -702,13 +700,11 @@ module.exports = class DBWrapper {
     async getUnitsByNumberBedroomsLow() {
         console.log('getUnitsByNumberBedroomsLow not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ numberBedrooms: 1 }) // 1 for ascending order (low to high)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ numberBedrooms: 1 }).exec() // 1 for ascending order (low to high)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by numberBedrooms (low to high):", error);
-            return null;
+            console.error("Error retrieving units sorted by numberBedrooms (low to high):", error)
+            return null
         }   
     }
 
@@ -716,11 +712,11 @@ module.exports = class DBWrapper {
     async getUnitsByOwnerId(ownerId) {
         console.log('getUnitsByOwnerId not tested yet')
         try {
-            const units = await UnitModel.find({ ownerId: ownerId }).exec();
-            return units;
+            const units = await UnitModel.find({ ownerId: ownerId }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with ownerId:", error);
-            return null;
+            console.error("Error retrieving units with ownerId:", error)
+            return null
         }
     }
 
@@ -728,11 +724,11 @@ module.exports = class DBWrapper {
     async getUnitsByPrice(price) {
         console.log('getUnitsByPrice not tested yet')
         try {
-            const units = await UnitModel.find({ price: price }).exec();
-            return units;
+            const units = await UnitModel.find({ price: price }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with price:", error);
-            return null;
+            console.error("Error retrieving units with price:", error)
+            return null
         }
     }
 
@@ -740,13 +736,11 @@ module.exports = class DBWrapper {
     async getUnitsByPriceHigh() {
         console.log('getUnitsByPriceHigh not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ price: -1 }) // -1 for descending order (high to low)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ price: -1 }).exec() // -1 for descending order (high to low)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by price (high to low):", error);
-            return null;
+            console.error("Error retrieving units sorted by price (high to low):", error)
+            return null
         }
     }
 
@@ -754,13 +748,11 @@ module.exports = class DBWrapper {
     async getUnitsByPriceLow() {
         console.log('getUnitsByPriceLow not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ price: 1 }) // 1 for ascending order (low to high)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ price: 1 }).exec() // 1 for ascending order (low to high)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by number of prices (low to high):", error);
-            return null;
+            console.error("Error retrieving units sorted by number of prices (low to high):", error)
+            return null
         } 
     }
 
@@ -768,11 +760,11 @@ module.exports = class DBWrapper {
     async getUnitsBySleeps(sleeps) {
         console.log('getUnitsBySleeps not tested yet')
         try {
-            const units = await UnitModel.find({ sleeps: sleeps }).exec();
-            return units;
+            const units = await UnitModel.find({ sleeps: sleeps }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with sleeps:", error);
-            return null;
+            console.error("Error retrieving units with sleeps:", error)
+            return null
         }
     }
 
@@ -780,13 +772,11 @@ module.exports = class DBWrapper {
     async getUnitsBySleepsHigh() {
         console.log('getUnitsBySleepsHigh not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ sleeps: -1 }) // -1 for descending order (high to low)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ sleeps: -1 }).exec() // -1 for descending order (high to low)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by sleeps (high to low):", error);
-            return null;
+            console.error("Error retrieving units sorted by sleeps (high to low):", error)
+            return null
         }
     }
 
@@ -794,13 +784,11 @@ module.exports = class DBWrapper {
     async getUnitsBySleepsLow() {
         console.log('getUnitsBySleepsLow not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ sleeps: 1 }) // 1 for ascending order (low to high)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ sleeps: 1 }).exec() // 1 for ascending order (low to high)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by sleeps (low to high):", error);
-            return null;
+            console.error("Error retrieving units sorted by sleeps (low to high):", error)
+            return null
         } 
     }
 
@@ -808,11 +796,11 @@ module.exports = class DBWrapper {
     async getUnitsByRating(rating) {
         console.log('getUnitsByRating not tested yet')
         try {
-            const units = await UnitModel.find({ rating: rating }).exec();
-            return units;
+            const units = await UnitModel.find({ rating: rating }).exec()
+            return units
         } catch (error) {
-            console.error("Error retrieving units with rating:", error);
-            return null;
+            console.error("Error retrieving units with rating:", error)
+            return null
         }
     }
 
@@ -820,26 +808,23 @@ module.exports = class DBWrapper {
     async getUnitsByRatingHigh() {
         console.log('getUnitsByRatingHigh not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ rating: -1 }) // -1 for descending order (high to low)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ rating: -1 }).exec() // -1 for descending order (high to low)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by rating (high to low):", error);
-            return null;
+            console.error("Error retrieving units sorted by rating (high to low):", error)
+            return null
         }
     }
 
+    // getUnitsByRatingLow
     async getUnitsByRatingLow() {
         console.log('getUnitsByRatingLow not tested yet')
         try {
-            const units = await UnitModel.find({})
-                .sort({ rating: 1 }) // 1 for ascending order (low to high)
-                .exec();
-            return units;
+            const units = await UnitModel.find({}).sort({ rating: 1 }).exec() // 1 for ascending order (low to high)
+            return units
         } catch (error) {
-            console.error("Error retrieving units sorted by rating (low to high):", error);
-            return null;
+            console.error("Error retrieving units sorted by rating (low to high):", error)
+            return null
         } 
     }
 
