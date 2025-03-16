@@ -7,6 +7,12 @@ var router = express.Router()
 router.post('/', async function(req, res, next) {
     // console.log('POST addPicture')
     const db = new DBWrapper
+    const { unitId, pictureUrl, displayOrder } = req.body;
+    
+    if (!unitId || !pictureUrl || !displayOrder) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
     const picture = new Picture(req.body.unitId, req.body.pictureUrl, req.body.displayOrder)
     const savedPicture = await db.addPicture(picture)
     
@@ -37,7 +43,17 @@ router.get('/', async function(req, res, next) {
 router.get('/unitId', async function(req, res, next) {
     // console.log('GET getPicturesByUnitId')
     const db = new DBWrapper
+
+    if (!req.query.unitId) {
+        return res.status(400).json({ message: "Unit ID is required" });
+    }
+
     var pictures = await db.getPicturesByUnitId(req.query.unitId)
+
+    if (!pictures || pictures.length === 0) {
+        return res.status(404).json({ message: "No pictures found for this unit" })
+    }
+
     res.status(200).send(pictures)
 })
 
@@ -45,10 +61,15 @@ router.get('/unitId', async function(req, res, next) {
 router.put('/picture', async function (req, res, next) {
     // console.log('PUT updatePicture')
     const db = new DBWrapper
+    const { _id, pictureUrl, displayOrder } = req.body;
+
+    if (!_id || !pictureUrl || !displayOrder) {
+        return res.status(400).json({ message: "Missing required fields for update" });
+    }
     const updatedPicture = await db.updatePicture(req.body)
 
     if(!updatedPicture) {
-        return res.status(400).json({ message: "picture not found" })
+        return res.status(404).json({ message: "picture not found" })
     }
     res.status(200).json(updatedPicture)
 })

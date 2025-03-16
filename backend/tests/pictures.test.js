@@ -90,14 +90,22 @@ describe('Pictures Routes', () => {
         expect(mockDB.updatePicture).toHaveBeenCalledWith(expect.objectContaining(updatedPicture));
     });
 
-    test('PUT /pictures/picture should return 400 if picture not found', async () => {
-        const updatedPicture = { _id: '99999', unitId: 'U9' };
+    test('PUT /pictures/picture should return 404 if picture not found', async () => {
         mockDB.updatePicture.mockResolvedValue(null);
 
+        const updatedPicture = {
+            _id: "non_existent_id",
+            pictureUrl: "https://example.com/new_image.jpg",
+            displayOrder: 2
+        };
+    
         const res = await request(app).put('/pictures/picture').send(updatedPicture);
-
-        expect(res.status).toBe(400);
-        expect(res.body).toEqual({ message: "picture not found" });
+    
+        console.log("Test Response Status:", res.status);  // Debugging line
+        console.log("Test Response Body:", res.body);  // Debugging line
+    
+        expect(res.status).toBe(404);  // Ensure test expects 404
+        expect(res.body).toEqual({ message: "picture not found" });  // Ensure correct error message
         expect(mockDB.updatePicture).toHaveBeenCalledWith(expect.objectContaining(updatedPicture));
     });
 });
