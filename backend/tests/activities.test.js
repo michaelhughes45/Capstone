@@ -80,7 +80,16 @@ describe('Activity Routes', () => {
     })
 
     test('PUT /activities/activity should update an activity', async () => {
-        const mockUpdatedActivity = { _id: "12345", name: "Updated Activity" }
+        const mockUpdatedActivity = { 
+            _id: "12345", 
+            name: "Updated Activity",
+            type: "Outdoor",
+            description: "Updated description",
+            location: "Updated location",
+            dateStart: "2025-06-01",
+            dateEnd: "2025-06-02",
+            hoursOpen: "8:00 AM - 6:00 PM"
+        }
         dbMock.updateActivity.mockResolvedValue(mockUpdatedActivity)
 
         const response = await request(app).put('/activities/activity').send(mockUpdatedActivity)
@@ -90,12 +99,21 @@ describe('Activity Routes', () => {
         expect(dbMock.updateActivity).toHaveBeenCalledWith(mockUpdatedActivity)
     })
 
-    test('PUT /activities/activity should return 400 if activity not found', async () => {
+    test('PUT /activities/activity should return 404 if activity not found', async () => {
         dbMock.updateActivity.mockResolvedValue(null)
 
-        const response = await request(app).put('/activities/activity').send({ _id: "99999", name: "Nonexistent" })
+        const response = await request(app).put('/activities/activity').send({
+            _id: "99999", 
+            name: "Nonexistent Activity",
+            type: "Outdoor",
+            description: "Some description",
+            location: "Unknown",
+            dateStart: "2025-06-01",
+            dateEnd: "2025-06-02",
+            hoursOpen: "10:00 AM - 5:00 PM"
+        })
 
-        expect(response.status).toBe(400)
+        expect(response.status).toBe(404)
         expect(response.body).toEqual({ message: "Activity not found" })
     })
 })

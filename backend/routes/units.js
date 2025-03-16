@@ -5,7 +5,7 @@ var router = express.Router()
 
 // addUnit
 router.post('/', async function(req, res, next) {
-    console.log('POST addUnit')
+    // console.log('POST addUnit')
     const { ownerId, address, unitNumber, numberBedrooms, datesOccupied, sleeps, price, rating, shortDescription, description, amenities } = req.body
     
     if (!ownerId || !address || !unitNumber || !numberBedrooms || !datesOccupied || !sleeps || !price || !rating || !shortDescription || !description || !amenities) {
@@ -37,7 +37,7 @@ router.post('/', async function(req, res, next) {
 
 // deleteUnit
 router.delete('/unit', async function (req, res, next) {
-    console.log('DELETE deleteUnit')
+    // console.log('DELETE deleteUnit')
     const db = new DBWrapper
     deleteUnit = await db.deleteUnit(req.body)
     
@@ -50,7 +50,7 @@ router.delete('/unit', async function (req, res, next) {
 
 // getAllUnits
 router.get('/', async function(req, res, next) {
-    console.log('GET getAllUnits')
+    // console.log('GET getAllUnits')
     const db = new DBWrapper
     var units = await db.getAllUnits()
 
@@ -63,7 +63,7 @@ router.get('/', async function(req, res, next) {
 
 // getUnitById
 router.get('/id', async function(req, res, next) {
-    console.log('GET getUnitsByAddress')
+    // console.log('GET getUnitsByAddress')
     const db = new DBWrapper
     var unit = await db.getUnitById(req.query._id)
 
@@ -76,7 +76,7 @@ router.get('/id', async function(req, res, next) {
 
 // getUnitsByAddress
 router.get('/address', async function(req, res, next) {
-    console.log('GET getUnitsByAddress')
+    // console.log('GET getUnitsByAddress')
     const db = new DBWrapper
     var units = await db.getUnitsByAddress(req.query.address)
 
@@ -89,7 +89,7 @@ router.get('/address', async function(req, res, next) {
 
 // getUnitsByNumberBedrooms
 router.get('/numberBedrooms', async function(req, res, next) {
-    console.log('GET getUnitsByNumberBedrooms')
+    // console.log('GET getUnitsByNumberBedrooms')
     const db = new DBWrapper
     const bedrooms = parseInt(req.query.numberBedrooms)
 
@@ -108,7 +108,7 @@ router.get('/numberBedrooms', async function(req, res, next) {
 
 // getUnitsByNumberBedroomsHigh
 router.get('/numberBedrooms/high', async function(req, res, next) {
-    console.log('GET getUnitsByNumberBedroomsHigh')
+    // console.log('GET getUnitsByNumberBedroomsHigh')
     const db = new DBWrapper
     var units = await db.getUnitsByNumberBedroomsHigh()
 
@@ -121,7 +121,7 @@ router.get('/numberBedrooms/high', async function(req, res, next) {
 
 // getUnitsByNumberBedroomsLow
 router.get('/numberBedrooms/low', async function(req, res, next) {
-    console.log('GET getUnitsByNumberBedroomsLow')
+    // console.log('GET getUnitsByNumberBedroomsLow')
     const db = new DBWrapper
     var units = await db.getUnitsByNumberBedroomsLow()
 
@@ -134,7 +134,7 @@ router.get('/numberBedrooms/low', async function(req, res, next) {
 
 // getUnitsByOwnerId
 router.get('/ownerId', async function(req, res, next) {
-    console.log('GET getUnitsByOwnerId')
+    // console.log('GET getUnitsByOwnerId')
     const db = new DBWrapper
     var units = await db.getUnitsByOwnerId(req.query.ownerId)
 
@@ -147,7 +147,7 @@ router.get('/ownerId', async function(req, res, next) {
 
 // getUnitsByPrice
 router.get('/price', async function(req, res, next) {
-    console.log('GET getUnitsByPrice')
+    // console.log('GET getUnitsByPrice')
     const db = new DBWrapper
     const price = parseFloat(req.query.price)
 
@@ -166,7 +166,7 @@ router.get('/price', async function(req, res, next) {
 
 // getUnitsByPriceHigh
 router.get('/price/high', async function(req, res, next) {
-    console.log('GET getUnitsByPriceHigh')
+    // console.log('GET getUnitsByPriceHigh')
     const db = new DBWrapper
     var units = await db.getUnitsByPriceHigh()
 

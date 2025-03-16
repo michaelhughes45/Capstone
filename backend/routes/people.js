@@ -5,7 +5,7 @@ var router = express.Router()
 
 // addPerson()
 router.post('/', async function(req, res, next) {
-    console.log('POST addPerson')
+    // console.log('POST addPerson')
     const db = new DBWrapper
     const person = new Person(req.body.name, req.body.username, req.body.password, req.body.type, req.body.unitsStayedIn, req.body.unitsOwned)
     const savedPerson = await db.addPerson(person)
@@ -15,7 +15,7 @@ router.post('/', async function(req, res, next) {
 
 // deletePerson()
 router.delete('/person', async function (req, res, next) {
-    console.log('DELETE deletePerson')
+    // console.log('DELETE deletePerson')
     const db = new DBWrapper
     deletePerson = await db.deletePerson(req.body)
     if(deletePerson) {
@@ -27,7 +27,7 @@ router.delete('/person', async function (req, res, next) {
 
 // getAllPeople()
 router.get('/', async function(req, res, next) {
-    console.log('GET getAllPeople')
+    // console.log('GET getAllPeople')
     const db = new DBWrapper
     var people = await db.getAllPeople()
     res.status(200).send(people)
@@ -35,7 +35,7 @@ router.get('/', async function(req, res, next) {
 
 // getPersonById()
 router.get('/id', async function(req, res, next) {
-    console.log('GET getPersonById')
+    // console.log('GET getPersonById')
     const db = new DBWrapper
     var person = await db.getPersonById(req.query._id)
     res.status(200).send(person)
@@ -43,7 +43,7 @@ router.get('/id', async function(req, res, next) {
 
 // getPersonByUsername()
 router.get('/username', async function(req, res, next) {
-    console.log('GET getPersonByUsername')
+    // console.log('GET getPersonByUsername')
     const db = new DBWrapper
     var person = await db.getPersonByUsername(req.query.username)
     res.status(200).send(person)
@@ -51,7 +51,7 @@ router.get('/username', async function(req, res, next) {
 
 // getUnitsOwned()
 router.get('/unitsOwned', async function(req, res, next) {
-    console.log('GET getUnitsOwned')
+    // console.log('GET getUnitsOwned')
     const db = new DBWrapper
     var units = await db.getUnitsOwned(req.query.username)
     res.status(200).send(units)
@@ -59,7 +59,7 @@ router.get('/unitsOwned', async function(req, res, next) {
 
 // getUnitsStayedIn()
 router.get('/unitsStayedIn', async function(req, res, next) {
-    console.log('GET getUnitsStayedIn')
+    // console.log('GET getUnitsStayedIn')
     const db = new DBWrapper
     var units = await db.getUnitsStayedIn(req.query.username)
     res.status(200).send(units)
@@ -67,7 +67,7 @@ router.get('/unitsStayedIn', async function(req, res, next) {
 
 // updatePerson()
 router.put('/person', async function (req, res, next) {
-    console.log('PUT updatePerson')
+    // console.log('PUT updatePerson')
     const db = new DBWrapper
     const updatedPerson = await db.updatePerson(req.body)
 
