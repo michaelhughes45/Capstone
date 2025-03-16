@@ -5,7 +5,7 @@ var router = express.Router()
 
 // addStay()
 router.post('/', async function(req, res, next) {
-    console.log('POST addStay')
+    // console.log('POST addStay')
     const db = new DBWrapper
     const stay = new Stay(req.body.personId, req.body.ownerId, req.body.unitId, req.body.startDate, req.body.endDate, req.body.dates, req.body.paymentStatus, req.body.status)
     const savedStay = await db.addStay(stay)
@@ -15,7 +15,7 @@ router.post('/', async function(req, res, next) {
 
 // deleteStay()
 router.delete('/stay', async function (req, res, next) {
-    console.log('DELETE deleteStay')
+    // console.log('DELETE deleteStay')
     const db = new DBWrapper
     deleteStay = await db.deleteStay(req.body)
     if(deleteStay) {
@@ -27,7 +27,7 @@ router.delete('/stay', async function (req, res, next) {
 
 // getAllStays()
 router.get('/', async function(req, res, next) {
-    console.log('GET getAllStays')
+    // console.log('GET getAllStays')
     const db = new DBWrapper
     var stays = await db.getAllStays()
     res.status(200).send(stays)
@@ -35,7 +35,7 @@ router.get('/', async function(req, res, next) {
 
 // getStaysByPaymentStatus()
 router.get('/paymentStatus', async function(req, res, next) {
-    console.log('GET getStaysByPaymentStatus')
+    // console.log('GET getStaysByPaymentStatus')
     const db = new DBWrapper
     var stays = await db.getStaysByPaymentStatus(req.query.paymentStatus)
     res.status(200).send(stays)
@@ -43,7 +43,7 @@ router.get('/paymentStatus', async function(req, res, next) {
 
 // getStaysByOnwerId()
 router.get('/ownerId', async function(req, res, next) {
-    console.log('GET getStaysByOwnerId')
+    // console.log('GET getStaysByOwnerId')
     const db = new DBWrapper
     var stays = await db.getStaysByOwnerId(req.query.ownerId)
     res.status(200).send(stays)
@@ -51,7 +51,7 @@ router.get('/ownerId', async function(req, res, next) {
 
 // getStaysByPersonId()
 router.get('/personId', async function(req, res, next) {
-    console.log('GET getStaysByPersonId')
+    // console.log('GET getStaysByPersonId')
     const db = new DBWrapper
     var stays = await db.getStaysByPersonId(req.query.personId)
     res.status(200).send(stays)
@@ -59,7 +59,7 @@ router.get('/personId', async function(req, res, next) {
 
 // getStaysByUnitId()
 router.get('/unitId', async function(req, res, next) {
-    console.log('GET getStaysByUnitId')
+    // console.log('GET getStaysByUnitId')
     const db = new DBWrapper
     var stays = await db.getStaysByUnitId(req.query.unitId)
     res.status(200).send(stays)
@@ -67,7 +67,7 @@ router.get('/unitId', async function(req, res, next) {
 
 // updateStay()
 router.put('/stay', async function (req, res, next) {
-    console.log('PUT updateStay')
+    // console.log('PUT updateStay')
     const db = new DBWrapper
     const updatedStay = await db.updateStay(req.body)
 

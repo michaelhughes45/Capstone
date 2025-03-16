@@ -8,7 +8,7 @@ var router = express.Router()
 
 // addReview()
 router.post('/', async function(req, res, next) {
-    console.log('POST addReview')
+    // console.log('POST addReview')
     const db = new DBWrapper
     const review = new Review(req.body.unitId, req.body.name, req.body.nameId, req.body.reviewText, req.body.rating, req.body.verified)
     const savedReview = await db.addReview(review)
@@ -31,7 +31,7 @@ router.delete('/review', async function (req, res, next) {
 
 // getAllReviews() from dbWrapper
 router.get('/', async function(req, res, next) {
-    console.log('GET getAllReviews')
+    // console.log('GET getAllReviews')
     const db = new DBWrapper
     var reviews = await db.getAllReviews()
     res.status(200).send(reviews)
@@ -39,7 +39,7 @@ router.get('/', async function(req, res, next) {
 
 // getReviewsByNameId()
 router.get('/nameId', async function(req, res, next) {
-    console.log('GET getReviewsByNameId')
+    // console.log('GET getReviewsByNameId')
     const db = new DBWrapper
     var reviews = await db.getReviewsByNameId(req.query.nameId)
     res.status(200).send(reviews)
@@ -47,7 +47,7 @@ router.get('/nameId', async function(req, res, next) {
 
 // getReviewsByUnitId
 router.get('/unitId', async function(req, res, next) {
-    console.log('GET getReviewsByUnitId')
+    // console.log('GET getReviewsByUnitId')
     const db = new DBWrapper
     var reviews = await db.getReviewsByUnitId(req.query.unitId)
     res.status(200).send(reviews)
@@ -56,7 +56,7 @@ router.get('/unitId', async function(req, res, next) {
 // updateReview()
 // STILL NEED TO WRITE THIS FUNCTION
 router.put('/review', async function (req, res, next) {
-    console.log('PUT updateReview')
+    // console.log('PUT updateReview')
     const db = new DBWrapper
     const updatedReview = await db.updateReview(req.body)
 
