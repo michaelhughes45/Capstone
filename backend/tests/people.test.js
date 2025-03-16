@@ -120,13 +120,13 @@ describe('People Routes', () => {
         expect(mockDB.updatePerson).toHaveBeenCalledWith(expect.objectContaining(updatedPerson))
     })
 
-    test('PUT /people/person should return 400 if person not found', async () => {
+    test('PUT /people/person should return 404 if person not found', async () => {
         const updatedPerson = { _id: '99999', name: 'Nonexistent' }
         mockDB.updatePerson.mockResolvedValue(null)
 
         const res = await request(app).put('/people/person').send(updatedPerson)
 
-        expect(res.status).toBe(400)
+        expect(res.status).toBe(404)
         expect(res.body).toEqual({ message: "Person not found" })
         expect(mockDB.updatePerson).toHaveBeenCalledWith(expect.objectContaining(updatedPerson))
     })
