@@ -88,6 +88,7 @@ const UnitSchema = mongoose.Schema(
         address: { type: String, required: true },
         unitNumber: { type: String, required: true },
         numberBedrooms: { type: Number, required: true },
+        datesOccupied: { type: [String], required: true },
         sleeps: { type: Number, required: true },
         price: { type: Number, required: true },
         rating: { type: Number, required: true },
@@ -624,6 +625,18 @@ module.exports = class DBWrapper {
         }
     }
 
+    // getUnitById()
+    async getUnitById(id) {
+        console.log('getUnitById not tested yet')
+        try {
+            const unit = await UnitModel.find({_id: id}).exec()
+            return unit
+        } catch(error) {
+            console.error('Error getting unit by id:', error)
+            return null
+        }
+    }
+
     // getUnitsByAddress
     async getUnitsByAddress(address) {
         console.log('getUnitsByAddress not tested yet')
@@ -632,42 +645,6 @@ module.exports = class DBWrapper {
             return units
         } catch(error) {
             console.error('Error getting units by address:', error)
-            return null
-        }
-    }
-
-    // getUnitsByAmenitiesHotTub
-    async getUnitsByAmenitiesHotTub() {
-        console.log('getUnitsByAmenitiesHotTub not tested yet')
-        try {
-            const units = await UnitModel.find({ amenities: "hotTub" }).exec()
-            return units
-        } catch (error) {
-            console.error("Error retrieving units with hot tub:", error)
-            return null
-        }
-    }
-
-    // getUnitsWithHotTubAndPool
-    async getUnitsWithHotTubAndPool() {
-        console.log('getUnitsByAmenitiesHotTubAndPool not tested yet')
-        try {
-            const units = await UnitModel.find({ amenities: { $all: ["hotTub", "pool"] } }).exec()
-            return units
-        } catch (error) {
-            console.error("Error retrieving units with hot tub and pool:", error)
-            return null
-        }
-    }
-
-    // getUnitsByAmenitiesPool
-    async getUnitsByAmenitiesPool() {
-        console.log('getUnitsByAmenitiesPool not tested yet')
-        try {
-            const units = await UnitModel.find({ amenities: "pool" }).exec()
-            return units
-        } catch (error) {
-            console.error("Error retrieving units with pool:", error)
             return null
         }
     }
@@ -826,6 +803,42 @@ module.exports = class DBWrapper {
             console.error("Error retrieving units sorted by rating (low to high):", error)
             return null
         } 
+    }
+
+    // getUnitsByAmenitiesHotTub
+    async getUnitsWithAmenitiesHotTub() {
+        console.log('getUnitsByAmenitiesHotTub not tested yet')
+        try {
+            const units = await UnitModel.find({ amenities: "hotTub" }).exec()
+            return units
+        } catch (error) {
+            console.error("Error retrieving units with hot tub:", error)
+            return null
+        }
+    }
+
+    // getUnitsWithHotTubAndPool
+    async getUnitsWithAmenitiesHotTubAndPool() {
+        console.log('getUnitsByAmenitiesHotTubAndPool not tested yet')
+        try {
+            const units = await UnitModel.find({ amenities: { $all: ["hotTub", "pool"] } }).exec()
+            return units
+        } catch (error) {
+            console.error("Error retrieving units with hot tub and pool:", error)
+            return null
+        }
+    }
+
+    // getUnitsByAmenitiesPool
+    async getUnitsWithAmenitiesPool() {
+        console.log('getUnitsByAmenitiesPool not tested yet')
+        try {
+            const units = await UnitModel.find({ amenities: "pool" }).exec()
+            return units
+        } catch (error) {
+            console.error("Error retrieving units with pool:", error)
+            return null
+        }
     }
 
     // updateUnit

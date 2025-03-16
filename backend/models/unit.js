@@ -5,18 +5,20 @@ module.exports = class Unit {
     address = null
     unitNumber = null
     numberBedrooms = null
+    datesOccupied = null
     sleeps = null
     price = null
     rating = null
-    shortDescription
+    shortDescription = null
     description = null
     amenities = null
 
-    constructor(ownerId, address, unitNumber, numberBedrooms, sleeps, price, rating, shortDescription, description, amenities) {
+    constructor(ownerId, address, unitNumber, numberBedrooms, datesOccupied, sleeps, price, rating, shortDescription, description, amenities) {
         this.ownerId = ownerId
         this.address = address
         this.unitNumber = unitNumber
         this.numberBedrooms = numberBedrooms
+        this.datesOccupied = datesOccupied
         this.sleeps = sleeps
         this.price = price
         this.rating = rating

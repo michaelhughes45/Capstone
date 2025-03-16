@@ -10,6 +10,7 @@ var activitiesRouter = require('./routes/activities')
 var peopleRouter = require('./routes/people')
 var staysRouter = require('./routes/stays')
 var picturesRouter = require('./routes/pictures')
+var unitsRouter = require('./routes/units')
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -28,6 +29,7 @@ app.use('/activities', activitiesRouter)
 app.use('/people', peopleRouter)
 app.use('/stays', staysRouter)
 app.use('/pictures', picturesRouter)
+app.use('/units', unitsRouter)
 
 
 // this is only to test if frontend can recieve information from backend
