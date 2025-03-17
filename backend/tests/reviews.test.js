@@ -117,8 +117,8 @@ describe('Reviews Routes', () => {
 
         const res = await request(app).put('/reviews/review').send(reviewToUpdate)
 
-        expect(res.status).toBe(400);
-        expect(res.body).toEqual({ message: "Activity not found" })
+        expect(res.status).toBe(404);
+        expect(res.body).toEqual({ message: "Review not found" })
         expect(mockDB.updateReview).toHaveBeenCalledWith(expect.objectContaining(reviewToUpdate))
     })
 })
