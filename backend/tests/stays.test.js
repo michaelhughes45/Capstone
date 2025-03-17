@@ -117,26 +117,39 @@ describe('Stays Routes', () => {
             personId: 'P1',
             ownerId: 'O1',
             unitId: 'U1',
+            startDate: '2025-06-01',
+            endDate: '2025-06-10',
+            dates: ['2025-06-01', '2025-06-02'],
             paymentStatus: 'paid',
             status: 'completed'
         };
-
-        mockDB.updateStay.mockResolvedValue(updatedStay);
-
+    
+        mockDB.updateStay.mockResolvedValue(updatedStay); // Simulating a successful update
+    
         const res = await request(app).put('/stays/stay').send(updatedStay);
-
+    
         expect(res.status).toBe(200);
         expect(res.body).toEqual(updatedStay);
         expect(mockDB.updateStay).toHaveBeenCalledWith(expect.objectContaining(updatedStay));
     });
 
-    test('PUT /stays/stay should return 400 if stay not found', async () => {
-        const updatedStay = { _id: '99999', personId: 'P9' };
+    test('PUT /stays/stay should return 404 if stay not found', async () => {
+        const updatedStay = {
+            _id: '12345',
+            personId: 'P1',
+            ownerId: 'O1',
+            unitId: 'U1',
+            startDate: '2025-06-01',
+            endDate: '2025-06-10',
+            dates: ['2025-06-01', '2025-06-02'],
+            paymentStatus: 'paid',
+            status: 'completed'
+        };
         mockDB.updateStay.mockResolvedValue(null);
 
         const res = await request(app).put('/stays/stay').send(updatedStay);
 
-        expect(res.status).toBe(400);
+        expect(res.status).toBe(404);
         expect(res.body).toEqual({ message: "Stay not found" });
         expect(mockDB.updateStay).toHaveBeenCalledWith(expect.objectContaining(updatedStay));
     });

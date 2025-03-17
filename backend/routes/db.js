@@ -525,7 +525,7 @@ module.exports = class DBWrapper {
     }
 
     // getStaysByOwnerId()
-    async getStaysByOnwerId(ownerId) {
+    async getStaysByOwnerId(ownerId) {
         try {
             const stays = await StayModel.find({ownerId: ownerId}).exec()
             return stays
@@ -558,7 +558,7 @@ module.exports = class DBWrapper {
     }
 
     // updateStays()
-    async updateStays(stay) {
+    async updateStay(stay) {
         try {
             const updatedStay = await StayModel.findByIdAndUpdate(
                 stay._id,
