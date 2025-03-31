@@ -4,6 +4,11 @@ const cors = require('cors')
 const connectDB = require('./routes/connection')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+const mongoSanitize = require('express-mongo-sanitize')
+const helmet = require('helmet')
+const rateLimit = require('express-rate-limit')
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }) // 100 requests per 15 minutes
+app.use(limiter)
 
 var reviewsRouter = require('./routes/reviews')
 var activitiesRouter = require('./routes/activities')
@@ -22,6 +27,10 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(logger('dev'))
+app.use(mongoSanitize())
+app.use(helmet())
+app.use(limiter)
+
 
 // routes
 app.use('/reviews', reviewsRouter)
