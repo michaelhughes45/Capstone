@@ -1,3 +1,4 @@
+// I used test snipits from chatgpt
 const request = require('supertest');
 const express = require('express')
 const activitiesRouter = require('../routes/activities')

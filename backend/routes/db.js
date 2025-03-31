@@ -6,6 +6,7 @@ const Picture = require('../models/picture')
 const Stay = require('../models/stay')
 const Unit = require('../models/unit')
 
+
 const mongoose = require('mongoose')
 
 // Have this here for now but could remove it to just have the separate connection call on connection.js
@@ -17,6 +18,8 @@ const mongoose = require('mongoose')
 //     )
 
 // schemas
+
+
 
 // Activity Schema
 const ActivitySchema = mongoose.Schema(
