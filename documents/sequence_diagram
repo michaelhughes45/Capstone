@@ -1,0 +1,118 @@
+Sequence diagram: 
+
+Julia goes to website to see available properties
+	website loads
+		- loads react frontend
+			-request data from backend via webservice
+				-webservice returns the information from local storage/json files
+		-callback function will generate card data
+		-website will return data to julia
+
+Julia will click on the 2 bedroom card to filter the apartments she wants to see
+	website will load the rental properties page
+	- loads react frontend
+		-request data from backend via webservice
+			-webservice requests data from database
+			-webservice will load data from database
+			-webservice will return the information on 2 bedroom apartments
+	-callback function will generate card data
+	-website will return data to julia
+
+Julia will select the dates she wants to stay 
+	website will load the rental properties page
+	- loads react frontend
+		-request data from backend via webservice
+			-webservice requests data from database
+			-webservice will load data from database
+			-webservice will return the information on 2 bedroom apartments during the dates chosen
+	-callback function will generate card data
+	-website will return data to julia
+
+Julia will select the apartment card of the apartment she wants to stay in
+	website will load apartment page
+	- loads react frontend
+		-request data from backend via webservice
+			-webservice requests data from database
+			-webservice will load data from database
+			-webservice will return the information the aparment chosen
+	-callback function will generate card data
+	-website will return data to julia
+
+Julia selects the book apartment button
+	website will load the login page/moadal
+	- loads react frontend
+	- loads the form information from the backend
+	-website will return data to julia
+
+Julia will fill out the form and login in
+	loads react frontend
+		-send data from backend via webservice
+			-data will be sent to database to create her account
+			-data will be sent to the database to create her booking
+	-callback function will generate card data
+	-website will return data to julia with the modal to confirm her booking
+
+Julia navigates back to the home page by clicking the home button on nav bar
+	website loads
+		- loads react frontend
+			-request data from backend via webservice
+				-webservice returns the information from local storage/json files
+		-website will return data to julia
+
+Julia wants to look at the things to do in the area so clicks on the things to do card:
+	website will load apartment page
+	- loads react frontend
+		-request data from backend via webservice
+			-webservice requests data from database
+			-webservice will load data from database
+			-webservice will return the information from things to do
+	-callback function will generate card data
+	-website will return data to julia
+
+Julia is interested in dining so clicks on the dining filter
+	website will load apartment page
+	- loads react frontend
+		-request data from backend via webservice
+			-webservice requests data from database
+			-webservice will load data from database
+			-webservice will return the information from things to do filtering for dining
+	-callback function will generate card data
+	-website will return data to julia	
+
+
+
+condo page(filter by: 2 bedrooms)load:
+	index.html/condo/2 
+		GET
+		RETURN -> units [{
+			Id
+			Owner Id
+			Reviews
+			name/address
+			Unit number
+			Dates occupied
+			Descriptions
+		}, pictures {
+			Id
+			Unit Id 
+			Pictures
+			Display Id
+		}, etc]
+
+condo page(filter by: 2 bedroom and date)load:
+	index.html/condo/2/2_13_2025/2_20_2025 
+		GET
+		RETURN -> units [{
+			Id
+			Owner Id
+			Reviews
+			name/address
+			Unit number
+			Dates occupied
+			Descriptions
+		}, pictures {
+			Id
+			Unit Id 
+			Pictures
+			Display Id
+		}, etc]
