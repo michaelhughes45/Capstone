@@ -1,0 +1,55 @@
+classes:
+person
+	constructor (person)
+	get/set id (get returns id, set takes in id)
+	get/set name (get returns name, set takes in name)
+	get/set type (get return type, set takes in type)
+	get/set units stayed in
+		set takes in person id, end date, payed status or list of units
+		queries planned stays table to get information
+		get returns a list of units ids 
+	get/set owned
+		set takes in person id
+		get queries unit table with person id
+		get returns a list of units
+	get/set planned stays id
+		set takes in planned stays list or person id and start date
+		queries table to
+		returns a list of planned stays ids
+planned stays
+	constructor (planned_stays) 
+	get/set id (set takes in id, get returns id)
+	get/set person id (set takes in id, get returns id)
+	get/set unit id (set takes in unit id, get returns unit id)
+	get/set start date (set takes in date, get returns date)
+	get/set end date (set takes in date, get returns date)
+	get/set payment status (set takes in status, get returns status)
+unit
+	constructor (unit object)
+	get/set id (set takes in id, get returns id)
+	get/set owner id (set takes in id, get returns id)
+	get/set address (set takes in address, get returns address)
+	get/set unit number (set takes in number, get returns number)
+	get/set reviews (returns list of reviews)
+	get/set dates occupied
+		set takes in a list of dates occupied
+		get returns a list of dates occupied
+	get/set descripitons
+		set takes in json object with the descriptions inside
+		get returns a descriptions object (json)
+pictures
+	constructor (pictures object)
+	get/set id (set takes in id, get returns id)
+	get/set unit id (set takes in id, get returns id)
+	get/set pictures
+		set takes in a list of pictures
+		get returns a list of pictures 
+	get/set display order
+		set takes in a list of numbers for displaying order
+		get returns a list of numbers for displaying order
+reviews
+	constructor (review object)
+	get/set unit number (takes in number, returns number)
+	get/set unit review (takes in string, returns string)
+	get/set unit rating (takes in number, returns number)
+	get/set unit name (takes in string, returns string)

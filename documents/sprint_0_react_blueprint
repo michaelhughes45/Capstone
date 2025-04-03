@@ -1,0 +1,36 @@
+react page components:
+Home page:
+  -navbar
+  -search modal
+  -specific search cards
+    -info cards
+  -company info
+  -property management
+  -guide to city
+    -what to do cards
+  -reviews
+    -review cards
+  -map
+  -footer
+condo rental page:
+  -results 
+    -condo cards
+  -map
+  -footer
+Review page:
+  -search modal
+  -reviews
+    -review cards
+Manage rentals(owner):
+  -booked stays
+    -individual stay card
+  -reviews to be verified cards
+    -individual review cards
+  -add unit
+Manage stays (consumer):
+  -booked stays
+Activities/dining/events
+  -event card
+contact us page:
+  -explainer card
+  -text box 
