@@ -9,7 +9,6 @@ const helmet = require('helmet')
 const dotenv = require('dotenv').config()
 const rateLimit = require('express-rate-limit')
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }) // 100 requests per 15 minutes
-app.use(limiter)
 
 // import routes
 const authRoutes = require('./routes/auth')
@@ -19,16 +18,22 @@ const userRoutes = require('./routes/user')
 
 const corsOptions = {
     origin: "http://localhost:5173",
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }
 
 // middleware
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+// app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: true }))
 app.use(logger('dev'))
 app.use(mongoSanitize())
-app.use(helmet())
+// causes error I have this error: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin
+// app.use(helmet())
+// correct way, does not error
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(limiter)
 app.use(express.static('public'))
 
@@ -40,13 +45,13 @@ app.use('/bookings', bookingRoutes)
 app.use('/users', userRoutes)
 
 
-// this is only to test if frontend can recieve information from backend
-app.get("/api", (req, res) => {
-    res.json({"value": "Condo Rentals"})
-})
+// // this is only to test if frontend can recieve information from backend
+// app.get("/api", (req, res) => {
+//     res.json({"value": "Condo Rentals"})
+// })
 
 if (require.main === module) {
-    const PORT = 8080
+    const PORT = 3001
     app.listen(PORT, async () => {
         connectDB()
         console.log(`Server started on port ${PORT}`)

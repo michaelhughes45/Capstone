@@ -1,94 +1,118 @@
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react"; // Install: npm install lucide-react
+import { IconButton } from "@mui/material";
+import { Search, Person, Menu } from "@mui/icons-material";
+// import variables from "../styles/variables.scss";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import "../styles/Navbar.scss";
+import { Link, useNavigate } from "react-router-dom";
+import { setLogout } from "../redux/state";
+import { flushSync } from "react-dom";
+
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownMenu, setDropdownMenu] = useState(false);
 
-  const navLinks = [
-    "Home",
-    "Rentals",
-    "Real Estate Sales",
-    "About Us",
-    "Blog",
-    "Guest Reviews",
-    "Guest Login",
-    "Contact",
-  ];
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const [search, setSearch] = useState("")
+
+  const navigate = useNavigate()
+
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  useEffect(() => {
+    if (isLoggingOut && !user) {
+      navigate("/login", { replace: true });
+      setIsLoggingOut(false);
+    }
+  }, [isLoggingOut, user, navigate]);
+
 
   return (
-    <nav className="bg-sky-900 text-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <a href="/" className="text-xl font-logo flex items-center space-x-2">
-          <img
-            src="/logo.png" // Replace with actual logo
-            alt="Logo"
-            className="h-8"
+    <div className="navbar">
+      <a href="/">
+        <img src="/assets/logo.png" alt="logo" />
+      </a>
+
+      <div className="navbar_search">
+        <input
+          type="text"
+          placeholder="Search ..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <IconButton disabled={search === ""}>
+          <Search
+            sx={{ color: "var(--pinkred)" }}
+            onClick={() => {navigate(`/properties/search/${search}`)}}
           />
-          <span className="hidden sm:inline">Greta's Beach Rentals</span>
-        </a>
-
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex space-x-6">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`/${link.toLowerCase().replace(/ /g, "-")}`}
-              className="hover:text-teal-300 text-sm uppercase"
-            >
-              {link}
-            </a>
-          ))}
-        </div>
-
-        {/* Right side - Phone & User Links */}
-        <div className="hidden md:flex items-center space-x-6 text-sm">
-          <a href="tel:8505585518" className="hover:text-teal-300">
-            📞 (850) 558-5518
-          </a>
-          <a href="/rentals" className="hover:text-teal-300">
-            ❤️ My Rentals
-          </a>
-          <a href="/recent" className="hover:text-teal-300">
-            👁️ Recently Viewed (0)
-          </a>
-        </div>
-
-        {/* Hamburger Menu */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        </IconButton>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-sky-800 px-4 pb-4 space-y-2">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`/${link.toLowerCase().replace(/ /g, "-")}`}
-              className="block text-sm uppercase py-1 border-b border-sky-700"
-            >
-              {link}
-            </a>
-          ))}
-          <div className="pt-2 text-sm space-y-1">
-            <a href="tel:8505585518" className="block">
-              📞 (850) 558-5518
-            </a>
-            <a href="/rentals" className="block">
-              ❤️ My Rentals
-            </a>
-            <a href="/recent" className="block">
-              👁️ Recently Viewed (0)
-            </a>
+      <div className="navbar_right">
+        {user ? (
+          <a href="/create-listing" className="host">
+            Become A Host
+          </a>
+        ) : (
+          <a href="/login" className="host">
+            Become A Host
+          </a>
+        )}
+
+        <button
+          className="navbar_right_account"
+          onClick={() => setDropdownMenu(!dropdownMenu)}
+        >
+          <Menu sx={{ color: "var(--darkgrey)" }} />
+          {!user || !user.profileImagePath ? (
+            <img
+              src="/default_user.png"
+              alt="default profile"
+              style={{ objectFit: "cover", borderRadius: "50%" }}
+            />
+          ) : (
+            <img
+              src={`http://localhost:3001${user.profileImagePath}`}
+              alt="profile"
+              style={{ objectFit: "cover", borderRadius: "50%" }}
+            />
+          )}
+        </button>
+
+        {dropdownMenu && !user && (
+          <div className="navbar_right_accountmenu">
+            <Link to="/login">Log In</Link>
+            <Link to="/register">Sign Up</Link>
           </div>
-        </div>
-      )}
-    </nav>
+        )}
+
+        {dropdownMenu && user && (
+          <div className="navbar_right_accountmenu">
+            <Link to={`/${user._id}/trips`}>Trip List</Link>
+            <Link to={`/${user._id}/wishList`}>Wish List</Link>
+            <Link to={`/${user._id}/properties`}>Property List</Link>
+            <Link to={`/${user._id}/reservations`}>Reservation List</Link>
+            <Link to="/create-listing">Become A Host</Link>
+
+            <Link
+              to="#"
+              onClick={() => {
+                // e.preventDefault()
+                dispatch(setLogout());
+                setIsLoggingOut(true);
+                // navigate("/login", { replace: true });
+                // window.location.href = "/login";
+              }}
+            >
+              Log Out
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

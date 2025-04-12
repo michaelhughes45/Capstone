@@ -21,11 +21,13 @@ router.post('/register', upload.single('profileImage'),async (req, res) => {
         const { firstName, lastName, email, password } = req.body
         const profileImage = req.file
 
+
         if (!profileImage) {
             return res.status(400).json({ error: 'No file uploaded' })
         }
         // path to the uploaded profile photo
-        const profileImagePath = profileImage.path
+        // const profileImagePath = profileImage.path
+        const profileImagePath = profileImage?.path.replace("public", "").replace(/\\/g, '/');
 
         // Check if user already exists
         const existingUser = await User.findOne({ email }).exec()
@@ -69,6 +71,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ error: 'Invalid Credentials' })
         }
         // Create JWT token
+        console.log('JWT_SECRET:', process.env.JWT_SECRET); // should print your secret
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
         delete user.password // Remove password from user object
         // Send success response
