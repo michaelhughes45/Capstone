@@ -15,7 +15,7 @@ router.post("/create", async (req, res) => {
     await newBooking.save();
     res.status(200).json(newBooking);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(400).json({ message: "Fail to create a new Booking!", error: err.message });
   }
 });
@@ -32,7 +32,7 @@ router.get('/listing/:listingId', async (req, res) => {
 
     res.status(200).json(bookings);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Failed to retrieve bookings", error: err.message });
   }
 });
@@ -48,7 +48,7 @@ router.delete("/:bookingId", async (req, res) => {
 
     res.status(200).json({ message: "Booking cancelled successfully" });
   } catch (err) {
-    console.error("Delete booking error:", err);
+    // console.error("Delete booking error:", err);
     res.status(500).json({ message: "Failed to cancel booking", error: err.message });
   }
 });

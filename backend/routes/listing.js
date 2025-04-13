@@ -43,8 +43,8 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
 
     const listingPhotos = req.files
 
-    if (!listingPhotos) {
-      return res.status(400).send("No file uploaded.")
+    if (!listingPhotos || listingPhotos.length === 0) {
+      return res.status(400).send("No file uploaded.");
     }
 
     const listingPhotoPaths = listingPhotos.map((file) => file.path)
@@ -71,12 +71,14 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       price,
     })
 
-    await newListing.save()
+    // await newListing.save()
+    const savedListing = await newListing.save()
 
-    res.status(200).json(newListing)
+    // res.status(200).json(newListing)
+    res.status(200).json(savedListing)
   } catch (err) {
     res.status(409).json({ message: "Fail to create Listing", error: err.message })
-    console.log(err)
+    // console.log(err)
   }
 });
 
@@ -95,7 +97,7 @@ router.get("/", async (req, res) => {
     res.status(200).json(listings)
   } catch (err) {
     res.status(404).json({ message: "Fail to fetch listings", error: err.message })
-    console.log(err)
+    // console.log(err)
   }
 })
 
@@ -123,7 +125,7 @@ router.get("/search/:search", async (req, res) => {
     res.status(200).json(listings)
   } catch (err) {
     res.status(404).json({ message: "Fail to fetch listings", error: err.message })
-    console.log(err)
+    // console.log(err)
   }
 })
 

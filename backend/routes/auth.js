@@ -51,7 +51,7 @@ router.post('/register', upload.single('profileImage'),async (req, res) => {
         // send success response
         res.status(200).json({ message: 'User registered successfully', user: newUser })
     } catch (err) {
-        console.error(err)
+        // console.error(err)
         res.status(500).json({ message: "Registration failed!", err })
     }
 })
@@ -71,13 +71,12 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ error: 'Invalid Credentials' })
         }
         // Create JWT token
-        console.log('JWT_SECRET:', process.env.JWT_SECRET); // should print your secret
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
         delete user.password // Remove password from user object
         // Send success response
         res.status(200).json({ message: 'Login successful', token, user })
     } catch (err) {
-        console.error(err)
+        // console.error(err)
         res.status(500).json({ message: "Login failed!", err })
     }
 })
