@@ -50,7 +50,7 @@ const CategoryPage = () => {
             creator,
             listingPhotoPaths,
             city,
-            province,
+            state,
             country,
             category,
             type,
@@ -62,7 +62,7 @@ const CategoryPage = () => {
               creator={creator}
               listingPhotoPaths={listingPhotoPaths}
               city={city}
-              province={province}
+              state={state}
               country={country}
               category={category}
               type={type}

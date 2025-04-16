@@ -23,7 +23,7 @@ const CreateListing = () => {
     streetAddress: "",
     aptSuite: "",
     city: "",
-    province: "",
+    state: "",
     country: "",
   });
 
@@ -119,7 +119,7 @@ const CreateListing = () => {
       listingForm.append("streetAddress", formLocation.streetAddress);
       listingForm.append("aptSuite", formLocation.aptSuite);
       listingForm.append("city", formLocation.city);
-      listingForm.append("province", formLocation.province);
+      listingForm.append("state", formLocation.state);
       listingForm.append("country", formLocation.country);
       listingForm.append("guestCount", guestCount);
       listingForm.append("bedroomCount", bedroomCount);
@@ -232,12 +232,12 @@ const CreateListing = () => {
 
             <div className="half">
               <div className="location">
-                <p>Province</p>
+                <p>state</p>
                 <input
                   type="text"
-                  placeholder="Province"
-                  name="province"
-                  value={formLocation.province}
+                  placeholder="state"
+                  name="state"
+                  value={formLocation.state}
                   onChange={handleChangeLocation}
                   required
                 />

@@ -38,7 +38,7 @@ describe('Listing Routes - Happy Paths', () => {
         streetAddress: '123 Ocean Ave',
         aptSuite: 'Unit 5',
         city: 'Miami',
-        province: 'FL',
+        state: 'FL',
         country: 'USA',
         guestCount: 4,
         bedroomCount: 2,
@@ -69,7 +69,7 @@ describe('Listing Routes - Happy Paths', () => {
         .field('streetAddress', mockListing.streetAddress)
         .field('aptSuite', mockListing.aptSuite)
         .field('city', mockListing.city)
-        .field('province', mockListing.province)
+        .field('state', mockListing.state)
         .field('country', mockListing.country)
         .field('guestCount', mockListing.guestCount)
         .field('bedroomCount', mockListing.bedroomCount)

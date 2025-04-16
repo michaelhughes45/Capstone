@@ -151,7 +151,7 @@ const ListingDetails = () => {
         </div>
 
         <h2>
-          {listing.type} in {listing.city}, {listing.province},{" "}
+          {listing.type} in {listing.city}, {listing.state},{" "}
           {listing.country}
         </h2>
         <p>

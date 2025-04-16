@@ -26,7 +26,7 @@ const ListingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    province: {
+    state: {
       type: String,
       required: true,
     },

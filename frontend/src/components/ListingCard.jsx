@@ -13,7 +13,7 @@ const ListingCard = ({
   creator,
   listingPhotoPaths,
   city,
-  province,
+  state,
   country,
   category,
   type,
@@ -122,7 +122,7 @@ const ListingCard = ({
       </div>
 
       <h3>
-        {city}, {province}, {country}
+        {city}, {state}, {country}
       </h3>
       <p>{category}</p>
 

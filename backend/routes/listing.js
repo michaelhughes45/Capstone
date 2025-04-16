@@ -27,7 +27,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       streetAddress,
       aptSuite,
       city,
-      province,
+      state,
       country,
       guestCount,
       bedroomCount,
@@ -56,7 +56,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       streetAddress,
       aptSuite,
       city,
-      province,
+      state,
       country,
       guestCount,
       bedroomCount,
@@ -116,7 +116,7 @@ router.get("/search/:search", async (req, res) => {
           { category: {$regex: search, $options: "i" } },
           { title: {$regex: search, $options: "i" } },
           { city: { $regex: search, $options: "i" } },
-          { province: { $regex: search, $options: "i" } },
+          { state: { $regex: search, $options: "i" } },
           { country: { $regex: search, $options: "i" } }
         ]
       }).populate("creator")
