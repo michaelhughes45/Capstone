@@ -1,4 +1,5 @@
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb"
+import { FaHotTubPerson } from "react-icons/fa6";
 import {
   GiBarn,
   GiBoatFishing,
@@ -269,5 +270,13 @@ export const facilities = [
   {
     name: " Pet allowed",
     icon: <MdPets />
+  },
+  {
+    name: "Pool",
+    icon: <TbPool />,
+  },
+  {
+    name: "Hot tub",
+    icon: <FaHotTubPerson />,
   }
 ]
