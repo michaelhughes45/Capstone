@@ -58,6 +58,7 @@ const PropertyList = () => {
             type,
             price,
             booking = false,
+            showDelete = true,
           }) => (
             <ListingCard
               listingId={_id}
@@ -70,6 +71,7 @@ const PropertyList = () => {
               type={type}
               price={price}
               booking={booking}
+              showDelete={showDelete}
             />
           )
         )}

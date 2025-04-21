@@ -8,7 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const dotenv = require('dotenv').config()
 const rateLimit = require('express-rate-limit')
-// const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }) // 100 requests per 15 minutes
+const limiter = rateLimit({ windowMs: 1000, max: 100 }) // 100 requests per second
 
 // import routes
 const authRoutes = require('./routes/auth')
@@ -26,15 +26,11 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
-// app.use(express.urlencoded({extended: false}))
 app.use(express.urlencoded({ extended: true }))
 app.use(logger('dev'))
 app.use(mongoSanitize())
-// causes error I have this error: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin
-// app.use(helmet())
-// correct way, does not error
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-// app.use(limiter)
+app.use(limiter)
 app.use(express.static('public'))
 
 
@@ -44,11 +40,6 @@ app.use('/properties', listingRoutes)
 app.use('/bookings', bookingRoutes)
 app.use('/users', userRoutes)
 
-
-// // this is only to test if frontend can recieve information from backend
-// app.get("/api", (req, res) => {
-//     res.json({"value": "Condo Rentals"})
-// })
 
 if (require.main === module) {
     const PORT = 3001

@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { useState } from "react";
+import React, { useState } from "react";
 import "../styles/ListingCard.scss";
 import { ArrowForwardIos, ArrowBackIosNew, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +20,8 @@ const ListingCard = ({
   endDate,
   totalPrice,
   booking,
+  showDelete = false,
 }) => {
-  /* SLIDER FOR IMAGES */
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPrevSlide = () => {
@@ -39,8 +37,6 @@ const ListingCard = ({
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  /* ADD TO WISHLIST */
   const user = useSelector((state) => state.user);
   const wishList = user?.wishList || [];
 
@@ -56,27 +52,48 @@ const ListingCard = ({
             "Content-Type": "application/json",
           },
         }
-      )
-      const data = await response.json()
-      dispatch(setWishList(data.wishList))
-    } else { return }
-  }
+      );
+      const data = await response.json();
+      dispatch(setWishList(data.wishList));
+    }
+  };
 
   const handleCancelBooking = async () => {
     try {
       const res = await fetch(`http://localhost:3001/bookings/${bookingId}`, {
         method: "DELETE",
       });
-  
+
       if (res.ok) {
         alert("Booking canceled successfully");
-        window.location.reload(); // ← This will refresh the page
+        window.location.reload();
       } else {
         const error = await res.json();
         alert(`Cancel failed: ${error.message}`);
       }
     } catch (err) {
       console.error("Cancel booking error", err.message);
+    }
+  };
+
+  const handleDeleteListing = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete this listing?");
+    if (!confirmed) return; 
+
+    try {
+      const res = await fetch(`http://localhost:3001/listings/${listingId}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        alert("Listing deleted successfully");
+        window.location.reload();
+      } else {
+        const error = await res.json();
+        alert(`Delete failed: ${error.message}`);
+      }
+    } catch (err) {
+      console.error("Delete listing error", err.message);
     }
   };
 
@@ -164,11 +181,22 @@ const ListingCard = ({
           className="cancel-booking"
           onClick={(e) => {
             e.stopPropagation();
-            console.log("bookingId:", bookingId);
             handleCancelBooking();
           }}
         >
           Cancel Booking
+        </button>
+      )}
+
+      {showDelete && (
+        <button
+          className="cancel-booking" // You can change this to "delete-listing" if you want separate styles
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteListing();
+          }}
+        >
+          Delete Listing
         </button>
       )}
     </div>
