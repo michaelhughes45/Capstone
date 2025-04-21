@@ -190,7 +190,7 @@ const ListingCard = ({
 
       {showDelete && (
         <button
-          className="cancel-booking" // You can change this to "delete-listing" if you want separate styles
+          className="cancel-booking" 
           onClick={(e) => {
             e.stopPropagation();
             handleDeleteListing();
