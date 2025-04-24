@@ -1,24 +1,27 @@
+// Importing necessary libraries, components, and data
 import React from "react";
-import "../styles/CreateListing.scss";
-import Navbar from "../components/Navbar";
-import { categories, types, facilities } from "../data.jsx";
+import "../styles/CreateListing.scss"; // Importing styles for the page
+import Navbar from "../components/Navbar"; // Navbar component
+import { categories, types, facilities } from "../data.jsx"; // Data for categories, types, and facilities
 
+// Importing icons and libraries for UI and functionality
 import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
-// import variables from "../styles/variables.scss";
-// import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { IoIosImages } from "react-icons/io";
 import { useState, useEffect } from "react";
 import { BiTrash } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer"; // Footer component
 
+// Main component for creating a listing
 const CreateListing = () => {
+  // State for category and type selection
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
 
   /* LOCATION */
+  // State for location form inputs
   const [formLocation, setFormLocation] = useState({
     streetAddress: "",
     aptSuite: "",
@@ -27,6 +30,7 @@ const CreateListing = () => {
     country: "",
   });
 
+  // Handler for updating location form inputs
   const handleChangeLocation = (e) => {
     const { name, value } = e.target;
     setFormLocation({
@@ -36,14 +40,17 @@ const CreateListing = () => {
   };
 
   /* BASIC COUNTS */
+  // State for guest, bedroom, bed, and bathroom counts
   const [guestCount, setGuestCount] = useState(1);
   const [bedroomCount, setBedroomCount] = useState(1);
   const [bedCount, setBedCount] = useState(1);
   const [bathroomCount, setBathroomCount] = useState(1);
 
   /* AMENITIES */
+  // State for selected amenities
   const [amenities, setAmenities] = useState([]);
 
+  // Handler for selecting or deselecting amenities
   const handleSelectAmenities = (facility) => {
     if (amenities.includes(facility)) {
       setAmenities((prevAmenities) =>
@@ -55,13 +62,16 @@ const CreateListing = () => {
   };
 
   /* UPLOAD, DRAG & DROP, REMOVE PHOTOS */
+  // State for uploaded photos
   const [photos, setPhotos] = useState([]);
 
+  // Handler for uploading photos
   const handleUploadPhotos = (e) => {
     const newPhotos = e.target.files;
     setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
   };
 
+  // Handler for reordering photos via drag-and-drop
   const handleDragPhoto = (result) => {
     if (!result.destination) return;
 
@@ -72,6 +82,7 @@ const CreateListing = () => {
     setPhotos(items);
   };
 
+  // Handler for removing a photo
   const handleRemovePhoto = (indexToRemove) => {
     setPhotos((prevPhotos) =>
       prevPhotos.filter((_, index) => index !== indexToRemove)
@@ -79,6 +90,7 @@ const CreateListing = () => {
   };
 
   /* DESCRIPTION */
+  // State for description form inputs
   const [formDescription, setFormDescription] = useState({
     title: "",
     description: "",
@@ -87,6 +99,7 @@ const CreateListing = () => {
     price: 0,
   });
 
+  // Handler for updating description form inputs
   const handleChangeDescription = (e) => {
     const { name, value } = e.target;
     setFormDescription({
@@ -94,24 +107,27 @@ const CreateListing = () => {
       [name]: value,
     });
   };
-  
+
+  // Navigation hook for redirecting users
   const navigate = useNavigate();
 
-  // const creatorId = useSelector((state) => state.user._id)
+  // Get the logged-in user from the Redux store
   const user = useSelector((state) => state.user);
   const creatorId = user?._id;
 
+  // Redirect to login page if the user is not logged in
   useEffect(() => {
     if (!user) {
       navigate("/login", { replace: true });
     }
   }, [user, navigate]);
 
+  // Handler for submitting the form to create a listing
   const handlePost = async (e) => {
     e.preventDefault();
-    if (!creatorId) return; // prevent if not logged in
+    if (!creatorId) return; // Prevent submission if not logged in
     try {
-      /* Create a new FormData onject to handle file uploads */
+      // Create a new FormData object to handle file uploads
       const listingForm = new FormData();
       listingForm.append("creator", creatorId);
       listingForm.append("category", category);
@@ -131,22 +147,28 @@ const CreateListing = () => {
       listingForm.append("highlight", formDescription.highlight);
       listingForm.append("highlightDesc", formDescription.highlightDesc);
       listingForm.append("price", formDescription.price);
-      /* Append each selected photos to the FormData object */
+
+      // Append each selected photo to the FormData object
       photos.forEach((photo) => {
-        listingForm.append("listingPhotos", photo)
-      })
-      /* Send a POST request to server */
+        listingForm.append("listingPhotos", photo);
+      });
+
+      // Send a POST request to the server
       const response = await fetch("http://localhost:3001/properties/create", {
         method: "POST",
         body: listingForm,
-      })
+      });
+
+      // Redirect to the homepage if the request is successful
       if (response.ok) {
-        navigate("/")
+        navigate("/");
       }
     } catch (err) {
-      console.log("Publish Listing failed", err.message)
+      console.log("Publish Listing failed", err.message);
     }
   };
+
+  // Render the Create Listing page
   return (
     <>
       <Navbar />
@@ -154,9 +176,11 @@ const CreateListing = () => {
       <div className="create-listing">
         <h1>Publish Your Place</h1>
         <form onSubmit={handlePost}>
+          {/* Step 1: Basic details about the place */}
           <div className="create-listing_step1">
             <h2>Step 1: Tell us about your place</h2>
             <hr />
+            {/* Category selection */}
             <h3>Which of these categories best describes your place?</h3>
             <div className="category-list">
               {categories?.map((item, index) => (
@@ -173,6 +197,7 @@ const CreateListing = () => {
               ))}
             </div>
 
+            {/* Type selection */}
             <h3>What type of place will guests have?</h3>
             <div className="type-list">
               {types?.map((item, index) => (
@@ -190,6 +215,7 @@ const CreateListing = () => {
               ))}
             </div>
 
+            {/* Location inputs */}
             <h3>Where's your place located?</h3>
             <div className="full">
               <div className="location">
@@ -255,8 +281,10 @@ const CreateListing = () => {
               </div>
             </div>
 
+            {/* Basic counts */}
             <h3>Share some basics about your place</h3>
             <div className="basics">
+              {/* Guest count */}
               <div className="basic">
                 <p>Guests</p>
                 <div className="basic_count">
@@ -284,6 +312,7 @@ const CreateListing = () => {
                 </div>
               </div>
 
+              {/* Bedroom count */}
               <div className="basic">
                 <p>Bedrooms</p>
                 <div className="basic_count">
@@ -311,6 +340,7 @@ const CreateListing = () => {
                 </div>
               </div>
 
+              {/* Bed count */}
               <div className="basic">
                 <p>Beds</p>
                 <div className="basic_count">
@@ -338,6 +368,7 @@ const CreateListing = () => {
                 </div>
               </div>
 
+              {/* Bathroom count */}
               <div className="basic">
                 <p>Bathrooms</p>
                 <div className="basic_count">
@@ -367,10 +398,12 @@ const CreateListing = () => {
             </div>
           </div>
 
+          {/* Step 2: Additional details about the place */}
           <div className="create-listing_step2">
             <h2>Step 2: Make your place stand out</h2>
             <hr />
 
+            {/* Amenities selection */}
             <h3>Tell guests what your place has to offer</h3>
             <div className="amenities">
               {facilities?.map((item, index) => (
@@ -387,6 +420,7 @@ const CreateListing = () => {
               ))}
             </div>
 
+            {/* Photo upload and management */}
             <h3>Add some photos of your place</h3>
             <DragDropContext onDragEnd={handleDragPhoto}>
               <Droppable droppableId="photos" direction="horizontal">
@@ -467,7 +501,8 @@ const CreateListing = () => {
               </Droppable>
             </DragDropContext>
 
-            <h3>What make your place attractive and exciting?</h3>
+            {/* Description inputs */}
+            <h3>What makes your place attractive and exciting?</h3>
             <div className="description">
               <p>Title</p>
               <input
@@ -519,6 +554,7 @@ const CreateListing = () => {
             </div>
           </div>
 
+          {/* Submit button */}
           <button className="submit_btn" type="submit">
             CREATE YOUR LISTING
           </button>

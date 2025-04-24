@@ -44,7 +44,7 @@ app.use('/users', userRoutes)
 if (require.main === module) {
     const PORT = 3001
     app.listen(PORT, async () => {
-        connectDB()
+        await connectDB()
         console.log(`Server started on port ${PORT}`)
     });
 }

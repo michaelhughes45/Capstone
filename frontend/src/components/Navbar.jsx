@@ -1,6 +1,5 @@
 import { IconButton } from "@mui/material";
 import { Search, Person, Menu } from "@mui/icons-material";
-// import variables from "../styles/variables.scss";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/Navbar.scss";
@@ -8,20 +7,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { setLogout } from "../redux/state";
 import { flushSync } from "react-dom";
 
-
 const Navbar = () => {
+  // Controls visibility of dropdown menu
   const [dropdownMenu, setDropdownMenu] = useState(false);
 
+  // Get user state from Redux store
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
+  // Search input state
   const [search, setSearch] = useState("")
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  // Used to delay navigation until after logout state is updated
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  // Navigate to login page after logout is complete
   useEffect(() => {
     if (isLoggingOut && !user) {
       navigate("/login", { replace: true });
@@ -29,13 +32,14 @@ const Navbar = () => {
     }
   }, [isLoggingOut, user, navigate]);
 
-
   return (
     <div className="navbar">
+      {/* Logo that links to home */}
       <a href="/">
         <img src="/assets/logo.png" alt="logo" />
       </a>
 
+      {/* Search input field with icon */}
       <div className="navbar_search">
         <input
           type="text"
@@ -46,11 +50,12 @@ const Navbar = () => {
         <IconButton disabled={search === ""}>
           <Search
             sx={{ color: "var(--pinkred)" }}
-            onClick={() => {navigate(`/properties/search/${search}`)}}
+            onClick={() => { navigate(`/properties/search/${search}`) }}
           />
         </IconButton>
       </div>
 
+      {/* Right side of navbar: account and host actions */}
       <div className="navbar_right">
         {user ? (
           <a href="/create-listing" className="host">
@@ -62,11 +67,13 @@ const Navbar = () => {
           </a>
         )}
 
+        {/* Account dropdown toggle */}
         <button
           className="navbar_right_account"
           onClick={() => setDropdownMenu(!dropdownMenu)}
         >
           <Menu sx={{ color: "var(--darkgrey)" }} />
+          {/* Display user profile photo or default image */}
           {!user || !user.profileImagePath ? (
             <img
               src="/default_user.png"
@@ -82,6 +89,7 @@ const Navbar = () => {
           )}
         </button>
 
+        {/* Dropdown menu for non-authenticated users */}
         {dropdownMenu && !user && (
           <div className="navbar_right_accountmenu">
             <Link to="/login">Log In</Link>
@@ -89,6 +97,7 @@ const Navbar = () => {
           </div>
         )}
 
+        {/* Dropdown menu for authenticated users */}
         {dropdownMenu && user && (
           <div className="navbar_right_accountmenu">
             <Link to={`/${user._id}/trips`}>Trip List</Link>
@@ -97,14 +106,12 @@ const Navbar = () => {
             <Link to={`/${user._id}/reservations`}>Reservation List</Link>
             <Link to="/create-listing">Become A Host</Link>
 
+            {/* Logout option triggers Redux logout and navigation */}
             <Link
               to="#"
               onClick={() => {
-                // e.preventDefault()
                 dispatch(setLogout());
                 setIsLoggingOut(true);
-                // navigate("/login", { replace: true });
-                // window.location.href = "/login";
               }}
             >
               Log Out

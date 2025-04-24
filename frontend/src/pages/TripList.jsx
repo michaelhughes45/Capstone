@@ -1,89 +1,77 @@
 import React from 'react'
-import { useEffect, useState } from "react";
-import "../styles/List.scss";
-import Loader from "../components/Loader";
-import Navbar from "../components/Navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { setTripList } from "../redux/state";
-import ListingCard from "../components/ListingCard";
+import { useEffect, useState } from "react"
+import "../styles/List.scss"
+import Loader from "../components/Loader"
+import Navbar from "../components/Navbar"
+import { useDispatch, useSelector } from "react-redux"
+import { setTripList } from "../redux/state"
+import ListingCard from "../components/ListingCard"
 import Footer from "../components/Footer"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 const TripList = () => {
-  const [loading, setLoading] = useState(true);
-  // const userId = useSelector((state) => state.user._id);
-  const user = useSelector((state) => state.user);
-  const userId = user?._id;
-  // const tripList = useSelector((state) => state.user.tripList);
-  const tripList = user?.tripList || [];
-  const [currentTrips, setCurrentTrips] = useState([]);
-  const [pastTrips, setPastTrips] = useState([]);
+  const [loading, setLoading] = useState(true)
 
-  const dispatch = useDispatch();
+  // Get current user from Redux store
+  const user = useSelector((state) => state.user)
+  const userId = user?._id
 
-  const navigate = useNavigate();
+  // Get current stored trip list, or empty array if undefined
+  const tripList = user?.tripList || []
 
+  // Local state to separate current and past trips
+  const [currentTrips, setCurrentTrips] = useState([])
+  const [pastTrips, setPastTrips] = useState([])
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  // Redirect to login if not logged in
   useEffect(() => {
     if (!user) {
-      navigate("/login", { replace: true });
+      navigate("/login", { replace: true })
     }
-  }, [user, navigate]);
+  }, [user, navigate])
 
-  // const getTripList = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3001/users/${userId}/trips`,
-  //       {
-  //         method: "GET",
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     dispatch(setTripList(data));
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.log("Fetch Trip List failed!", err.message);
-  //   }
-  // };
+  // Fetch trips from backend API
   const getTrips = async () => {
     if (!userId) return
     try {
+      // Fetch both current and past trips in parallel
       const [currentRes, pastRes] = await Promise.all([
         fetch(`http://localhost:3001/users/${userId}/trips/current`),
-        fetch(`http://localhost:3001/users/${userId}/trips/past`),
-      ]);
+        fetch(`http://localhost:3001/users/${userId}/trips/past`)
+      ])
 
+      // Parse JSON responses
       const [currentData, pastData] = await Promise.all([
         currentRes.json(),
-        pastRes.json(),
-      ]);
+        pastRes.json()
+      ])
 
-      const filteredCurrent = currentData.filter((trip) => trip.customerId._id === userId);
-      const filteredPast = pastData.filter((trip) => trip.customerId._id === userId);
+      // Filter trips that belong to the current user
+      const filteredCurrent = currentData.filter((trip) => trip.customerId._id === userId)
+      const filteredPast = pastData.filter((trip) => trip.customerId._id === userId)
 
-      setCurrentTrips(filteredCurrent);
-      setPastTrips(filteredPast);
-      dispatch(setTripList([...filteredCurrent, ...filteredPast]));
+      // Update local state with filtered results
+      setCurrentTrips(filteredCurrent)
+      setPastTrips(filteredPast)
 
-      // setCurrentTrips(currentData);
-      // setPastTrips(pastData);
-      // dispatch(setTripList([...currentData, ...pastData]));
-      setLoading(false);
+      // Store combined list in Redux state
+      dispatch(setTripList([...filteredCurrent, ...filteredPast]))
+
+      setLoading(false)
     } catch (err) {
-      console.log("Fetch Trip List failed!", err.message);
+      console.log("Fetch Trip List failed!", err.message)
     }
-  };
+  }
 
+  // Run trip fetch on mount
   useEffect(() => {
-    // getTripList();
     getTrips()
-  }, []);
-  // useEffect(() => {
-  //   if (userId) {
-  //     getTrips();
-  //   }
-  // }, [userId]);
+  }, [])
 
+  // If still not authenticated, render a message
   if (!user) {
     return (
       <>
@@ -93,34 +81,18 @@ const TripList = () => {
           <Footer />
         </div>
       </>
-    );
+    )
   }
 
+  // Render loader if still loading
   return loading ? (
     <Loader />
   ) : (
     <>
       <Navbar />
-      {/* <h1 className="title-list">Your Trip List</h1>
-      <div className="list">
-        {tripList?.map(({_id: bookingId, listingId, hostId, startDate, endDate, totalPrice, booking=true }) => (
-          <ListingCard
-            bookingId={bookingId}
-            listingId={listingId._id}
-            creator={hostId._id}
-            listingPhotoPaths={listingId.listingPhotoPaths}
-            city={listingId.city}
-            state={listingId.state}
-            country={listingId.country}
-            category={listingId.category}
-            startDate={startDate}
-            endDate={endDate}
-            totalPrice={totalPrice}
-            booking={booking}
-          />
-        ))}
-      </div> */}
       <div className="trip-list-container">
+
+        {/* Current Trips */}
         <h1 className="title-list">Your Current Trips</h1>
         <div className="list">
           {currentTrips?.length > 0 ? (
@@ -146,6 +118,7 @@ const TripList = () => {
           )}
         </div>
 
+        {/* Past Trips */}
         <h1 className="title-list">Your Past Trips</h1>
         <div className="list">
           {pastTrips?.length > 0 ? (
@@ -172,7 +145,7 @@ const TripList = () => {
       </div>
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default TripList;
+export default TripList

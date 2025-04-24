@@ -1,42 +1,46 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import "../styles/List.scss";
-import Navbar from "../components/Navbar";
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setListings } from "../redux/state";
-import Loader from "../components/Loader";
-import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
+import "../styles/List.scss"; // Styles for listing layout
+import Navbar from "../components/Navbar"; // Navigation bar component
+import { useParams } from "react-router-dom"; // For accessing route parameters
+import { useSelector, useDispatch } from "react-redux"; // Redux hooks
+import { setListings } from "../redux/state"; // Redux action to update listings in the store
+import Loader from "../components/Loader"; // Loading spinner component
+import ListingCard from "../components/ListingCard"; // Component to display individual listings
+import Footer from "../components/Footer"; // Footer component
 
 const CategoryPage = () => {
-  const [loading, setLoading] = useState(true);
-  const { category } = useParams()
+  const [loading, setLoading] = useState(true); // Local state to track loading status
 
-  const dispatch = useDispatch()
-  const listings = useSelector((state) => state.listings);
+  const { category } = useParams(); // Extract category name from URL parameters
 
+  const dispatch = useDispatch();
+  const listings = useSelector((state) => state.listings); // Get listings from Redux store
+
+  // Function to fetch listings by selected category from the backend
   const getFeedListings = async () => {
     try {
       const response = await fetch(
-          `http://localhost:3001/properties?category=${category}`,
+        `http://localhost:3001/properties?category=${category}`, // API endpoint with category filter
         {
           method: "GET",
         }
       );
 
       const data = await response.json();
-      dispatch(setListings({ listings: data }));
-      setLoading(false);
+      dispatch(setListings({ listings: data })); // Update listings in Redux store
+      setLoading(false); // Stop showing loader
     } catch (err) {
       console.log("Fetch Listings Failed", err.message);
     }
   };
 
+  // Fetch listings every time the category changes
   useEffect(() => {
     getFeedListings();
   }, [category]);
 
+  // Show loader while data is being fetched
   return loading ? (
     <Loader />
   ) : (
@@ -44,6 +48,7 @@ const CategoryPage = () => {
       <Navbar />
       <h1 className="title-list">{category} listings</h1>
       <div className="list">
+        {/* Render each listing as a ListingCard */}
         {listings?.map(
           ({
             _id,
@@ -58,6 +63,7 @@ const CategoryPage = () => {
             booking = false,
           }) => (
             <ListingCard
+              key={_id}
               listingId={_id}
               creator={creator}
               listingPhotoPaths={listingPhotoPaths}

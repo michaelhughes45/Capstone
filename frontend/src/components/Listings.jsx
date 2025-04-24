@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { categories } from "../data.jsx";
 import "../styles/Listings.scss";
 import ListingCard from "./ListingCard";
@@ -10,12 +8,17 @@ import { setListings } from "../redux/state";
 
 const Listings = () => {
   const dispatch = useDispatch();
+
+  // Tracks whether data is still loading
   const [loading, setLoading] = useState(true);
 
+  // Category currently selected by the user
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // Get the listings state from Redux store
   const listings = useSelector((state) => state.listings);
 
+  // Fetch listings based on selected category (or all listings)
   const getFeedListings = async () => {
     try {
       const response = await fetch(
@@ -28,6 +31,8 @@ const Listings = () => {
       );
 
       const data = await response.json();
+
+      // Store listings in Redux and stop loading spinner
       dispatch(setListings({ listings: data }));
       setLoading(false);
     } catch (err) {
@@ -35,18 +40,20 @@ const Listings = () => {
     }
   };
 
+  // Re-fetch listings whenever the selected category changes
   useEffect(() => {
     getFeedListings();
   }, [selectedCategory]);
 
   return (
     <>
+      {/* Category selection menu */}
       <div className="category-list">
         {categories?.map((category, index) => (
           <div
             className={`category ${category.label === selectedCategory ? "selected" : ""}`}
             key={index}
-            onClick={() => setSelectedCategory(category.label)}
+            onClick={() => setSelectedCategory(category.label)} // Update selected category on click
           >
             <div className="category_icon">{category.icon}</div>
             <p>{category.label}</p>
@@ -54,6 +61,7 @@ const Listings = () => {
         ))}
       </div>
 
+      {/* Display loader while fetching, otherwise show listing cards */}
       {loading ? (
         <Loader />
       ) : (
@@ -69,9 +77,10 @@ const Listings = () => {
               category,
               type,
               price,
-              booking=false
+              booking = false // Default to false if not passed
             }) => (
               <ListingCard
+                key={_id}
                 listingId={_id}
                 creator={creator}
                 listingPhotoPaths={listingPhotoPaths}

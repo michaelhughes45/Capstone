@@ -10,48 +10,41 @@ import Footer from "../components/Footer"
 import { useNavigate } from "react-router-dom";
 
 const ReservationList = () => {
+  // Local loading state
   const [loading, setLoading] = useState(true);
+
+  // Get user and reservation list from Redux store
   const user = useSelector((state) => state.user);
   const userId = user?._id;
-  const reservationList = useSelector((state) => state.user?.reservationList || []);
+
+  // Initialize local state for separated reservations
   const [currentReservations, setCurrentReservations] = useState([]);
   const [pastReservations, setPastReservations] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Redirect to login if user is not authenticated
   useEffect(() => {
     if (!user) {
       navigate("/login", { replace: true });
     }
   }, [user, navigate]);
 
-  // const getReservationList = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3001/users/${userId}/reservations`,
-  //       {
-  //         method: "GET",
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     dispatch(setReservationList(data));
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.log("Fetch Reservation List failed!", err.message);
-  //   }
-  // };
+  // Fetch current and past reservations from the backend
   const getReservations = async () => {
     try {
+      // Make two concurrent fetch requests
       const [currentRes, pastRes] = await Promise.all([
         fetch(`http://localhost:3001/users/${userId}/reservations/current`),
         fetch(`http://localhost:3001/users/${userId}/reservations/past`)
       ]);
 
+      // Convert responses to JSON
       const currentData = await currentRes.json();
       const pastData = await pastRes.json();
 
+      // Update state with received data
       setCurrentReservations(currentData);
       setPastReservations(pastData);
       setLoading(false);
@@ -60,38 +53,22 @@ const ReservationList = () => {
     }
   };
 
+  // Fetch data only once the userId becomes available
   useEffect(() => {
-    // getReservationList();
     if (userId) {
       getReservations();
     }
   }, [userId]);
 
+  // If data is still loading, show a loading spinner
   return loading ? (
     <Loader />
   ) : (
     <>
       <Navbar />
-      {/* <h1 className="title-list">Your Reservation List</h1>
-      <div className="list">
-        {reservationList?.map(({_id: bookingId, listingId, hostId, startDate, endDate, totalPrice, booking=true }) => (
-          <ListingCard
-            bookingId={bookingId}
-            listingId={listingId._id}
-            creator={hostId._id}
-            listingPhotoPaths={listingId.listingPhotoPaths}
-            city={listingId.city}
-            state={listingId.state}
-            country={listingId.country}
-            category={listingId.category}
-            startDate={startDate}
-            endDate={endDate}
-            totalPrice={totalPrice}
-            booking={booking}
-          />
-        ))}
-      </div> */}
+
       <div className="reservation-list-container">
+        {/* Section for upcoming reservations */}
         <h2 className="section-title">Current Reservations</h2>
         <div className="list">
           {currentReservations?.map(
@@ -109,12 +86,13 @@ const ReservationList = () => {
                 startDate={startDate}
                 endDate={endDate}
                 totalPrice={totalPrice}
-                booking={true}
+                booking={true} // Marks this as a booked listing
               />
             )
           )}
         </div>
 
+        {/* Section for past reservations */}
         <h2 className="section-title">Past Reservations</h2>
         <div className="list">
           {pastReservations?.map(
@@ -132,12 +110,13 @@ const ReservationList = () => {
                 startDate={startDate}
                 endDate={endDate}
                 totalPrice={totalPrice}
-                booking={true}
+                booking={true} // Marks this as a booked listing
               />
             )
           )}
         </div>
       </div>
+
       <Footer />
     </>
   );
