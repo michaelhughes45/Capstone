@@ -6,7 +6,7 @@
     "test": "jest",
     "start": "node server",
     "dev": "nodemon server",
-    "seed": "node seed.js --env-file=.env"
+    "seed": "nodemon server --seed"
   },
   "keywords": [],
   "author": "",

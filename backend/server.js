@@ -9,6 +9,7 @@ const helmet = require('helmet')
 const dotenv = require('dotenv').config()
 const rateLimit = require('express-rate-limit')
 const limiter = rateLimit({ windowMs: 1000, max: 100 }) // 100 requests per second
+const seedDatabase = require('./seed.js')
 
 // import routes
 const authRoutes = require('./routes/auth')
@@ -42,11 +43,27 @@ app.use('/users', userRoutes)
 
 
 if (require.main === module) {
-    const PORT = 3001
-    app.listen(PORT, async () => {
-        await connectDB()
-        console.log(`Server started on port ${PORT}`)
-    });
+    if (process.argv.includes('--seed')) {
+        (async () => { 
+            try {
+                await connectDB()
+                console.log('✅ MongoDB connected...')
+                await seedDatabase()
+                console.log('✅ Database seeded...')
+                process.exit(0)
+            } catch (error) {
+                console.error('❌ MongoDB connection failed:', error)
+                process.exit(1)
+            }
+        })()
+    }
+    else {
+        const PORT = 3001
+        app.listen(PORT, async () => {
+            await connectDB()
+            console.log(`Server started on port ${PORT}`)
+        });
+    }
 }
 
 module.exports = app

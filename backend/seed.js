@@ -5,15 +5,15 @@ const Listing = require('./models/Listing');
 const Booking = require('./models/Booking');
 const connectDB = require('./routes/connection')
 
-(async () => { 
-    try {
-        await connectDB();
-        console.log('✅ MongoDB connected...');
-        await seedDatabase();
-    } catch (error) {
-        console.error('❌ MongoDB connection failed:', error);
-    }
-})
+// (async () => { 
+//     try {
+//         await connectDB();
+//         console.log('✅ MongoDB connected...');
+//         await seedDatabase();
+//     } catch (error) {
+//         console.error('❌ MongoDB connection failed:', error);
+//     }
+// })
 // try {
 //     connectDB().then(async () => {
 //         console.log('✅ MongoDB connected...');  
@@ -237,5 +237,4 @@ async function seedDatabase() {
   }
 }
 
-seedDatabase()
-process.exit()
+module.exports = seedDatabase;
