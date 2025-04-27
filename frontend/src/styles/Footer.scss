@@ -1,93 +1,93 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
-  padding: 10px 70px;
+  display: flex; // Use flexbox for layout
+  justify-content: space-between; // Space out items evenly
+  align-items: center; // Align items vertically in the center
+  gap: 50px; // Space between items
+  padding: 10px 70px; // Padding around the footer content
 
-  @include lg {
-    padding: 10px 30px;
+  @include lg { // Responsive styles for large screens
+    padding: 10px 30px; // Adjust padding for smaller screens
   }
 
   &_left {
-    max-width: 400px;
+    max-width: 400px; // Limit the width of the left section
 
     img {
-      max-width: 150px;
-      margin-bottom: 20px;
+      max-width: 150px; // Limit the width of the logo/image
+      margin-bottom: 20px; // Space below the image
     }
 
     &_socials {
-      display: flex;
-      gap: 25px;
-      margin-top: 20px;
+      display: flex; // Use flexbox for layout
+      gap: 25px; // Space between social icons
+      margin-top: 20px; // Space above the social icons
 
       &_icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: $pinkred;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        transition: all 0.5s ease-in-out;
+        width: 40px; // Fixed width for each social icon
+        height: 40px; // Fixed height for each social icon
+        border-radius: 50%; // Make the icons circular
+        background-color: $pinkred; // Background color for the icons
+        display: flex; // Use flexbox for layout
+        justify-content: center; // Center the icon horizontally
+        align-items: center; // Center the icon vertically
+        cursor: pointer; // Change cursor to pointer on hover
+        transition: all 0.5s ease-in-out; // Smooth transition for hover effects
 
         &:hover {
-          transform: scale(1.2);
+          transform: scale(1.2); // Enlarge the icon on hover
         }
       }
     }
   }
 
   &_center {
-    text-decoration: none;
+    text-decoration: none; // Remove text decoration for links
 
     ul {
-      list-style: none;
-      margin-top: 20px;
-      cursor: pointer;
+      list-style: none; // Remove bullet points from the list
+      margin-top: 20px; // Space above the list
+      cursor: pointer; // Change cursor to pointer on hover
 
       li:hover {
-        color: $pinkred
+        color: $pinkred; // Change text color on hover
       }
 
       a {
-        text-decoration: none;
-        color: black;
+        text-decoration: none; // Remove underline from links
+        color: black; // Default text color for links
 
         &:hover {
-          color: $pinkred;
+          color: $pinkred; // Change text color on hover
         }
       }
     }
 
-    @include md {
-      display: none;
+    @include md { // Responsive styles for medium screens
+      display: none; // Hide the center section on medium screens
     }
   }
 
   &_right {
-    max-width: 350px;
+    max-width: 350px; // Limit the width of the right section
 
     h3 {
-      margin-bottom: 20px;
+      margin-bottom: 20px; // Space below the heading
     }
 
     &_info {
-      display: flex;
+      display: flex; // Use flexbox for layout
 
       p {
-        margin-left: 20px;
-        margin-bottom: 15px;
+        margin-left: 20px; // Space to the left of the text
+        margin-bottom: 15px; // Space below the text
       }
     }
 
-    @include sm {
-      display: none;
+    @include sm { // Responsive styles for small screens
+      display: none; // Hide the right section on small screens
     }
   }
 }

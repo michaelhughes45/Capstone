@@ -1,44 +1,52 @@
+// Import the map module from Sass to use map functions like map.get
 @use "sass:map";
 
+// Define a Sass map containing custom breakpoint names and pixel values
 $breakpoints: (
-    "sm": 480px,
-    "mm": 580px,
-    "md": 720px,
-    "ml": 820px,
-    "lg": 1000px,
-    "xl": 1120px
+    "sm": 480px,   // Small devices (phones)
+    "mm": 580px,   // Medium-mobile devices (larger phones, small tablets)
+    "md": 720px,   // Medium devices (small tablets)
+    "ml": 820px,   // Medium-large devices (larger tablets)
+    "lg": 1000px,  // Large devices (small laptops)
+    "xl": 1120px   // Extra-large devices (desktops)
 );
 
+// Create a mixin for small screens (max-width: 480px)
 @mixin sm {
     @media (max-width: map.get($breakpoints, "sm")) {
-        @content;
+        @content; // Insert the CSS content inside the media query
     }
 };
 
+// Create a mixin for medium-mobile screens (max-width: 580px)
 @mixin mm {
     @media (max-width: map.get($breakpoints, "mm")) {
         @content;
     }
 };
 
+// Create a mixin for medium screens (max-width: 720px)
 @mixin md {
     @media (max-width: map.get($breakpoints, "md")) {
         @content;
     }
 };
 
+// Create a mixin for medium-large screens (max-width: 820px)
 @mixin ml {
     @media (max-width: map.get($breakpoints, "ml")) {
         @content;
     }
 };
 
+// Create a mixin for large screens (max-width: 1000px)
 @mixin lg {
     @media (max-width: map.get($breakpoints, "lg")) {
         @content;
     }
 };
 
+// Create a mixin for extra-large screens (max-width: 1120px)
 @mixin xl {
     @media (max-width: map.get($breakpoints, "xl")) {
         @content;

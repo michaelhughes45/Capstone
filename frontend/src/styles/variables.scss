@@ -1,38 +1,41 @@
 :root {
-  --pinkred: #e63946;
-  --darkgrey: #333333;
-  --grey: #e0e0e0;
-  --blue: #1d3557;
-  --lightgrey: #f1f1f1;
+  --pinkred: #e63946; // Primary accent color (pinkish red)
+  --darkgrey: #333333; // Dark grey color for text or backgrounds
+  --grey: #e0e0e0; // Light grey color for borders or backgrounds
+  --blue: #1d3557; // Primary blue color for headings or links
+  --lightgrey: #f1f1f1; // Very light grey for background sections
 }
 
-$pinkred: #e63946;
-$blue: #1d3557;
-$grey: #e0e0e0;
-$lightgrey: #f1f1f1;
-$darkgrey: #333333;
+// SCSS variables for colors
+$pinkred: #e63946; // Primary accent color (pinkish red)
+$blue: #1d3557; // Primary blue color for headings or links
+$grey: #e0e0e0; // Light grey color for borders or backgrounds
+$lightgrey: #f1f1f1; // Very light grey for background sections
+$darkgrey: #333333; // Dark grey color for text or backgrounds
 
-
+// Mixin for adding a shadow effect
 @mixin shadow {
-  box-shadow: 0 3px 10px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px 2px rgba(0, 0, 0, 0.2); // Subtle shadow with transparency
 }
 
+// Mixin for button styling
 @mixin buttonStyle {
-  padding: 10px 15px;
-  background-color: $pinkred;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease;
-  color: white;
-  border-radius: 10px;
+  padding: 10px 15px; // Padding inside the button
+  background-color: $pinkred; // Button background color
+  border: none; // Remove border
+  font-size: 20px; // Font size for button text
+  font-weight: 600; // Bold font weight for button text
+  cursor: pointer; // Change cursor to pointer on hover
+  transition: 0.3s ease; // Smooth transition for hover effects
+  color: white; // Text color
+  border-radius: 10px; // Rounded corners for the button
 }
 
+// Exporting variables for use in JavaScript
 :export {
-  pinkred: $pinkred;
-  blue: $blue;
-  lightgrey: $lightgrey;
-  grey: $grey;
-  darkgrey: $darkgrey;
+  pinkred: $pinkred; // Export pinkred color
+  blue: $blue; // Export blue color
+  lightgrey: $lightgrey; // Export light grey color
+  grey: $grey; // Export grey color
+  darkgrey: $darkgrey; // Export dark grey color
 }

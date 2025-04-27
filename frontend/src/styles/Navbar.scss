@@ -1,115 +1,114 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .navbar {
-  padding: 10px 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
+  padding: 10px 60px; // Padding around the navbar
+  display: flex; // Use flexbox for layout
+  justify-content: space-between; // Space out items evenly
+  align-items: center; // Align items vertically in the center
+  position: relative; // Position relative for child elements
 
-  @include sm {
-    padding: 10px 20px;
+  @include sm { // Responsive styles for small screens
+    padding: 10px 20px; // Adjust padding for smaller screens
   }
 
   img {
-    width: 100px;
-    cursor: pointer;
+    width: 100px; // Set the width of the logo
+    cursor: pointer; // Change cursor to pointer on hover
   }
 
   &_search {
-    border: 1px solid $grey;
-    border-radius: 30px;
-    height: 50px;
-    padding: 0px 20px;
-    display: flex;
-    gap: 40px;
-    align-items: center;
+    border: 1px solid $grey; // Border color for the search bar
+    border-radius: 30px; // Rounded corners for the search bar
+    height: 50px; // Height of the search bar
+    padding: 0px 20px; // Padding inside the search bar
+    display: flex; // Use flexbox for layout
+    gap: 40px; // Space between search bar elements
+    align-items: center; // Align items vertically in the center
 
     input {
-      border: none;
-      outline: none;
+      border: none; // Remove border from the input field
+      outline: none; // Remove default outline
     }
 
     &:hover {
-      @include shadow;
+      @include shadow; // Apply shadow effect on hover
     }
 
-    @include lg {
-      display: none;
+    @include lg { // Responsive styles for large screens
+      display: none; // Hide the search bar on large screens
     }
   }
 
   &_right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    display: flex; // Use flexbox for layout
+    align-items: center; // Align items vertically in the center
+    gap: 20px; // Space between elements in the right section
 
     .host {
-      text-decoration: none;
-      color: $blue;
-      font-weight: 700;
-      cursor: pointer;
+      text-decoration: none; // Remove underline from the host link
+      color: $blue; // Text color for the host link
+      font-weight: 700; // Bold font weight for the host link
+      cursor: pointer; // Change cursor to pointer on hover
 
       &:hover {
-        color: $pinkred;
+        color: $pinkred; // Change text color on hover
       }
 
-      @include sm {
-        display: none;
+      @include sm { // Responsive styles for small screens
+        display: none; // Hide the host link on small screens
       }
     }
 
     &_account {
-      height: 50px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      border: 1px solid $grey;
-      border-radius: 30px;
-      display: flex;
-      gap: 10px;
-      background-color: white;
-      cursor: pointer;
+      height: 50px; // Height of the account section
+      display: flex; // Use flexbox for layout
+      align-items: center; // Align items vertically in the center
+      padding: 0 10px; // Padding inside the account section
+      border: 1px solid $grey; // Border color for the account section
+      border-radius: 30px; // Rounded corners for the account section
+      background-color: white; // Background color for the account section
+      cursor: pointer; // Change cursor to pointer on hover
+      gap: 10px; // Space between elements in the account section
 
       &:hover {
-        @include shadow;
+        @include shadow; // Apply shadow effect on hover
       }
 
       img {
-        width: 40px;
-        height: 40px;
+        width: 40px; // Set the width of the profile image
+        height: 40px; // Set the height of the profile image
       }
     }
 
     &_accountmenu {
-      position: absolute;
-      background-color: white;
-      right: 60px;
-      top: 80px;
-      display: flex;
-      flex-direction: column;
-      width: 200px;
-      padding: 10px 0;
-      border: 1px solid $lightgrey;
-      border-radius: 20px;
-      @include shadow;
-      z-index: 9999;
+      position: absolute; // Position the account menu absolutely
+      background-color: white; // Background color for the account menu
+      right: 60px; // Align the menu to the right
+      top: 80px; // Position the menu below the account section
+      display: flex; // Use flexbox for layout
+      flex-direction: column; // Arrange items in a column
+      width: 200px; // Set the width of the account menu
+      padding: 10px 0; // Padding inside the account menu
+      border: 1px solid $lightgrey; // Border color for the account menu
+      border-radius: 20px; // Rounded corners for the account menu
+      @include shadow; // Apply shadow effect
+      z-index: 9999; // Ensure the menu appears above other elements
 
-      @include sm {
-        right: 20px;
+      @include sm { // Responsive styles for small screens
+        right: 20px; // Adjust the position for smaller screens
       }
 
       a {
-        width: 100%;
-        padding: 8px 15px;
-        text-decoration: none;
-        color: $blue;
-        font-weight: 700;
+        width: 100%; // Full width for the menu links
+        padding: 8px 15px; // Padding inside the menu links
+        text-decoration: none; // Remove underline from links
+        color: $blue; // Text color for the links
+        font-weight: 700; // Bold font weight for the links
 
         &:hover {
-          color: $pinkred;
-          background-color: rgba(217, 213, 213, 0.2);
+          color: $pinkred; // Change text color on hover
+          background-color: rgba(217, 213, 213, 0.2); // Add a light background on hover
         }
       }
     }

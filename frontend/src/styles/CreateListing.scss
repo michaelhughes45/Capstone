@@ -1,390 +1,390 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .create-listing {
-  background-color: $lightgrey;
-  padding: 40px 60px 120px;
+  background-color: $lightgrey; // Background color for the listing page
+  padding: 40px 60px 120px; // Padding around the page content
 
-  @include mm {
-    padding: 40px 20px;
+  @include mm { // Responsive styles for medium screens
+    padding: 40px 20px; // Adjust padding for smaller screens
   }
 
   h1 {
-    color: $blue;
+    color: $blue; // Heading color
   }
 
   &_step1 {
-    background-color: white;
-    padding: 30px 40px;
-    border-radius: 20px;
-    margin-top: 40px;
+    background-color: white; // Background color for step 1 section
+    padding: 30px 40px; // Padding inside the section
+    border-radius: 20px; // Rounded corners
+    margin-top: 40px; // Space above the section
 
-    @include sm {
-      padding: 30px 20px;
+    @include sm { // Responsive styles for small screens
+      padding: 30px 20px; // Adjust padding for smaller screens
     }
 
     h2 {
-      color: $pinkred;
+      color: $pinkred; // Heading color for step 1
     }
 
     hr {
-      margin: 15px 0 25px;
+      margin: 15px 0 25px; // Space around horizontal rule
     }
 
     h3 {
-      margin: 40px 0 20px;
-      color: $blue;
+      margin: 40px 0 20px; // Space around subheadings
+      color: $blue; // Subheading color
     }
 
     .category-list {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 0 20px;
+      display: flex; // Use flexbox for layout
+      justify-content: center; // Center items horizontally
+      align-items: center; // Center items vertically
+      flex-wrap: wrap; // Allow items to wrap to the next line
+      gap: 20px; // Space between items
+      padding: 0 20px; // Padding around the list
 
-      @include lg {
+      @include lg { // Responsive styles for large screens
         padding: 0 20px;
       }
 
-      @include md {
+      @include md { // Responsive styles for medium screens
         padding: 0;
       }
 
       .category {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 110px;
-        height: 90px;
-        border: 1px solid $grey;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.2s ease;
+        display: flex; // Use flexbox for layout
+        flex-direction: column; // Arrange items in a column
+        justify-content: center; // Center items vertically
+        align-items: center; // Center items horizontally
+        width: 110px; // Fixed width for each category
+        height: 90px; // Fixed height for each category
+        border: 1px solid $grey; // Border color
+        border-radius: 10px; // Rounded corners
+        cursor: pointer; // Change cursor to pointer on hover
+        transition: 0.2s ease; // Smooth transition for hover effects
 
         &_icon {
-          font-size: 30px;
-          color: black;
+          font-size: 30px; // Icon size
+          color: black; // Icon color
         }
 
         p {
-          font-weight: 600;
-          text-align: center;
-          color: black;
+          font-weight: 600; // Bold font weight for text
+          text-align: center; // Center text alignment
+          color: black; // Text color
         }
 
         &:hover {
-          border: 2px solid $pinkred;
-          background-color: $lightgrey;
+          border: 2px solid $pinkred; // Change border color on hover
+          background-color: $lightgrey; // Change background color on hover
         }
       }
 
       .selected {
-        border: 2px solid $pinkred;
-        background-color: $lightgrey;
+        border: 2px solid $pinkred; // Border color for selected category
+        background-color: $lightgrey; // Background color for selected category
       }
     }
 
     .type-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      display: flex; // Use flexbox for layout
+      flex-direction: column; // Arrange items in a column
+      gap: 20px; // Space between items
 
       .type {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 600px;
-        padding: 15px 30px;
-        border: 1px solid $grey;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.3s ease;
+        display: flex; // Use flexbox for layout
+        justify-content: space-between; // Space between text and icon
+        align-items: center; // Center items vertically
+        max-width: 600px; // Maximum width for each type
+        padding: 15px 30px; // Padding inside each type
+        border: 1px solid $grey; // Border color
+        border-radius: 10px; // Rounded corners
+        cursor: pointer; // Change cursor to pointer on hover
+        transition: 0.3s ease; // Smooth transition for hover effects
 
         &_text {
-          max-width: 400px;
+          max-width: 400px; // Maximum width for text
 
           h4 {
-            margin-bottom: 5px;
+            margin-bottom: 5px; // Space below the heading
           }
         }
 
         &_icon {
-          font-size: 30px;
+          font-size: 30px; // Icon size
         }
 
         &:hover {
-          border: 2px solid $pinkred;
-          background-color: $lightgrey;
+          border: 2px solid $pinkred; // Change border color on hover
+          background-color: $lightgrey; // Change background color on hover
         }
       }
 
       .selected {
-        border: 2px solid $pinkred;
-        background-color: $lightgrey;
+        border: 2px solid $pinkred; // Border color for selected type
+        background-color: $lightgrey; // Background color for selected type
       }
     }
 
     .full {
-      max-width: 700px;
+      max-width: 700px; // Maximum width for full-width inputs
     }
 
     .half {
-      max-width: 700px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      max-width: 700px; // Maximum width for half-width inputs
+      display: grid; // Use grid layout
+      grid-template-columns: 1fr 1fr; // Two equal columns
+      gap: 40px; // Space between columns
 
-      @include ml {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
+      @include ml { // Responsive styles for medium-large screens
+        display: flex; // Use flexbox for layout
+        flex-direction: column; // Arrange items in a column
+        gap: 0; // Remove gap between items
       }
     }
 
     .location {
       p {
-        font-weight: 700;
-        margin: 20px 0 10px;
+        font-weight: 700; // Bold font weight for labels
+        margin: 20px 0 10px; // Space around labels
       }
       input {
-        border: 1px solid $grey;
-        padding: 15px 30px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        width: 100%;
+        border: 1px solid $grey; // Border color
+        padding: 15px 30px; // Padding inside inputs
+        border-radius: 10px; // Rounded corners
+        font-size: 16px; // Font size for input text
+        font-weight: 600; // Bold font weight for input text
+        width: 100%; // Full width
 
         &:focus {
-          outline: none;
+          outline: none; // Remove default focus outline
         }
       }
     }
 
     .basics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
+      display: flex; // Use flexbox for layout
+      flex-wrap: wrap; // Allow items to wrap to the next line
+      gap: 40px; // Space between items
 
       .basic {
-        display: flex;
-        align-items: center;
-        gap: 30px;
-        padding: 15px;
-        border: 1px solid $grey;
-        border-radius: 10px;
+        display: flex; // Use flexbox for layout
+        align-items: center; // Center items vertically
+        gap: 30px; // Space between items
+        padding: 15px; // Padding inside each basic item
+        border: 1px solid $grey; // Border color
+        border-radius: 10px; // Rounded corners
 
         p {
-          font-weight: 600;
+          font-weight: 600; // Bold font weight for text
         }
 
         &_count {
-          display: flex;
-          align-items: center;
-          gap: 9px;
-          font-size: 20px;
+          display: flex; // Use flexbox for layout
+          align-items: center; // Center items vertically
+          gap: 9px; // Space between items
+          font-size: 20px; // Font size for count text
         }
       }
     }
   }
 
   &_step2 {
-    background-color: white;
-    padding: 30px 40px;
-    border-radius: 20px;
-    margin-top: 40px;
+    background-color: white; // Background color for step 2 section
+    padding: 30px 40px; // Padding inside the section
+    border-radius: 20px; // Rounded corners
+    margin-top: 40px; // Space above the section
 
-    @include sm {
-      padding: 30px 20px;
+    @include sm { // Responsive styles for small screens
+      padding: 30px 20px; // Adjust padding for smaller screens
     }
 
     h2 {
-      color: $pinkred;
+      color: $pinkred; // Heading color for step 2
     }
 
     hr {
-      margin: 15px 0 25px;
+      margin: 15px 0 25px; // Space around horizontal rule
     }
 
     h3 {
-      margin: 40px 0 20px;
-      color: $blue;
+      margin: 40px 0 20px; // Space around subheadings
+      color: $blue; // Subheading color
     }
 
     .amenities {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      display: flex; // Use flexbox for layout
+      flex-wrap: wrap; // Allow items to wrap to the next line
+      gap: 20px; // Space between items
 
       .facility {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 200px;
-        height: 90px;
-        border: 1px solid $grey;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.2s ease;
+        display: flex; // Use flexbox for layout
+        flex-direction: column; // Arrange items in a column
+        justify-content: center; // Center items vertically
+        align-items: center; // Center items horizontally
+        width: 200px; // Fixed width for each facility
+        height: 90px; // Fixed height for each facility
+        border: 1px solid $grey; // Border color
+        border-radius: 10px; // Rounded corners
+        cursor: pointer; // Change cursor to pointer on hover
+        transition: 0.2s ease; // Smooth transition for hover effects
 
         &_icon {
-          font-size: 30px;
+          font-size: 30px; // Icon size
         }
 
         p {
-          font-weight: 600;
+          font-weight: 600; // Bold font weight for text
         }
 
         &:hover {
-          border: 2px solid $pinkred;
-          background-color: $lightgrey;
+          border: 2px solid $pinkred; // Change border color on hover
+          background-color: $lightgrey; // Change background color on hover
         }
       }
 
       .selected {
-        border: 2px solid $pinkred;
-        background-color: $lightgrey;
+        border: 2px solid $pinkred; // Border color for selected facility
+        background-color: $lightgrey; // Background color for selected facility
       }
     }
 
     .photos {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
+      display: flex; // Use flexbox for layout
+      flex-wrap: wrap; // Allow items to wrap to the next line
+      gap: 15px; // Space between items
 
       .photo {
-        position: relative;
-        width: 250px;
-        height: 150px;
-        cursor: move;
+        position: relative; // Position relative for child elements
+        width: 250px; // Fixed width for each photo
+        height: 150px; // Fixed height for each photo
+        cursor: move; // Change cursor to move icon
 
         img {
-          width: 100%;
-          height: 100%;
+          width: 100%; // Make the image fill the photo container
+          height: 100%; // Make the image fill the photo container
         }
 
         button {
-          position: absolute;
-          right: 0;
-          top: 0;
-          padding: 3px;
-          border: none;
-          background-color: rgba(255, 255, 255, 0.8);
-          font-size: 20px;
-          cursor: pointer;
+          position: absolute; // Position button absolutely within the photo
+          right: 0; // Align button to the right
+          top: 0; // Align button to the top
+          padding: 3px; // Padding inside the button
+          border: none; // Remove border
+          background-color: rgba(255, 255, 255, 0.8); // Semi-transparent white background
+          font-size: 20px; // Font size for the button
+          cursor: pointer; // Change cursor to pointer on hover
 
           &:hover {
-            color: $pinkred;
+            color: $pinkred; // Change button color on hover
           }
         }
       }
 
       label {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        border: 1px dashed $grey;
+        display: flex; // Use flexbox for layout
+        flex-direction: column; // Arrange items in a column
+        justify-content: center; // Center items vertically
+        align-items: center; // Center items horizontally
+        cursor: pointer; // Change cursor to pointer on hover
+        border: 1px dashed $grey; // Dashed border for the label
 
         .icon {
-          font-size: 60px;
+          font-size: 60px; // Icon size
         }
 
         p {
-          font-weight: 600;
-          text-align: center;
+          font-weight: 600; // Bold font weight for text
+          text-align: center; // Center text alignment
         }
       }
 
       .together {
-        width: 250px;
-        height: 150px;
+        width: 250px; // Fixed width for grouped photos
+        height: 150px; // Fixed height for grouped photos
       }
 
       .alone {
-        padding: 40px 100px;
-        border-radius: 10px;
+        padding: 40px 100px; // Padding inside the label
+        border-radius: 10px; // Rounded corners
 
-        @include mm {
-          padding: 40px 80px;
+        @include mm { // Responsive styles for medium screens
+          padding: 40px 80px; // Adjust padding for smaller screens
         }
 
-        @include sm {
-          padding: 40px 30px;
+        @include sm { // Responsive styles for small screens
+          padding: 40px 30px; // Adjust padding for smaller screens
         }
       }
     }
 
     .title {
       input {
-        border: 1px solid $grey;
-        padding: 15px 30px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        width: 100%;
+        border: 1px solid $grey; // Border color
+        padding: 15px 30px; // Padding inside the input
+        border-radius: 10px; // Rounded corners
+        font-size: 16px; // Font size for input text
+        font-weight: 600; // Bold font weight for input text
+        width: 100%; // Full width
 
         &:focus {
-          outline: none;
+          outline: none; // Remove default focus outline
         }
       }
     }
 
     .description {
       p {
-        font-weight: 700;
-        margin: 20px 0 10px;
+        font-weight: 700; // Bold font weight for labels
+        margin: 20px 0 10px; // Space around labels
       }
 
       input,
       textarea {
-        border: 1px solid $grey;
-        padding: 15px 30px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        width: 600px;
+        border: 1px solid $grey; // Border color
+        padding: 15px 30px; // Padding inside inputs
+        border-radius: 10px; // Rounded corners
+        font-size: 16px; // Font size for input text
+        font-weight: 600; // Bold font weight for input text
+        width: 600px; // Fixed width for inputs
 
-        @include ml {
-          width: 450px;
+        @include ml { // Responsive styles for medium-large screens
+          width: 450px; // Adjust width for smaller screens
         }
 
-        @include md {
-          width: 350px;
+        @include md { // Responsive styles for medium screens
+          width: 350px; // Adjust width for smaller screens
         }
 
-        @include sm {
-          width: 280px;
+        @include sm { // Responsive styles for small screens
+          width: 280px; // Adjust width for smaller screens
         }
 
         &:focus {
-          outline: none;
+          outline: none; // Remove default focus outline
         }
       }
 
       span {
-        font-size: 25px;
-        font-weight: 700;
-        margin-right: 20px;
+        font-size: 25px; // Font size for price label
+        font-weight: 700; // Bold font weight for price label
+        margin-right: 20px; // Space to the right of the label
       }
 
       .price {
-        width: 200px;
+        width: 200px; // Fixed width for price input
       }
     }
   }
 
   .submit_btn {
-    margin-top: 40px;
+    margin-top: 40px; // Space above the submit button
 
-    @include buttonStyle;
+    @include buttonStyle; // Include button styles from variables
 
     &:hover {
-      box-shadow: 0 0 10px 3px rgb(117, 117, 117);
+      box-shadow: 0 0 10px 3px rgb(117, 117, 117); // Add shadow effect on hover
     }
   }
 }

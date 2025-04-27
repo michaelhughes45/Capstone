@@ -1,93 +1,92 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .login {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: url("../../assets/login.jpg") center;
-  background-size: cover;
+  width: 100vw; // Full width of the viewport
+  height: 100vh; // Full height of the viewport
+  display: flex; // Use flexbox for layout
+  justify-content: center; // Center content horizontally
+  align-items: center; // Center content vertically
+  flex-direction: column; // Arrange items in a column
+  background: url("../../assets/login.jpg") center; // Background image centered
+  background-size: cover; // Cover the entire background area
 
   &_content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 40%;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 20px;
+    display: flex; // Use flexbox for layout
+    flex-direction: column; // Arrange items in a column
+    gap: 15px; // Space between elements
+    width: 40%; // Default width of the content container
+    padding: 40px; // Padding inside the container
+    background-color: rgba(0, 0, 0, 0.8); // Semi-transparent black background
+    border-radius: 20px; // Rounded corners
 
-    @include lg {
-      width: 60%
+    @include lg { // Responsive styles for large screens
+      width: 60%; // Adjust width for larger screens
     }
 
-    @include mm {
-      width: 80%
+    @include mm { // Responsive styles for medium screens
+      width: 80%; // Adjust width for medium screens
     }
 
     &_form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
+      display: flex; // Use flexbox for layout
+      flex-direction: column; // Arrange items in a column
+      align-items: center; // Center items horizontally
+      gap: 15px; // Space between form elements
 
       input {
-        width: 100%;
-        padding: 7px 15px;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        outline: none;
-        text-align: center;
-        color: white;
+        width: 100%; // Full width of the input field
+        padding: 7px 15px; // Padding inside the input field
+        background-color: transparent; // Transparent background
+        border: none; // Remove border
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3); // Bottom border with transparency
+        outline: none; // Remove default outline
+        text-align: center; // Center text alignment
+        color: white; // Text color
 
         input:not(:placeholder-shown):focus {
-          background: transparent; /* or background: none; */
+          background: transparent; // Keep background transparent when focused
         }
 
         &::placeholder {
-          color: white;
+          color: white; // Placeholder text color
         }
       }
 
       button {
-        margin-top: 15px;
-
-        @include buttonStyle;
-        width: 50%;
+        margin-top: 15px; // Space above the button
+        @include buttonStyle; // Apply button styles from variables
+        width: 50%; // Set button width to 50% of the container
 
         &:hover {
-          box-shadow: 0 0 10px 3px rgba(255, 255, 255);
+          box-shadow: 0 0 10px 3px rgba(255, 255, 255); // Add a glowing effect on hover
         }
       }
     }
 
     &_google {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
+      width: 100%; // Full width of the container
+      display: flex; // Use flexbox for layout
+      justify-content: center; // Center content horizontally
+      margin-top: 20px; // Space above the Google login section
     }
 
     a {
-      text-decoration: none;
-      color: white;
-      font-size: 17px;
-      font-weight: 600;
-      text-align: center;
+      text-decoration: none; // Remove underline from links
+      color: white; // Link text color
+      font-size: 17px; // Font size for links
+      font-weight: 600; // Bold font weight for links
+      text-align: center; // Center text alignment
 
       &:hover {
-        text-decoration: underline;
+        text-decoration: underline; // Add underline on hover
       }
     }
 
     p {
-      color: white;
-      font-size: 13px;
-      text-align: center;
+      color: white; // Text color
+      font-size: 13px; // Font size for the paragraph
+      text-align: center; // Center text alignment
     }
   }
 }

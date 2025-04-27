@@ -1,51 +1,51 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .category-list {
-  padding: 50px 80px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 60px;
+  padding: 50px 80px; // Padding around the category list
+  display: flex; // Use flexbox for layout
+  justify-content: center; // Center items horizontally
+  flex-wrap: wrap; // Allow items to wrap to the next line
+  gap: 60px; // Space between category items
 
-  @include sm {
-    padding: 50px 20px;
+  @include sm { // Responsive styles for small screens
+    padding: 50px 20px; // Adjust padding for smaller screens
   }
 
   .category {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: $darkgrey;
-    cursor: pointer;
+    display: flex; // Use flexbox for layout
+    flex-direction: column; // Arrange items in a column
+    align-items: center; // Center items horizontally
+    color: $darkgrey; // Default text color
+    cursor: pointer; // Change cursor to pointer on hover
 
     &_icon {
-      font-size: 30px;
+      font-size: 30px; // Font size for the category icon
     }
 
     p {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 18px; // Font size for the category text
+      font-weight: 700; // Bold font weight for the text
     }
 
     &:hover {
-      color: $pinkred;
+      color: $pinkred; // Change text color on hover
     }
   }
 
   .selected {
-    color: $pinkred;
+    color: $pinkred; // Text color for the selected category
   }
 }
 
 .listings {
-  padding: 0 60px 120px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
+  padding: 0 60px 120px; // Padding around the listings section
+  display: flex; // Use flexbox for layout
+  flex-wrap: wrap; // Allow items to wrap to the next line
+  justify-content: center; // Center items horizontally
+  gap: 5px; // Space between listing items
 
-  @include lg {
-    padding: 0 20px 120px;
+  @include lg { // Responsive styles for large screens
+    padding: 0 20px 120px; // Adjust padding for larger screens
   }
 }

@@ -1,20 +1,20 @@
 .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .loader-inner {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+  display: flex; // Use flexbox for layout
+  justify-content: center; // Center the loader horizontally
+  align-items: center; // Center the loader vertically
+  height: 100vh; // Set the height to fill the entire viewport
+}
+
+.loader-inner {
+  border: 6px solid #f3f3f3; // Light gray border for the loader
+  border-top: 6px solid #3498db; // Blue border for the top section to create the spinning effect
+  border-radius: 50%; // Make the loader circular
+  width: 40px; // Set the width of the loader
+  height: 40px; // Set the height of the loader
+  animation: spin 2s linear infinite; // Apply the spin animation with a 2-second duration, linear timing, and infinite repetition
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); } // Start the rotation at 0 degrees
+  100% { transform: rotate(360deg); } // Complete a full rotation at 360 degrees
+}

@@ -1,136 +1,136 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .listing-details {
-  padding: 40px 130px 120px;
+  padding: 40px 130px 120px; // Padding around the listing details section
 
-  @include xl {
-    padding: 40px 80px 120px;
+  @include xl { // Responsive styles for extra-large screens
+    padding: 40px 80px 120px; // Adjust padding for larger screens
   }
 
-  @include lg {
-    padding: 40px 50px 120px;
+  @include lg { // Responsive styles for large screens
+    padding: 40px 50px 120px; // Adjust padding for large screens
   }
 
-  @include sm {
-    padding: 40px 20px 120px;
+  @include sm { // Responsive styles for small screens
+    padding: 40px 20px 120px; // Adjust padding for smaller screens
   }
 
   .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; // Use flexbox for layout
+    justify-content: space-between; // Space out items evenly
+    align-items: center; // Align items vertically in the center
 
-    @include sm {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
+    @include sm { // Responsive styles for small screens
+      flex-direction: column; // Arrange items in a column
+      align-items: flex-start; // Align items to the start
+      gap: 15px; // Space between items
     }
 
     h1 {
-      @include sm {
-        font-size: 26px;
+      @include sm { // Responsive styles for small screens
+        font-size: 26px; // Adjust font size for smaller screens
       }
     }
 
     .save {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
+      display: flex; // Use flexbox for layout
+      align-items: center; // Align items vertically in the center
+      gap: 10px; // Space between items
+      cursor: pointer; // Change cursor to pointer on hover
 
       p {
-        font-size: 20px;
-        font-weight: 700;
-        margin: 0;
+        font-size: 20px; // Font size for the text
+        font-weight: 700; // Bold font weight
+        margin: 0; // Remove default margin
       }
     }
   }
 
   .photos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
+    display: flex; // Use flexbox for layout
+    flex-wrap: wrap; // Allow items to wrap to the next line
+    gap: 10px; // Space between photos
+    margin: 20px 0; // Space above and below the photos section
 
     img {
-      max-width: 280px;
+      max-width: 280px; // Limit the width of each photo
     }
   }
 
   hr {
-    margin: 20px 0;
+    margin: 20px 0; // Space above and below the horizontal rule
   }
 
   .profile {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+    display: flex; // Use flexbox for layout
+    gap: 20px; // Space between profile elements
+    align-items: center; // Align items vertically in the center
 
     img {
-      width: 60px;
-      height: 60px;
-      margin: 0;
+      width: 60px; // Fixed width for the profile image
+      height: 60px; // Fixed height for the profile image
+      margin: 0; // Remove default margin
     }
   }
 
   p {
-    max-width: 800px;
-    margin-top: 20px;
+    max-width: 800px; // Limit the width of paragraphs
+    margin-top: 20px; // Space above the paragraph
   }
 
   .booking {
-    display: flex;
-    justify-content: space-between;
+    display: flex; // Use flexbox for layout
+    justify-content: space-between; // Space out booking sections
 
-    @include lg {
-      flex-direction: column;
-      gap: 50px;
+    @include lg { // Responsive styles for large screens
+      flex-direction: column; // Arrange items in a column
+      gap: 50px; // Space between items
     }
 
     .amenities {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: 100px;
-      margin: 30px 0;
-      max-width: 700px;
+      display: grid; // Use grid layout
+      grid-template-columns: 1fr 1fr; // Two equal columns
+      grid-column-gap: 100px; // Space between columns
+      margin: 30px 0; // Space above and below the amenities section
+      max-width: 700px; // Limit the width of the amenities section
 
-      @include sm {
-        grid-column-gap: 20px;
+      @include sm { // Responsive styles for small screens
+        grid-column-gap: 20px; // Reduce space between columns
       }
 
       .facility {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 20px;
+        display: flex; // Use flexbox for layout
+        align-items: center; // Align items vertically in the center
+        gap: 20px; // Space between facility elements
+        font-size: 18px; // Font size for facility text
+        font-weight: 600; // Bold font weight
+        margin-bottom: 20px; // Space below each facility
 
         &_icon {
-          font-size: 30px;
+          font-size: 30px; // Font size for the facility icon
         }
 
         p {
-          margin: 0;
+          margin: 0; // Remove default margin
         }
       }
     }
 
     .date-range-calendar {
-      margin: 30px 0;
+      margin: 30px 0; // Space above and below the calendar section
 
       h2 {
-        margin-bottom: 10px;
+        margin-bottom: 10px; // Space below the heading
       }
 
       .button {
-        @include buttonStyle;
-        width: 100%;
-        margin-top: 30px;
+        @include buttonStyle; // Apply button styles from variables
+        width: 100%; // Full width for the button
+        margin-top: 30px; // Space above the button
 
-        @include lg {
-          max-width: 300px;
+        @include lg { // Responsive styles for large screens
+          max-width: 300px; // Limit the width of the button
         }
       }
     }

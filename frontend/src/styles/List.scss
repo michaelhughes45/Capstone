@@ -1,24 +1,23 @@
-@use "./variables.scss" as *;
-@use "./breakpoints.scss" as *;
-
+@use "./variables.scss" as *; // Importing variables for colors, fonts, etc.
+@use "./breakpoints.scss" as *; // Importing breakpoints for responsive design
 
 .title-list {
-  margin: 40px 100px;
-  color: $blue;
+  margin: 40px 100px; // Margin around the title
+  color: $blue; // Text color for the title
 
-  @include sm {
-    margin: 40px 50px;
+  @include sm { // Responsive styles for small screens
+    margin: 40px 50px; // Adjust margin for smaller screens
   }
 }
 
 .list {
-  padding: 0 100px 120px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 25px;
+  padding: 0 100px 120px; // Padding around the list
+  display: flex; // Use flexbox for layout
+  justify-content: center; // Center items horizontally
+  flex-wrap: wrap; // Allow items to wrap to the next line
+  gap: 25px; // Space between items
 
-  @include xl {
-    padding: 0 20px 120px;
+  @include xl { // Responsive styles for extra-large screens
+    padding: 0 20px 120px; // Adjust padding for larger screens
   }
 }
