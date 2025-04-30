@@ -6,7 +6,7 @@
     "test": "jest",
     "start": "node server",
     "dev": "nodemon server",
-    "seed": "nodemon server --seed"
+    "seed": "node server --seed"
   },
   "keywords": [],
   "author": "",

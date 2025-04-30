@@ -1,122 +1,143 @@
-import React from 'react'
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import "../styles/List.scss";
-import Loader from "../components/Loader";
-import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { setReservationList } from "../redux/state";
-import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
 import { useNavigate } from "react-router-dom";
 
+import Loader from "../components/Loader";
+import Navbar from "../components/Navbar";
+import ListingCard from "../components/ListingCard";
+import Footer from "../components/Footer";
+
+import { setReservationList } from "../redux/state";
+
 const ReservationList = () => {
-  // Local loading state
+  // State to control loading while fetching reservation data
   const [loading, setLoading] = useState(true);
 
-  // Get user and reservation list from Redux store
+  // Access current user and their ID from Redux store
   const user = useSelector((state) => state.user);
   const userId = user?._id;
 
-  // Initialize local state for separated reservations
+  // Local state to hold current and past reservations separately
   const [currentReservations, setCurrentReservations] = useState([]);
   const [pastReservations, setPastReservations] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Redirect to login if user is not authenticated
+  // Redirect unauthenticated users to the login page
   useEffect(() => {
     if (!user) {
       navigate("/login", { replace: true });
     }
   }, [user, navigate]);
 
-  // Fetch current and past reservations from the backend
+  // Fetch current and past reservations from backend API
   const getReservations = async () => {
     try {
-      // Make two concurrent fetch requests
+      // Send both requests concurrently
       const [currentRes, pastRes] = await Promise.all([
         fetch(`http://localhost:3001/users/${userId}/reservations/current`),
         fetch(`http://localhost:3001/users/${userId}/reservations/past`)
       ]);
 
-      // Convert responses to JSON
+      // Parse JSON responses
       const currentData = await currentRes.json();
       const pastData = await pastRes.json();
 
-      // Update state with received data
+      // Update local state with fetched reservations
       setCurrentReservations(currentData);
       setPastReservations(pastData);
+
+      // (Optional) Update Redux if needed
+      dispatch(setReservationList([...currentData, ...pastData]));
+
+      // Stop showing the loader
       setLoading(false);
     } catch (err) {
       console.log("Fetch Reservation Lists failed!", err.message);
     }
   };
 
-  // Fetch data only once the userId becomes available
+  // Run fetch once userId is available
   useEffect(() => {
     if (userId) {
       getReservations();
     }
   }, [userId]);
 
-  // If data is still loading, show a loading spinner
+  // Show loader until data is fully fetched
   return loading ? (
     <Loader />
   ) : (
     <>
+      {/* Top navigation bar */}
       <Navbar />
 
       <div className="reservation-list-container">
-        {/* Section for upcoming reservations */}
+
+        {/* --- CURRENT RESERVATIONS --- */}
         <h2 className="section-title">Current Reservations</h2>
         <div className="list">
-          {currentReservations?.map(
-            ({ _id: bookingId, listingId, hostId, startDate, endDate, totalPrice }) => (
-              <ListingCard
-                key={bookingId}
-                bookingId={bookingId}
-                listingId={listingId._id}
-                creator={hostId._id}
-                listingPhotoPaths={listingId.listingPhotoPaths}
-                city={listingId.city}
-                state={listingId.state}
-                country={listingId.country}
-                category={listingId.category}
-                startDate={startDate}
-                endDate={endDate}
-                totalPrice={totalPrice}
-                booking={true} // Marks this as a booked listing
-              />
+          {currentReservations?.length > 0 ? (
+            // Map each current reservation into a listing card
+            currentReservations.map(
+              ({ _id: bookingId, listingId, hostId, startDate, endDate, totalPrice }) => (
+                <ListingCard
+                  key={bookingId}
+                  bookingId={bookingId}
+                  listingId={listingId._id}
+                  creator={hostId._id}
+                  listingPhotoPaths={listingId.listingPhotoPaths}
+                  city={listingId.city}
+                  state={listingId.state}
+                  country={listingId.country}
+                  category={listingId.category}
+                  startDate={startDate}
+                  endDate={endDate}
+                  totalPrice={totalPrice}
+                  booking={true}
+                />
+              )
             )
+          ) : (
+            // Fallback if no upcoming reservations
+            <p>No upcoming reservations.</p>
           )}
         </div>
 
-        {/* Section for past reservations */}
+        {/* --- PAST RESERVATIONS --- */}
         <h2 className="section-title">Past Reservations</h2>
         <div className="list">
-          {pastReservations?.map(
-            ({ _id: bookingId, listingId, hostId, startDate, endDate, totalPrice }) => (
-              <ListingCard
-                key={bookingId}
-                bookingId={bookingId}
-                listingId={listingId._id}
-                creator={hostId._id}
-                listingPhotoPaths={listingId.listingPhotoPaths}
-                city={listingId.city}
-                state={listingId.state}
-                country={listingId.country}
-                category={listingId.category}
-                startDate={startDate}
-                endDate={endDate}
-                totalPrice={totalPrice}
-                booking={true} // Marks this as a booked listing
-              />
+          {pastReservations?.length > 0 ? (
+            // Map each past reservation into a listing card
+            pastReservations.map(
+              ({ _id: bookingId, listingId, hostId, startDate, endDate, totalPrice }) => (
+                <ListingCard
+                  key={bookingId}
+                  bookingId={bookingId}
+                  listingId={listingId._id}
+                  creator={hostId._id}
+                  listingPhotoPaths={listingId.listingPhotoPaths}
+                  city={listingId.city}
+                  state={listingId.state}
+                  country={listingId.country}
+                  category={listingId.category}
+                  startDate={startDate}
+                  endDate={endDate}
+                  totalPrice={totalPrice}
+                  booking={true}
+                />
+              )
             )
+          ) : (
+            // Fallback if no past reservations
+            <p>No past reservations.</p>
           )}
         </div>
       </div>
 
+      {/* Footer with navigation/info */}
       <Footer />
     </>
   );

@@ -1,74 +1,81 @@
-import React from 'react'
-import "../styles/List.scss"
-import { useSelector, useDispatch } from "react-redux"
-import Navbar from "../components/Navbar"
-import ListingCard from "../components/ListingCard"
-import Footer from "../components/Footer"
-import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import React, { useEffect } from 'react';
+import "../styles/List.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import Navbar from "../components/Navbar";
+import ListingCard from "../components/ListingCard";
+import Footer from "../components/Footer";
 
 const WishList = () => {
-  // Retrieve the wish list from Redux store (default to empty array if undefined)
-  const wishList = useSelector((state) => state.user?.wishList || [])
+  // Get the wish list from Redux store (fallback to empty array if undefined)
+  const wishList = useSelector((state) => state.user?.wishList || []);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  // Get the current user and userId from Redux store
-  const user = useSelector((state) => state.user)
-  const userId = user?._id
+  // Get current user from Redux store
+  const user = useSelector((state) => state.user);
+  const userId = user?._id;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // Redirect user to login page if they are not authenticated
+  // If user is not logged in, redirect them to the login page
   useEffect(() => {
     if (!user) {
-      navigate("/login", { replace: true })
+      navigate("/login", { replace: true });
     }
-  }, [user, navigate])
+  }, [user, navigate]);
 
   return (
     <>
+      {/* Top navigation bar */}
       <Navbar />
 
       {/* Page title */}
       <h1 className="title-list">Your Wish List</h1>
 
-      {/* Listings container */}
+      {/* Wishlist listings */}
       <div className="list">
-        {/* Map through each listing in the wish list and render a ListingCard for each */}
-        {wishList?.map(
-          ({
-            _id,
-            creator,
-            listingPhotoPaths,
-            city,
-            state,
-            country,
-            category,
-            type,
-            price,
-            booking = false, // default to false unless provided
-          }) => (
-            <ListingCard
-              key={_id} // unique key for React list rendering
-              listingId={_id}
-              creator={creator}
-              listingPhotoPaths={listingPhotoPaths}
-              city={city}
-              state={state}
-              country={country}
-              category={category}
-              type={type}
-              price={price}
-              booking={booking}
-            />
+        {wishList?.length > 0 ? (
+          // Render a ListingCard for each listing in the wish list
+          wishList.map(
+            ({
+              _id,
+              creator,
+              listingPhotoPaths,
+              city,
+              state,
+              country,
+              category,
+              type,
+              price,
+              booking = false, // Defaults to false if not provided
+            }) => (
+              <ListingCard
+                key={_id}
+                listingId={_id}
+                creator={creator}
+                listingPhotoPaths={listingPhotoPaths}
+                city={city}
+                state={state}
+                country={country}
+                category={category}
+                type={type}
+                price={price}
+                booking={booking}
+              />
+            )
           )
+        ) : (
+          // Fallback message when wish list is empty
+          <p>No items in your wish list.</p>
         )}
       </div>
 
+      {/* Footer navigation */}
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default WishList
+export default WishList;

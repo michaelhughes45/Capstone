@@ -164,6 +164,7 @@ const ListingDetails = () => {
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
             <img
+              key={item} // Unique key for each image
               src={`http://localhost:3001/${item.replace("public", "")}`} // Display listing photos
               alt="listing photo"
             />
