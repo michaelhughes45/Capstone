@@ -1,11 +1,11 @@
 import { IconButton } from "@mui/material";
-import { Search, Person, Menu } from "@mui/icons-material";
+import { Search, Menu } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/Navbar.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { setLogout } from "../redux/state";
-import { flushSync } from "react-dom";
+
 
 const Navbar = () => {
   // Controls visibility of dropdown menu
@@ -82,7 +82,7 @@ const Navbar = () => {
             />
           ) : (
             <img
-              src={`http://localhost:3001${user.profileImagePath}`}
+              src={`${import.meta.env.VITE_API_URL}${user.profileImagePath}`}
               alt="profile"
               style={{ objectFit: "cover", borderRadius: "50%" }}
             />

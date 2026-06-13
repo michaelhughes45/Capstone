@@ -1,4 +1,3 @@
-import React from 'react'
 import "../styles/Loader.scss"
 
 // Loader component to show a spinning indicator during async data loads

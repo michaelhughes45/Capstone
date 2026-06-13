@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { categories } from "../data.jsx";
 import "../styles/Listings.scss";
 import ListingCard from "./ListingCard";
@@ -23,8 +23,8 @@ const Listings = () => {
     try {
       const response = await fetch(
         selectedCategory !== "All"
-          ? `http://localhost:3001/properties?category=${selectedCategory}`
-          : "http://localhost:3001/properties",
+          ? `${import.meta.env.VITE_API_URL}/properties?category=${selectedCategory}`
+          : `${import.meta.env.VITE_API_URL}/properties`,
         {
           method: "GET",
         }

@@ -1,5 +1,4 @@
 // Importing necessary libraries, components, and styles
-import React from 'react';
 import { useEffect, useState } from "react";
 import "../styles/ListingDetails.scss"; // Importing styles for the page
 import { useNavigate, useParams } from "react-router-dom"; // React Router hooks for navigation and URL parameters
@@ -10,7 +9,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range"; // Date range picker component
 import { enUS } from 'date-fns/locale'; // Locale for the date picker
-import { addDays, eachDayOfInterval } from 'date-fns'; // Utility functions for date manipulation
+import { eachDayOfInterval } from 'date-fns'; // Utility functions for date manipulation
 
 // Importing custom components
 import Loader from "../components/Loader"; // Loader component for loading state
@@ -34,7 +33,7 @@ const ListingDetails = () => {
   const getListingDetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/properties/${listingId}`, // API endpoint for fetching listing details
+        `${import.meta.env.VITE_API_URL}/properties/${listingId}`, // API endpoint for fetching listing details
         {
           method: "GET",
         }
@@ -52,7 +51,7 @@ const ListingDetails = () => {
   const fetchDisabledDates = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/bookings/listing/${listingId}`, // API endpoint for fetching bookings
+        `${import.meta.env.VITE_API_URL}/bookings/listing/${listingId}`, // API endpoint for fetching bookings
         {
           method: "GET",
         }
@@ -72,7 +71,7 @@ const ListingDetails = () => {
           }
 
           return eachDayOfInterval({ start, end }); // Generate all dates in the interval
-        } catch (error) {
+        } catch {
           console.warn("Skipping invalid booking:", booking); // Warn if booking is invalid
           return [];
         }
@@ -131,7 +130,7 @@ const ListingDetails = () => {
       };
 
       // Send a POST request to create a booking
-      const response = await fetch("http://localhost:3001/bookings/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -165,7 +164,7 @@ const ListingDetails = () => {
           {listing.listingPhotoPaths?.map((item) => (
             <img
               key={item} // Unique key for each image
-              src={`http://localhost:3001/${item.replace("public", "")}`} // Display listing photos
+              src={`${import.meta.env.VITE_API_URL}/${item.replace("public", "")}`} // Display listing photos
               alt="listing photo"
             />
           ))}
@@ -185,7 +184,7 @@ const ListingDetails = () => {
         {/* Host profile */}
         <div className="profile">
           <img
-            src={`http://localhost:3001/${listing.creator.profileImagePath.replace(
+            src={`${import.meta.env.VITE_API_URL}/${listing.creator.profileImagePath.replace(
               "public",
               ""
             )}`} // Display host profile image

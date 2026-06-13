@@ -1,4 +1,3 @@
-import React from 'react'
 // Importing the category data and styles
 import { categories } from '../data.jsx'
 import '../styles/Categories.scss'

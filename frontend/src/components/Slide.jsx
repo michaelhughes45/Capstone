@@ -1,4 +1,3 @@
-import React from 'react'
 import '../styles/Slide.scss' // Import the associated SCSS styles for the slide
 
 // Slide component to display a welcome message or hero banner

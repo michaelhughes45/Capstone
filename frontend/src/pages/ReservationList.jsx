@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import "../styles/List.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -37,8 +37,8 @@ const ReservationList = () => {
     try {
       // Send both requests concurrently
       const [currentRes, pastRes] = await Promise.all([
-        fetch(`http://localhost:3001/users/${userId}/reservations/current`),
-        fetch(`http://localhost:3001/users/${userId}/reservations/past`)
+        fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/reservations/current`),
+        fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/reservations/past`)
       ]);
 
       // Parse JSON responses

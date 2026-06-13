@@ -22,7 +22,7 @@ const userRoutes = require('./routes/user')
 
 // CORS configuration for frontend/backend communication
 const corsOptions = {
-    origin: "http://localhost:5173", // Allow frontend dev server
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Allow frontend dev server
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
 }
@@ -62,7 +62,7 @@ if (require.main === module) {
         })()
     } else {
         // Otherwise, start the server normally
-        const PORT = 3001
+        const PORT = process.env.PORT || 3001
         app.listen(PORT, async () => {
             await connectDB()
             console.log(`Server started on port ${PORT}`)

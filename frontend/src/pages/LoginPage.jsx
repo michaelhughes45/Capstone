@@ -1,6 +1,5 @@
 // Importing necessary libraries and styles
 import React from 'react';
-import { useState, useEffect } from 'react'; // React hooks for state and lifecycle management
 import { setLogin } from '../redux/state'; // Redux action to set login state
 import { useDispatch } from 'react-redux'; // Redux hook for dispatching actions
 import { useNavigate } from "react-router-dom"; // React Router hook for navigation
@@ -24,7 +23,7 @@ const LoginPage = () => {
 
     try {
       // Send a POST request to the login endpoint
-      const response = await fetch('http://localhost:3001/auth/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
         method: 'POST', // HTTP method
         headers: {
           'Content-Type': 'application/json', // Specify JSON content type
@@ -77,7 +76,7 @@ const LoginPage = () => {
           <button type='submit'>LOG IN</button>
         </form>
         {/* Link to the registration page */}
-        <a href="/register">Don't have an account? Sign In Here</a>
+        <a href="/register">Dont have an account? Sign In Here</a>
       </div>
     </div>
   );

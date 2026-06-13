@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from "react";
 import "../styles/List.scss"; // Styles for listing layout
 import Navbar from "../components/Navbar"; // Navigation bar component
@@ -21,7 +20,7 @@ const CategoryPage = () => {
   const getFeedListings = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/properties?category=${category}`, // API endpoint with category filter
+        `${import.meta.env.VITE_API_URL}/properties?category=${category}`, // API endpoint with category filter
         {
           method: "GET",
         }

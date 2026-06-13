@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../styles/ListingCard.scss";
 import { ArrowForwardIos, ArrowBackIosNew, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setWishList } from "../redux/state";
 
 // Reusable listing card component displaying property details, images, and interactions
+// eslint-disable-next-line react/prop-types
 const ListingCard = ({
   bookingId,
   listingId,
@@ -50,7 +51,7 @@ const ListingCard = ({
   const patchWishList = async () => {
     if (user?._id !== creator._id) {
       const response = await fetch(
-        `http://localhost:3001/users/${user?._id}/${listingId}`,
+        `${import.meta.env.VITE_API_URL}/${user?._id}/${listingId}`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +67,7 @@ const ListingCard = ({
   // Cancel a booking (only if this is a trip card)
   const handleCancelBooking = async () => {
     try {
-      const res = await fetch(`http://localhost:3001/bookings/${bookingId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings/${bookingId}`, {
         method: "DELETE",
       });
 
@@ -88,7 +89,7 @@ const ListingCard = ({
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:3001/listings/${listingId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/${listingId}`, {
         method: "DELETE",
       });
 
@@ -120,7 +121,7 @@ const ListingCard = ({
           {listingPhotoPaths?.map((photo, index) => (
             <div key={index} className="slide">
               <img
-                src={`http://localhost:3001/${photo?.replace("public", "")}`}
+                src={`${import.meta.env.VITE_API_URL}/${photo?.replace("public", "")}`}
                 alt={`photo ${index + 1}`}
               />
               {/* Previous button */}

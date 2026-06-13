@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect, useState } from "react"
 import "../styles/List.scss"
 import Loader from "../components/Loader"
@@ -17,7 +16,7 @@ const TripList = () => {
   const userId = user?._id
 
   // Get current stored trip list, or empty array if undefined
-  const tripList = user?.tripList || []
+  // const tripList = user?.tripList || []
 
   // Local state to separate current and past trips
   const [currentTrips, setCurrentTrips] = useState([])
@@ -39,8 +38,8 @@ const TripList = () => {
     try {
       // Fetch both current and past trips in parallel
       const [currentRes, pastRes] = await Promise.all([
-        fetch(`http://localhost:3001/users/${userId}/trips/current`),
-        fetch(`http://localhost:3001/users/${userId}/trips/past`)
+        fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/trips/current`),
+        fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/trips/past`)
       ])
 
       // Parse JSON responses

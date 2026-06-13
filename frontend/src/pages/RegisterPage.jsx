@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import '../styles/Register.scss'
@@ -46,7 +45,7 @@ const RegisterPage = () => {
       }
 
       // Send form data to backend
-      const respone = await fetch('http://localhost:3001/auth/register', {
+      const respone = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
         method: 'POST',
         body: register_form
       })

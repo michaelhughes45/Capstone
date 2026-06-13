@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/List.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ const PropertyList = () => {
   // Fetch properties created by the current user
   const getPropertyList = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${user._id}/properties`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}/properties`);
       const data = await response.json();
       console.log(data); // Log response for debugging
 

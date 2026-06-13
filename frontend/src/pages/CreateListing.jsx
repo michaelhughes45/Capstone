@@ -1,5 +1,4 @@
 // Importing necessary libraries, components, and data
-import React from "react";
 import "../styles/CreateListing.scss"; // Importing styles for the page
 import Navbar from "../components/Navbar"; // Navbar component
 import { categories, types, facilities } from "../data.jsx"; // Data for categories, types, and facilities
@@ -154,7 +153,7 @@ const CreateListing = () => {
       });
 
       // Send a POST request to the server
-      const response = await fetch("http://localhost:3001/properties/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/create`, {
         method: "POST",
         body: listingForm,
       });
@@ -216,7 +215,7 @@ const CreateListing = () => {
             </div>
 
             {/* Location inputs */}
-            <h3>Where's your place located?</h3>
+            <h3>Where is your place located?</h3>
             <div className="full">
               <div className="location">
                 <p>Street Address</p>

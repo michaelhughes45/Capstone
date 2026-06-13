@@ -1,4 +1,3 @@
-import React from 'react'
 // Hook to get dynamic route parameters (e.g. /search/:search)
 import { useParams } from "react-router-dom";
 import "../styles/List.scss"
@@ -30,7 +29,7 @@ const SearchPage = () => {
   // Fetch listings from server based on the search term
   const getSearchListings = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/properties/search/${search}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/search/${search}`, {
         method: "GET"
       })
 
@@ -75,6 +74,7 @@ const SearchPage = () => {
             booking = false, // default to false unless booking info is passed
           }) => (
             <ListingCard
+              key={_id}
               listingId={_id}
               creator={creator}
               listingPhotoPaths={listingPhotoPaths}

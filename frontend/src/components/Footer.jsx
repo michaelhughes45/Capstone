@@ -1,8 +1,7 @@
-import React from 'react'
 // Importing styles specific to the Footer component
 import "../styles/Footer.scss"
 // Importing Material UI icons
-import { LocationOn, LocalPhone, Email } from "@mui/icons-material"
+import { LocalPhone, Email } from "@mui/icons-material"
 
 // Footer component used site-wide to display company info and links
 const Footer = () => {
