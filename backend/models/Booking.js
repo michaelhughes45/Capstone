@@ -26,6 +26,10 @@ const BookingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    isSeeded: {
+      type: Boolean,
+      default: false
+    },
   },
   { timestamps: true }
 );

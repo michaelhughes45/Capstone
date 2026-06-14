@@ -3,6 +3,7 @@ import React from 'react';
 import { setLogin } from '../redux/state'; // Redux action to set login state
 import { useDispatch } from 'react-redux'; // Redux hook for dispatching actions
 import { useNavigate } from "react-router-dom"; // React Router hook for navigation
+import Navbar from '../components/Navbar'; // Importing the Navbar component
 import '../styles/Login.scss'; // Importing styles for the login page
 
 // Main component for the login page
@@ -50,35 +51,38 @@ const LoginPage = () => {
 
   // Render the login page
   return (
-    <div className='login'>
-      <div className='login_content'>
-        {/* Login form */}
-        <form className='login_content_form' onSubmit={handleSubmit}>
-          {/* Email input field */}
-          <input 
-            type='email' 
-            placeholder='Email' 
-            name='email' 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} // Update email state on change
-            required 
-          />
-          {/* Password input field */}
-          <input 
-            type='password' 
-            placeholder='Password' 
-            name='password' 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} // Update password state on change
-            required 
-          />
-          {/* Submit button */}
-          <button type='submit'>LOG IN</button>
-        </form>
-        {/* Link to the registration page */}
-        <a href="/register">Dont have an account? Sign In Here</a>
+    <>
+      <Navbar /> {/* Render the Navbar component */}
+      <div className='login'>
+        <div className='login_content'>
+          {/* Login form */}
+          <form className='login_content_form' onSubmit={handleSubmit}>
+            {/* Email input field */}
+            <input 
+              type='email' 
+              placeholder='Email' 
+              name='email' 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} // Update email state on change
+              required 
+            />
+            {/* Password input field */}
+            <input 
+              type='password' 
+              placeholder='Password' 
+              name='password' 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} // Update password state on change
+              required 
+            />
+            {/* Submit button */}
+            <button type='submit'>LOG IN</button>
+          </form>
+          {/* Link to the registration page */}
+          <a href="/register">Dont have an account? Sign In Here</a>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

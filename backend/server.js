@@ -19,6 +19,7 @@ const authRoutes = require('./routes/auth')
 const listingRoutes = require('./routes/listing')
 const bookingRoutes = require('./routes/booking')
 const userRoutes = require('./routes/user')
+const adminRoutes = require('./routes/admin')
 
 // CORS configuration for frontend/backend communication
 const corsOptions = {
@@ -43,6 +44,7 @@ app.use('/auth', authRoutes)                        // Authentication routes
 app.use('/properties', listingRoutes)               // Listing/property routes
 app.use('/bookings', bookingRoutes)                 // Booking routes
 app.use('/users', userRoutes)                       // User routes (trips, wishlist, etc.)
+app.use('/admin', adminRoutes)                     // Admin routes
 
 // Handle running as a script or imported module
 if (require.main === module) {

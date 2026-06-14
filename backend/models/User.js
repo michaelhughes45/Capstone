@@ -38,7 +38,11 @@ const UserSchema = new mongoose.Schema(
         reservationList: {
             type: Array,
             default: []
-        }
+        },
+        isSeeded: {
+            type: Boolean,
+            default: false
+        },
     }, 
     {timestamps: true}
 )

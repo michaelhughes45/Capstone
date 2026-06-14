@@ -45,7 +45,7 @@ describe('Booking Routes', () => {
         { _id: 'booking1', listingId },
         { _id: 'booking2', listingId }
       ];
-
+    
       Booking.find.mockResolvedValue(mockBookings);
 
       const res = await request(app).get(`/bookings/listing/${listingId}`);
@@ -59,6 +59,7 @@ describe('Booking Routes', () => {
     it('should delete a booking by ID', async () => {
       const bookingId = 'booking123';
 
+      Booking.findById.mockResolvedValue({ _id: bookingId, isSeeded: false });
       Booking.findByIdAndDelete.mockResolvedValue({ _id: bookingId });
 
       const res = await request(app).delete(`/bookings/${bookingId}`);

@@ -71,6 +71,7 @@ describe('Booking Routes - Sad Paths', () => {
     });
 
     it('should handle server errors when deleting', async () => {
+      Booking.findById.mockResolvedValue({ _id: 'failingDelete', isSeeded: false });
       Booking.findByIdAndDelete.mockRejectedValue(new Error('Delete failed'));
 
       const res = await request(app).delete('/bookings/failingDelete');

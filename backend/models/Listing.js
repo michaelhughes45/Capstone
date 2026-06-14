@@ -74,7 +74,11 @@ const ListingSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
-    }
+    },
+    isSeeded: {
+      type: Boolean,
+      default: false
+    },
   },
   { timestamps: true}
 )

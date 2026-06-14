@@ -40,11 +40,16 @@ router.get('/listing/:listingId', async (req, res) => {
 router.delete("/:bookingId", async (req, res) => {
   try {
     const { bookingId } = req.params;
-    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
 
-    if (!deletedBooking) {
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
+    if (booking.isSeeded) {
+      return res.status(403).json({ message: "Seeded demo data cannot be modified" });
+    }
+
+    await Booking.findByIdAndDelete(bookingId);
 
     res.status(200).json({ message: "Booking cancelled successfully" });
   } catch (err) {

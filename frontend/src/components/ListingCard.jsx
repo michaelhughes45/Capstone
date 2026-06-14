@@ -51,7 +51,7 @@ const ListingCard = ({
   const patchWishList = async () => {
     if (user?._id !== creator._id) {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/${user?._id}/${listingId}`,
+        `${import.meta.env.VITE_API_URL}/users/${user?._id}/${listingId}`,
         {
           method: "PATCH",
           headers: {
@@ -89,7 +89,7 @@ const ListingCard = ({
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/listings/${listingId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/properties/${listingId}`, {
         method: "DELETE",
       });
 

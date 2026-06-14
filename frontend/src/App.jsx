@@ -11,10 +11,12 @@ import PropertyList from './pages/PropertyList'
 import ReservationList from './pages/ReservationList'
 import CategoryPage from './pages/CategoryPage'
 import SearchPage from './pages/SearchPage'
+import DemoBanner from './components/DemoBanner'
 
 function App() {
   return (
     <div>
+      <DemoBanner />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage />} />

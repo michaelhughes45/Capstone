@@ -31,21 +31,24 @@ async function seedDatabase() {
         lastName: "Smith",
         email: "johnsmith@example.com",
         password: hashedPassword,
-        profileImagePath: "/uploads/JohnSmiths.jpg"
+        profileImagePath: "/uploads/JohnSmiths.jpg",
+        isSeeded: true
       },
       {
         firstName: "John",
         lastName: "Doe",
         email: "johndoe@example.com",
         password: hashedPassword,
-        profileImagePath: "/uploads/johndoeImage.jpeg"
+        profileImagePath: "/uploads/johndoeImage.jpeg",
+        isSeeded: true
       },
       {
         firstName: "Denny",
         lastName: "Johnson",
         email: "dennyjohnson@example.com",
         password: hashedPassword,
-        profileImagePath: "/uploads/denny.jpeg"
+        profileImagePath: "/uploads/denny.jpeg",
+        isSeeded: true
       }
     ]);
 
@@ -82,7 +85,8 @@ async function seedDatabase() {
         description: "Escape to your own private sanctuary at this stunning island retreat...",
         highlight: "Unmatched Beachfront Luxury",
         highlightDesc: "Experience true island living with exclusive beachfront access...",
-        price: 1100
+        price: 1100,
+        isSeeded: true
       },
       {
         creator: users[0]._id,
@@ -112,7 +116,8 @@ async function seedDatabase() {
         description: "Step into a storybook escape at this one-of-a-kind windmill home...",
         highlight: "Unforgettable Setting",
         highlightDesc: "Wake up to sweeping meadow views, dine beneath spinning sails...",
-        price: 500
+        price: 500,
+        isSeeded: true
       },
       {
         creator: users[1]._id,
@@ -140,7 +145,8 @@ async function seedDatabase() {
         description: "Escape to nature and unwind in this stunning countryside retreat...",
         highlight: "Nature Lover’s Paradise",
         highlightDesc: "Surrounded by towering pines and endless views...",
-        price: 400
+        price: 400,
+        isSeeded: true
       },
       {
         creator: users[2]._id,
@@ -171,7 +177,8 @@ async function seedDatabase() {
         description: "Wake up to breathtaking ocean sunrises and fall asleep to the sound of waves...",
         highlight: "Steps from the Sand",
         highlightDesc: "Start each day with the beach right outside your door...",
-        price: 900
+        price: 900,
+        isSeeded: true
       },
       {
         creator: users[2]._id,
@@ -202,7 +209,8 @@ async function seedDatabase() {
         description: "Sunshine, sea breezes, and stunning coastal views await...",
         highlight: "Spacious Comfort by the Sea",
         highlightDesc: "With large bedrooms, roomy living spaces, and a breezy private balcony...",
-        price: 900
+        price: 900,
+        isSeeded: true
       }
     ]);
 
@@ -220,7 +228,8 @@ async function seedDatabase() {
         listingId: listings[i]._id,
         startDate: start.toISOString().split('T')[0],
         endDate: end.toISOString().split('T')[0],
-        totalPrice: listings[i].price * 2
+        totalPrice: listings[i].price * 2,
+        isSeeded: true
       });
     }
 
@@ -229,9 +238,6 @@ async function seedDatabase() {
     console.log("✅ Database seeded successfully.");
   } catch (err) {
     console.error("❌ Error seeding database:", err.message);
-  } finally {
-    // Always close the database connection at the end
-    mongoose.connection.close();
   }
 }
 
