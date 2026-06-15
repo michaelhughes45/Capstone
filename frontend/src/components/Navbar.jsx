@@ -58,13 +58,13 @@ const Navbar = () => {
       {/* Right side of navbar: account and host actions */}
       <div className="navbar_right">
         {user ? (
-          <a href="/create-listing" className="host">
+          <Link to="/create-listing" className="host">
             Become A Host
-          </a>
+          </Link>
         ) : (
-          <a href="/login" className="host">
+          <Link to="/login" className="host">
             Become A Host
-          </a>
+          </Link>
         )}
 
         {/* Account dropdown toggle */}
