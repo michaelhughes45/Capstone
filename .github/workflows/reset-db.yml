@@ -1,0 +1,14 @@
+name: Nightly DB Reset
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reset database
+        run: |
+          curl -X POST https://capstone-sevv.onrender.com/admin/reset \
+            -H "x-reset-secret: ${{ secrets.RESET_SECRET }}"
