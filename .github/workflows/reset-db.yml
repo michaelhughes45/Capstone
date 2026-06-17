@@ -8,6 +8,10 @@ jobs:
   reset:
     runs-on: ubuntu-latest
     steps:
+      - name: Wake up backend
+        run: |
+          curl https://capstone-sevv.onrender.com/
+          sleep 30
       - name: Reset database
         run: |
           curl -X POST https://capstone-sevv.onrender.com/admin/reset \
