@@ -20,6 +20,9 @@ const RegisterPage = () => {
       ...formData,
       [name]: name === 'profileImage' ? files[0] : value
     })
+    if (name === 'email') {
+      setEmailTaken(false)
+    }
   }
 
   // State to validate if passwords match
@@ -27,6 +30,9 @@ const RegisterPage = () => {
 
   // State to validate that a profile image was selected
   const [imageError, setImageError] = useState(false)
+
+  // State to indicate the entered email is already registered
+  const [emailTaken, setEmailTaken] = useState(false)
 
   // Effect to check if the passwords match in real-time
   useEffect(() => {
@@ -65,6 +71,8 @@ const RegisterPage = () => {
       // Redirect to login on success
       if (respone.ok) {
         navigate('/login')
+      } else if (respone.status === 409) {
+        setEmailTaken(true)
       }
     } catch (error) {
       console.log("Registration failed", error.message)
@@ -102,6 +110,10 @@ const RegisterPage = () => {
             onChange={handleChange}
             required
           />
+          {/* Show error if email is already registered */}
+          {emailTaken && (
+            <p style={{ color: "red" }}>An account with this email already exists</p>
+          )}
           {/* Password input */}
           <input
             type='password'
