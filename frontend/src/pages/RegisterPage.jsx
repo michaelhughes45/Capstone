@@ -25,6 +25,9 @@ const RegisterPage = () => {
   // State to validate if passwords match
   const [passwordMatch, setPasswordMatch] = useState(true)
 
+  // State to validate that a profile image was selected
+  const [imageError, setImageError] = useState(false)
+
   // Effect to check if the passwords match in real-time
   useEffect(() => {
     setPasswordMatch(
@@ -37,6 +40,15 @@ const RegisterPage = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // The file input is visually hidden, so it can't show native
+    // validation UI - check manually instead
+    if (!formData.profileImage) {
+      setImageError(true)
+      return
+    }
+    setImageError(false)
+
     try {
       // Use FormData to allow file uploads
       const register_form = new FormData()
@@ -120,13 +132,16 @@ const RegisterPage = () => {
             accept='image/*'
             style={{ display: "none" }}
             onChange={handleChange}
-            required
           />
           {/* Custom label for file input */}
           <label htmlFor="image">
             <img src="/assets/addImage.png" alt="add profile photo" />
             <p>Upload Your Photo</p>
           </label>
+          {/* Show error if no profile image was selected */}
+          {imageError && (
+            <p style={{ color: "red" }}>Please upload a profile photo</p>
+          )}
           {/* Preview selected profile image */}
           {formData.profileImage && (
             <img
