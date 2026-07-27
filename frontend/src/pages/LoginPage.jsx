@@ -12,6 +12,9 @@ const LoginPage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  // State for showing a login error message
+  const [loginError, setLoginError] = React.useState('');
+
   // React Router hook for navigation
   const navigate = useNavigate();
 
@@ -21,6 +24,7 @@ const LoginPage = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
+    setLoginError('');
 
     try {
       // Send a POST request to the login endpoint
@@ -32,20 +36,23 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password }), // Send email and password in the request body
       });
 
-      const loggedIn = await response.json(); // Parse the response JSON
+      const data = await response.json(); // Parse the response JSON
 
       // If login is successful, update the Redux state and navigate to the homepage
-      if (loggedIn) {
+      if (response.ok) {
         dispatch(
           setLogin({
-            user: loggedIn.user, // Set the logged-in user data
-            token: loggedIn.token, // Set the authentication token
+            user: data.user, // Set the logged-in user data
+            token: data.token, // Set the authentication token
           })
         );
         navigate('/'); // Redirect to the homepage
+      } else {
+        setLoginError(data.error || 'Login failed. Please try again.');
       }
     } catch (error) {
       console.log("Login failed", error.message); // Log any errors
+      setLoginError('Login failed. Please try again.');
     }
   };
 
@@ -75,6 +82,10 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)} // Update password state on change
               required 
             />
+            {/* Show error if login failed */}
+            {loginError && (
+              <p style={{ color: "red" }}>{loginError}</p>
+            )}
             {/* Submit button */}
             <button type='submit'>LOG IN</button>
           </form>
