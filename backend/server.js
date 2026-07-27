@@ -22,8 +22,20 @@ const userRoutes = require('./routes/user')
 const adminRoutes = require('./routes/admin')
 
 // CORS configuration for frontend/backend communication
+// CORS_ORIGIN may be a comma-separated list of allowed origins
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
+    .split(',')
+    .map(origin => origin.trim())
+
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Allow frontend dev server
+    origin: (origin, callback) => {
+        // Allow requests with no origin (e.g. curl, server-to-server, mobile apps)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error(`Not allowed by CORS: ${origin}`))
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
 }
