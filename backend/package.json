@@ -16,8 +16,6 @@
     "node": "24.x"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.6.0",
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
