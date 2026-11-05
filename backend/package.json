@@ -13,7 +13,7 @@
   "license": "ISC",
   "description": "",
   "engines": {
-    "node": "26.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@faker-js/faker": "^9.6.0",
